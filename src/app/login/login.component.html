@@ -1,0 +1,23 @@
+<mat-card class="login-card">
+  <mat-card-header class="header">
+    <mat-card-title class="title">Comanda Online</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <form class="login-form" #objLogin="ngForm" (ngSubmit)="login(objLogin)">
+
+      <mat-form-field class="form-field">
+        <mat-label>E-mail</mat-label>
+        <input type="email" name="email" matInput placeholder="Digite seu E-mail" ngModel required>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" name="password" placeholder="Digite sua senha" ngModel required>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="login-button" type="submit">Entrar</button>
+    </form>
+
+  </mat-card-content>
+</mat-card>
