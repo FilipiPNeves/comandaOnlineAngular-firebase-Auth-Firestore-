@@ -8,14 +8,20 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor(private firestore: FirestoreService) {}
+  usuario: string = '';
 
-  email!: string;
+  constructor(
+    private firestore: FirestoreService
+  ) {
+    const email = localStorage.getItem('email') || '';
+    this.usuario = email.charAt(0).toUpperCase() + email.slice(1).split(/@/)[0];
 
-  ngOnInit() {
-    let email: string = this.firestore.getInf();
-    this.email = email;
   }
+
+
+
+
+
 
   logout() {
     this.firestore.logoutService();

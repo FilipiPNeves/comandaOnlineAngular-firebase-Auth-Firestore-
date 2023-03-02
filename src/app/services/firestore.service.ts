@@ -20,6 +20,7 @@ export class FirestoreService {
     if (user !== null) {
       const email = user.email;
       emailEscrito = email!;
+      localStorage.setItem('email', emailEscrito);
     }
 
     return emailEscrito!;

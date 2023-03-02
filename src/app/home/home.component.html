@@ -1,8 +1,22 @@
 <div>
-  <mat-toolbar color="primary">
-    <span>Comanda Online</span>
+  <mat-toolbar>
+
+    <span>{{ usuario }}</span>
+
+    <span>ComandaOn</span>
+
     <span><button (click)="logout()">LogOut</button></span>
-    <span>{{ email  }}</span>
+
   </mat-toolbar>
+
+  <mat-toolbar>
+    <span>
+      <button mat-button routerLink="novopedido">Novo pedido</button>
+    </span>
+    <span>
+      <button mat-button routerLink="listadepedidos">Lista de pedidos</button>
+    </span>
+  </mat-toolbar>
+
   <router-outlet></router-outlet>
 </div>
