@@ -1,0 +1,102 @@
+.checkboxecompania {
+  width: 50%;
+  margin: 2em auto 2em;
+
+}
+
+.checkboxs {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1em;
+}
+
+
+.radioButton {
+  display: flex;
+  width: 100%;
+}
+
+.displayNone {
+  display: none;
+}
+
+#prato {
+  display: none;
+}
+
+.title {
+  width: 100%;
+  margin: 2em 0 1em;
+  text-align: center;
+}
+
+.bordaItem {
+  width: 90%;
+  margin: 2em auto 0;
+}
+
+.divTitle2MaisBotaoExcluir {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5em 1.3em;
+}
+
+.tittle2 {
+  margin: 0;
+  padding-left: 3.3em;
+  text-align: center;
+  flex: 1;
+}
+
+.botaoExcluir {
+}
+
+
+.divPratoQuantExcluir {
+  display: flex;
+  width: 90%;
+  margin: 1em auto 0;
+}
+
+.quantidade {
+  width: 5em;
+  margin: 0 0 0 2em;
+}
+
+
+
+.obs {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.buttonAddPrato {
+  display: flex;
+  width: 30%;
+  height: 3em;
+  margin: 2em auto;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-button {
+  display: flex;
+  width: 60%;
+  height: 3em;
+  margin: 0 auto 4em;
+  background-color: #005d8f;
+  text-transform: uppercase;
+  font-size: 20px;
+}

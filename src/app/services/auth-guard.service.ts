@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard {
   constructor(private router: Router, private app: FirebaseApp, private route: Router) {}
 
   canActivate(): boolean {

@@ -1,1 +1,1522 @@
-<p>novo-pedido works!</p>
+<form #novopedido="ngForm" (ngSubmit)="novoPedido(novopedido)">
+
+
+  <div class="checkboxecompania">
+    <div class="checkboxs">
+      <mat-radio-group [(ngModel)]="estadoCheckbox" (change)="onChangeCheckbox()" name="check">
+        <mat-radio-button class="radioButton" value="1">Hospede</mat-radio-button>
+        <mat-radio-button class="radioButton" value="2">Passante</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+
+    <div [class.displayNone]="nomeQuartoCheck">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome do quarto</mat-label>
+        <mat-select [(ngModel)]="quartoSelecionado" name="selectedQuarto">
+          <mat-option *ngFor="let quarto of nomesQuartos" [value]="quarto" name="quarto">
+            {{quarto.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div [class.displayNone]="nomePassanteCheck"  >
+      <mat-form-field appearance="fill">
+        <mat-label>Nome do passante</mat-label>
+        <input matInput [(ngModel)]="nomePassanteSelecionado" name="nomePassante">
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+    <h1 class="title">Pratos</h1>
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato1">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 1</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(1)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado1" name="prato1">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada1" name="quantSelecionada1">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes1" name="observacoes1">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato2">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 2</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(2)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado2" name="prato2">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada2" name="quantSelecionada2">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field  class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes2" name="observacoes2">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato3">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 3</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(3)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado3" name="prato3">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada3" name="quantSelecionada3">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field  class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes3" name="observacoes3">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato4">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 4</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(4)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado4" name="prato4">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada4" name="quantSelecionada4">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes4" name="observacoes4">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato5">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 5</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(5)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado5" name="prato5">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada5" name="quantSelecionada5">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field  class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes5" name="observacoes5">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato6">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 6</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(6)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado6" name="prato6">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada6" name="quantSelecionada6">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes6" name="observacoes6">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato7">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 7</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(7)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado7" name="prato7">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada7" name="quantSelecionada7">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes7" name="observacoes7">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarPrato8">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Prato 8</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirPrato(8)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado8" name="prato8">
+            <label for="pasteis">Pastéis</label>
+            <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+              {{prato.nome}}
+            </mat-option>
+            <label for="lanches">Lanches</label>
+            <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+              {{prato.nome}}
+            </mat-option>
+            <label for="petiscos">Petiscos</label>
+            <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frangos">Frangos</label>
+            <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+              {{prato.nome}}
+            </mat-option>
+            <label for="contraFiles">Contra files</label>
+            <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+              {{prato.nome}}
+            </mat-option>
+            <label for="saladas">Saladas</label>
+            <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="sopas">Sopas</label>
+            <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+              {{prato.nome}}
+            </mat-option>
+            <label for="frutosDoMar">Frutos do mar</label>
+            <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+              {{prato.nome}}
+            </mat-option>
+            <label for="massas">Massas</label>
+            <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+              {{prato.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada8" name="quantSelecionada8">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value="" [(ngModel)]="observacoes8" name="observacoes8">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+    <button class="buttonAddPrato" mat-raised-button (click)="addPrato()" type="button">Adicionar Prato</button>
+
+    <mat-divider></mat-divider>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1 class="title">Bebidas alcoolicas</h1>
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom1">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 1</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(1)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado1Alcool" name="alcool1">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada1Alcool" name="quantSelecionada1Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes1Alcool" name="observacoes1Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom2">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 2</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(2)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado2Alcool" name="alcool2">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada2Alcool" name="quantSelecionada2Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes2Alcool" name="observacoes2Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom3">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 3</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(3)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado3Alcool" name="alcool3">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada3Alcool" name="quantSelecionada3Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes3Alcool" name="observacoes3Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom4">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 4</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(4)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado4Alcool" name="alcool4">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada4Alcool" name="quantSelecionada4Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes4Alcool" name="observacoes4Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom5">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 5</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(5)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado5Alcool" name="alcool5">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada5Alcool" name="quantSelecionada5Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes5Alcool" name="observacoes5Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom6">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 6</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(6)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado6Alcool" name="alcool6">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada6Alcool" name="quantSelecionada6Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes6Alcool" name="observacoes6Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom7">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 7</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(7)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado7Alcool" name="alcool7">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada7Alcool" name="quantSelecionada7Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes7Alcool" name="observacoes7Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaCom8">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Alcoolica 8</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirAlcool(8)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado8Alcool" name="alcool8">
+            <label for="bebidasCom">Bebida </label>
+            <mat-option *ngFor="let bebidaCom of bebidasCom" [value]="bebidaCom" name="bebidaCom">
+              {{bebidaCom.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada8Alcool" name="quantSelecionada8Alcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes8Alcool" name="observacoes8Alcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <button class="buttonAddPrato" mat-raised-button (click)="addBebidaCom()" type="button">Adicionar Alcool</button>
+
+    <mat-divider></mat-divider>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1 class="title">Bebidas NÃO alcoolicas</h1>
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem1">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 1</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(1)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado1SemAlcool" name="Semalcool1">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada1SemAlcool" name="quantSelecionada1SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes1SemAlcool" name="observacoes1SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem2">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 2</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(2)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado2SemAlcool" name="Semalcool2">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada2SemAlcool" name="quantSelecionada2SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes2SemAlcool" name="observacoes2SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem3">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 3</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(3)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado3SemAlcool" name="Semalcool3">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada3SemAlcool" name="quantSelecionada3SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes3SemAlcool" name="observacoes3SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem4">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 4</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(4)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado4SemAlcool" name="Semalcool4">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada4SemAlcool" name="quantSelecionada4SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes4SemAlcool" name="observacoes4SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem5">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 5</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(5)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado5SemAlcool" name="Semalcool5">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada5SemAlcool" name="quantSelecionada5SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes5SemAlcool" name="observacoes5SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem6">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 6</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(6)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado6SemAlcool" name="Semalcool6">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada6SemAlcool" name="quantSelecionada6SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes6SemAlcool" name="observacoes6SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem7">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 7</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(7)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado7SemAlcool" name="Semalcool7">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada7SemAlcool" name="quantSelecionada7SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes7SemAlcool" name="observacoes7SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarBebidaSem8">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Bebida Sem Alcool 8</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSemAlcool(8)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado8SemAlcool" name="Semalcool8">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let bebidaSem of bebidasSem" [value]="bebidaSem" name="bebidaSem">
+              {{bebidaSem.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada8SemAlcool" name="quantSelecionada8SemAlcool">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes8SemAlcool" name="observacoes8SemAlcool">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <button class="buttonAddPrato" mat-raised-button (click)="addBebidaSem()" type="button">Adicionar S/ Alcool</button>
+
+    <mat-divider></mat-divider>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1 class="title">Sobremesas</h1>
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa1">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 1</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(1)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado1Sobremesa" name="sobremesa1">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada1Sobremesa" name="quantSelecionada1Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes1Sobremesa" name="observacoes1Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa2">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 2</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(2)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado2Sobremesa" name="sobremesa2">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada2Sobremesa" name="quantSelecionada2Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes2Sobremesa" name="observacoes2Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa3">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 3</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(3)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado3Sobremesa" name="sobremesa3">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada3Sobremesa" name="quantSelecionada3Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes3Sobremesa" name="observacoes3Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa4">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 4</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(4)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado4Sobremesa" name="sobremesa4">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada4Sobremesa" name="quantSelecionada4Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes4Sobremesa" name="observacoes4Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa5">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 5</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(5)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado5Sobremesa" name="sobremesa5">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada5Sobremesa" name="quantSelecionada5Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes5Sobremesa" name="observacoes5Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa6">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 6</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(6)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado6Sobremesa" name="sobremesa6">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada6Sobremesa" name="quantSelecionada6Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes6Sobremesa" name="observacoes6Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa7">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 7</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(7)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado7Sobremesa" name="sobremesa7">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada7Sobremesa" name="quantSelecionada7Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes7Sobremesa" name="observacoes7Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="bordaItem" *ngIf="mostrarSobremesa8">
+      <div class="divTitle2MaisBotaoExcluir">
+        <h2 class="tittle2">Sobremesa 8</h2>
+        <button class="botaoExcluir" mat-stroked-button color="warn" (click)="excluirSobremesa(8)">X</button>
+      </div>
+
+      <div class="divPratoQuantExcluir">
+        <mat-form-field appearance="fill">
+          <mat-label>Nenhum</mat-label>
+          <mat-select [(ngModel)]="pratoSelecionado8Sobremesa" name="sobremesa8">
+            <label for="bebidasSem">Bebida </label>
+            <mat-option *ngFor="let sobremesa of sobremesas" [value]="sobremesa" name="sobremesa">
+              {{sobremesa.nome}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select [(ngModel)]="quantSelecionada8Sobremesa" name="quantSelecionada8Sobremesa">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="obs">
+        <mat-form-field class="example-full-width">
+          <mat-label>Obervações</mat-label>
+          <input matInput placeholder="Ex: Sem feijão" value=""  [(ngModel)]="observacoes8Sobremesa" name="observacoes8Sobremesa">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+
+
+
+    <button class="buttonAddPrato" mat-raised-button (click)="addSobremesa()" type="button">Adicionar S/ Alcool</button>
+
+    <mat-divider></mat-divider>
+
+
+  <br>
+  <br>
+  <br>
+
+  <button mat-raised-button color="primary" class="login-button" type="submit">Enviar</button>
+  <mat-divider></mat-divider>
+</form>

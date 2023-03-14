@@ -44,7 +44,7 @@ export class FirestoreService {
 
 
     signInWithEmailAndPassword(auth, objLogin.value.email, objLogin.value.password).then(() => {
-      this.route.navigate(['home']);
+      this.route.navigate(['home/novopedido']);
     }). catch((err) => {
       alert('E-mail ou senha inválidos');
     })
