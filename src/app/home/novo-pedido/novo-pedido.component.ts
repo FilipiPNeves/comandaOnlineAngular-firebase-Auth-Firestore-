@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 interface nomeQuarto {
   value: string;
@@ -10,6 +11,8 @@ interface Pratos {
 }
 
 
+
+
 @Component({
   selector: 'app-novo-pedido',
   templateUrl: './novo-pedido.component.html',
@@ -17,11 +20,26 @@ interface Pratos {
 })
 export class NovoPedidoComponent {
 
+  constructor(private firestoreService: FirestoreService) {}
+
+  pedidoEnvio: any[] = []
+
 
   nomesQuartos: nomeQuarto[] = [
+    { value: 'Norte'},
+    { value: 'Sul'},
+    { value: 'Leste'},
     { value: 'Sol'},
-    { value: 'Master'},
-    { value: 'Vip'},
+    { value: 'Master 1'},
+    { value: 'Master 2'},
+    { value: 'Master 3'},
+    { value: 'Master 4'},
+    { value: 'Master 5'},
+    { value: 'Vip 1'},
+    { value: 'Vip 2'},
+    { value: 'Vip 3'},
+    { value: 'Ilha'},
+    { value: 'Chalé'}
   ];
   nomePassanteSelecionado?: string;
   quartoSelecionado?: string;
@@ -213,23 +231,23 @@ export class NovoPedidoComponent {
   pratoSelecionado7SemAlcool: string = '';
   pratoSelecionado8SemAlcool: string = '';
 
-  quantSelecionada1SemAlcool?: number = 1;
-  quantSelecionada2SemAlcool?: number = 1;
-  quantSelecionada3SemAlcool?: number = 1;
-  quantSelecionada4SemAlcool?: number = 1;
-  quantSelecionada5SemAlcool?: number = 1;
-  quantSelecionada6SemAlcool?: number = 1;
-  quantSelecionada7SemAlcool?: number = 1;
-  quantSelecionada8SemAlcool?: number = 1;
+  quantSelecionada1SemAlcool: number = 1;
+  quantSelecionada2SemAlcool: number = 1;
+  quantSelecionada3SemAlcool: number = 1;
+  quantSelecionada4SemAlcool: number = 1;
+  quantSelecionada5SemAlcool: number = 1;
+  quantSelecionada6SemAlcool: number = 1;
+  quantSelecionada7SemAlcool: number = 1;
+  quantSelecionada8SemAlcool: number = 1;
 
-  observacoes1SemAlcool?: string;
-  observacoes2SemAlcool?: string;
-  observacoes3SemAlcool?: string;
-  observacoes4SemAlcool?: string;
-  observacoes5SemAlcool?: string;
-  observacoes6SemAlcool?: string;
-  observacoes7SemAlcool?: string;
-  observacoes8SemAlcool?: string;
+  observacoes1SemAlcool: string = '';
+  observacoes2SemAlcool: string = '';
+  observacoes3SemAlcool: string = '';
+  observacoes4SemAlcool: string = '';
+  observacoes5SemAlcool: string = '';
+  observacoes6SemAlcool: string = '';
+  observacoes7SemAlcool: string = '';
+  observacoes8SemAlcool: string = '';
 
 
 
@@ -552,8 +570,346 @@ export class NovoPedidoComponent {
 
   }
 
-  novoPedido(novoPedido: any) {
-    console.log(novoPedido.value.prato1.nome);
 
+  enviarPedido(pedido: any) {
+
+    if(this.mostrarPrato1) {
+      if(this.pratoSelecionado1 != '') {
+        this.pedidoEnvio[0] = {
+          prato: this.pratoSelecionado1,
+          quantPrato: this.quantSelecionada1,
+          obsPrato: this.observacoes1
+        }
+      }
+    }
+
+    if(this.mostrarPrato2) {
+      if(this.pratoSelecionado2 != '') {
+        this.pedidoEnvio[1] = {
+          prato: this.pratoSelecionado2,
+          quantPrato: this.quantSelecionada2,
+          obsPrato: this.observacoes2
+        }
+      }
+    }
+
+    if(this.mostrarPrato3) {
+      if(this.pratoSelecionado3 != '') {
+        this.pedidoEnvio[2] = {
+          prato: this.pratoSelecionado3,
+          quantPrato: this.quantSelecionada3,
+          obsPrato: this.observacoes3
+        }
+      }
+    }
+
+    if(this.mostrarPrato4) {
+      if(this.pratoSelecionado4 != '') {
+        this.pedidoEnvio[3] = {
+          prato: this.pratoSelecionado4,
+          quantPrato: this.quantSelecionada4,
+          obsPrato: this.observacoes4
+        }
+      }
+    }
+
+    if(this.mostrarPrato5) {
+      if(this.pratoSelecionado5 != '') {
+        this.pedidoEnvio[4] = {
+          prato: this.pratoSelecionado5,
+          quantPrato: this.quantSelecionada5,
+          obsPrato: this.observacoes5
+        }
+      }
+    }
+
+    if(this.mostrarPrato6) {
+      if(this.pratoSelecionado6 != '') {
+        this.pedidoEnvio[5] = {
+          prato: this.pratoSelecionado6,
+          quantPrato: this.quantSelecionada6,
+          obsPrato: this.observacoes6
+        }
+      }
+    }
+
+    if(this.mostrarPrato7) {
+      if(this.pratoSelecionado7 != '') {
+        this.pedidoEnvio[6] = {
+          prato: this.pratoSelecionado7,
+          quantPrato: this.quantSelecionada7,
+          obsPrato: this.observacoes7
+        }
+      }
+    }
+
+    if(this.mostrarPrato8) {
+      if(this.pratoSelecionado8 != '') {
+        this.pedidoEnvio[7] = {
+          prato: this.pratoSelecionado8,
+          quantPrato: this.quantSelecionada8,
+          obsPrato: this.observacoes8
+        }
+      }
+    }
+
+
+
+
+
+    if(this.mostrarBebidaCom1) {
+      if(this.pratoSelecionado1Alcool != '') {
+        this.pedidoEnvio[8] = {
+          alcool: this.pratoSelecionado1Alcool,
+          quantAlcool: this.quantSelecionada1Alcool,
+          obsAlcool: this.observacoes1Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom2) {
+      if(this.pratoSelecionado2Alcool != '') {
+        this.pedidoEnvio[9] = {
+          alcool: this.pratoSelecionado2Alcool,
+          quantAlcool: this.quantSelecionada2Alcool,
+          obsAlcool: this.observacoes2Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom3) {
+      if(this.pratoSelecionado3Alcool != '') {
+        this.pedidoEnvio[10] = {
+          alcool: this.pratoSelecionado3Alcool,
+          quantAlcool: this.quantSelecionada3Alcool,
+          obsAlcool: this.observacoes3Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom4) {
+      if(this.pratoSelecionado4Alcool != '') {
+        this.pedidoEnvio[11] = {
+          alcool: this.pratoSelecionado4Alcool,
+          quantAlcool: this.quantSelecionada4Alcool,
+          obsAlcool: this.observacoes4Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom5) {
+      if(this.pratoSelecionado5Alcool != '') {
+        this.pedidoEnvio[12] = {
+          alcool: this.pratoSelecionado5Alcool,
+          quantAlcool: this.quantSelecionada5Alcool,
+          obsAlcool: this.observacoes5Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom6) {
+      if(this.pratoSelecionado6Alcool != '') {
+        this.pedidoEnvio[13] = {
+          alcool: this.pratoSelecionado6Alcool,
+          quantAlcool: this.quantSelecionada6Alcool,
+          obsAlcool: this.observacoes6Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom7) {
+      if(this.pratoSelecionado7Alcool != '') {
+        this.pedidoEnvio[14] = {
+          alcool: this.pratoSelecionado7Alcool,
+          quantAlcool: this.quantSelecionada7Alcool,
+          obsAlcool: this.observacoes7Alcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaCom8) {
+      if(this.pratoSelecionado8Alcool != '') {
+        this.pedidoEnvio[15] = {
+          alcool: this.pratoSelecionado8Alcool,
+          quantAlcool: this.quantSelecionada8Alcool,
+          obsAlcool: this.observacoes8Alcool
+        }
+      }
+    }
+
+
+
+
+
+
+    if(this.mostrarBebidaSem1) {
+      if(this.pratoSelecionado1SemAlcool != '') {
+        this.pedidoEnvio[16] = {
+          semAlcool: this.pratoSelecionado1SemAlcool,
+          quantSemAlcool: this.quantSelecionada1SemAlcool,
+          obsSemAlcool: this.observacoes1SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem2) {
+      if(this.pratoSelecionado2SemAlcool != '') {
+        this.pedidoEnvio[17] = {
+          semAlcool: this.pratoSelecionado2SemAlcool,
+          quantSemAlcool: this.quantSelecionada2SemAlcool,
+          obsSemAlcool: this.observacoes2SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem3) {
+      if(this.pratoSelecionado3SemAlcool != '') {
+        this.pedidoEnvio[18] = {
+          semAlcool: this.pratoSelecionado3SemAlcool,
+          quantSemAlcool: this.quantSelecionada3SemAlcool,
+          obsSemAlcool: this.observacoes3SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem4) {
+      if(this.pratoSelecionado4SemAlcool != '') {
+        this.pedidoEnvio[19] = {
+          semAlcool: this.pratoSelecionado4SemAlcool,
+          quantSemAlcool: this.quantSelecionada4SemAlcool,
+          obsSemAlcool: this.observacoes4SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem5) {
+      if(this.pratoSelecionado5SemAlcool != '') {
+        this.pedidoEnvio[20] = {
+          semAlcool: this.pratoSelecionado5SemAlcool,
+          quantSemAlcool: this.quantSelecionada5SemAlcool,
+          obsSemAlcool: this.observacoes5SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem6) {
+      if(this.pratoSelecionado6SemAlcool != '') {
+        this.pedidoEnvio[21] = {
+          semAlcool: this.pratoSelecionado6SemAlcool,
+          quantSemAlcool: this.quantSelecionada6SemAlcool,
+          obsSemAlcool: this.observacoes6SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem7) {
+      if(this.pratoSelecionado7SemAlcool != '') {
+        this.pedidoEnvio[22] = {
+          semAlcool: this.pratoSelecionado7SemAlcool,
+          quantSemAlcool: this.quantSelecionada7SemAlcool,
+          obsSemAlcool: this.observacoes7SemAlcool
+        }
+      }
+    }
+
+    if(this.mostrarBebidaSem8) {
+      if(this.pratoSelecionado8SemAlcool != '') {
+        this.pedidoEnvio[23] = {
+          semAlcool: this.pratoSelecionado8SemAlcool,
+          quantSemAlcool: this.quantSelecionada8SemAlcool,
+          obsSemAlcool: this.observacoes8SemAlcool
+        }
+      }
+    }
+
+
+
+
+
+    if(this.mostrarSobremesa1) {
+      if(this.pratoSelecionado1Sobremesa != '') {
+        this.pedidoEnvio[24] = {
+          sobremesa: this.pratoSelecionado1Sobremesa,
+          quantSobremesa: this.quantSelecionada1Sobremesa,
+          obsSobremesa: this.observacoes1Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa2) {
+      if(this.pratoSelecionado2Sobremesa != '') {
+        this.pedidoEnvio[25] = {
+          sobremesa: this.pratoSelecionado2Sobremesa,
+          quantSobremesa: this.quantSelecionada2Sobremesa,
+          obsSobremesa: this.observacoes2Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa3) {
+      if(this.pratoSelecionado3Sobremesa != '') {
+        this.pedidoEnvio[26] = {
+          sobremesa: this.pratoSelecionado3Sobremesa,
+          quantSobremesa: this.quantSelecionada3Sobremesa,
+          obsSobremesa: this.observacoes3Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa4) {
+      if(this.pratoSelecionado4Sobremesa != '') {
+        this.pedidoEnvio[27] = {
+          sobremesa: this.pratoSelecionado4Sobremesa,
+          quantSobremesa: this.quantSelecionada4Sobremesa,
+          obsSobremesa: this.observacoes4Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa5) {
+      if(this.pratoSelecionado5Sobremesa != '') {
+        this.pedidoEnvio[28] = {
+          sobremesa: this.pratoSelecionado5Sobremesa,
+          quantSobremesa: this.quantSelecionada5Sobremesa,
+          obsSobremesa: this.observacoes5Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa6) {
+      if(this.pratoSelecionado6Sobremesa != '') {
+        this.pedidoEnvio[29] = {
+          sobremesa: this.pratoSelecionado6Sobremesa,
+          quantSobremesa: this.quantSelecionada6Sobremesa,
+          obsSobremesa: this.observacoes6Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa7) {
+      if(this.pratoSelecionado7Sobremesa != '') {
+        this.pedidoEnvio[30] = {
+          sobremesa: this.pratoSelecionado7Sobremesa,
+          quantSobremesa: this.quantSelecionada7Sobremesa,
+          obsSobremesa: this.observacoes7Sobremesa
+        }
+      }
+    }
+
+    if(this.mostrarSobremesa8) {
+      if(this.pratoSelecionado8Sobremesa != '') {
+        this.pedidoEnvio[31] = {
+          sobremesa: this.pratoSelecionado8Sobremesa,
+          quantSobremesa: this.quantSelecionada8Sobremesa,
+          obsSobremesa: this.observacoes8Sobremesa
+        }
+      }
+    }
+
+
+
+
+
+    this.firestoreService.enviarPedido(this.pedidoEnvio);
   }
 }

@@ -12,6 +12,33 @@ export class FirestoreService {
 
   constructor(private firestore: Firestore, private app: FirebaseApp, private route: Router) {}
 
+
+
+
+  enviarPedido(pedido: any) {
+    //prato 0 ao 7
+    console.log(pedido[0].prato);
+    console.log(pedido[0].quantPrato);
+    console.log(pedido[0].obsPrato);
+
+
+    //alcool 8 ao 15
+    console.log(pedido[8].alcool);
+    console.log(pedido[8].quantAlcool);
+    console.log(pedido[8].obsAlcool);
+
+
+    //Sem alcool 16 ao 23
+    console.log(pedido[16].semAlcool);
+    console.log(pedido[16].quantSemAlcool);
+    console.log(pedido[16].obsSemAlcool);
+
+    //Sobremesa 24 ao 31
+    console.log(pedido[24].sobremesa);
+    console.log(pedido[24].quantSobremesa);
+    console.log(pedido[24].obsSobremesa);
+  }
+
   getInf() {
     const auth = getAuth();
     const user = auth.currentUser;
