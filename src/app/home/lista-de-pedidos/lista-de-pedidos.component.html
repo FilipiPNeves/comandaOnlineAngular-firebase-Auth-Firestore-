@@ -1,1 +1,40 @@
-<p>lista-de-pedidos works!</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Obs Column -->
+  <ng-container matColumnDef="obs">
+    <th mat-header-cell *matHeaderCellDef> Obs </th>
+    <td mat-cell *matCellDef="let element"> {{element.obs}} </td>
+  </ng-container>
+
+  <!-- Pedido Column -->
+  <ng-container matColumnDef="pedido">
+    <th mat-header-cell *matHeaderCellDef> Pedido </th>
+    <td mat-cell *matCellDef="let element"> {{element.pratosPedidos}} </td>
+  </ng-container>
+
+  <!-- Quantidade Column -->
+  <ng-container matColumnDef="quant">
+    <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+    <td mat-cell *matCellDef="let element"> {{element.quant}} </td>
+  </ng-container>
+
+  <!-- Quarto ou Passante Column -->
+  <ng-container matColumnDef="nomePassanteOuQuarto">
+    <th mat-header-cell *matHeaderCellDef> Cliente </th>
+    <td mat-cell *matCellDef="let element"> {{element.nomePassanteOuQuarto}} </td>
+  </ng-container>
+
+  <!-- Quarto ou Passante Column -->
+  <ng-container matColumnDef="horario">
+  <th mat-header-cell *matHeaderCellDef> Horario </th>
+  <td mat-cell *matCellDef="let element"> {{element.horario}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

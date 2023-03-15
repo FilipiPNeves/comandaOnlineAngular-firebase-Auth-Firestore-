@@ -909,6 +909,7 @@ export class NovoPedidoComponent {
 
     if(this.quartoSelecionado) {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.quartoSelecionado.value);
+      
     }else {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.nomePassanteSelecionado);
     }

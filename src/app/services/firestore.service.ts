@@ -1,21 +1,31 @@
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut  } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, query, where, getDocs, collectionData  } from '@angular/fire/firestore';
 import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
+import { Observable, from, of } from 'rxjs';
+import { map, first } from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
 
-  constructor(private firestore: Firestore, private app: FirebaseApp, private route: Router) {}
+
+  constructor(private firestore: Firestore, private app: FirebaseApp, private route: Router) {
+
+  }
 
 
   pedidoTudo: any = [];
 
-  pedidoRefinado: any;
+  pedidoRefinado: any = {};
+  pedidoRefinadoComAlcool: any = {};
+  pedidoRefinadoSemAlcool: any = {};
+  pedidoRefinadoSobremesa: any = {};
 
   enviarPedido(pedido: any, nomeQuartoOuPassante: any) {
     /*prato 0 ao 7
@@ -42,94 +52,128 @@ export class FirestoreService {
     */
 
 
-    console.log(nomeQuartoOuPassante);
-
-
     for(let i = 0; i < 8; i++) {
       if(pedido[i]) {
-        console.log(pedido[i].prato);
-        console.log(pedido[i].quantPrato);
-        console.log(pedido[i].obsPrato);
 
         if(pedido[i].obsPrato == null ) {
           pedido[i].obsPrato = ''
         }
 
         this.pedidoTudo[i] = [
-          { prato1: pedido[i].prato.nome, valor1: pedido[i].prato.valor, quant1: pedido[i].quantPrato, obs1: pedido[i].obsPrato }
+          { pedido: pedido[i].prato.nome, valor: pedido[i].prato.valor, quant: pedido[i].quantPrato, obs: pedido[i].obsPrato }
         ]
+
+      }
+
+      if(this.pedidoTudo[i]) {
+        this.pedidoRefinado[`${i+1}`] = this.pedidoTudo[i][0];
+
       }
     }
 
-    if(this.pedidoTudo[0] && this.pedidoTudo[1] == null && this.pedidoTudo[2] == null && this.pedidoTudo[3] == null && this.pedidoTudo[4] == null && this.pedidoTudo[5] == null && this.pedidoTudo[6] == null && this.pedidoTudo[7] == null ) {
-
-      let teste = this.pedidoTudo[0][0];
-
-      console.log(teste);
-
-
-      const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
-        pedido: teste
-      });
-
-    }else  if(this.pedidoTudo[0] && this.pedidoTudo[1]  && this.pedidoTudo[2] == null && this.pedidoTudo[3] == null && this.pedidoTudo[4] == null && this.pedidoTudo[5] == null && this.pedidoTudo[6] == null && this.pedidoTudo[7] == null ) {
-
-      let teste = {
-        um: this.pedidoTudo[0][0],
-        dois: this.pedidoTudo[1][0]
-      }
-
-      console.log(teste)
-
-      const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
-        pedido: teste
-      });
-    }
-
-
-
-
-
-
-/*
-    const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
-      [`prato${i+1}`]: pedido[i].prato,
-      [`quantidade${i+1}`]: pedido[i].quantPrato,
-      [`obs${i+1}`]:pedido[i].obsPrato
-    });
-*/
 
     for(let i = 8; i < 16; i++) {
       if(pedido[i]) {
-        console.log(pedido[i].alcool);
-        console.log(pedido[i].quantAlcool);
-        console.log(pedido[i].obsAlcool);
+
+        if(pedido[i].obsAlcool == null ) {
+          pedido[i].obsAlcool = ''
+        }
+
+        this.pedidoTudo[i] = [
+          { pedido: pedido[i].alcool.nome, valor: pedido[i].alcool.valor, quant: pedido[i].quantAlcool, obs: pedido[i].obsAlcool }
+        ]
+
+      }
+
+      if(this.pedidoTudo[i]) {
+        this.pedidoRefinadoComAlcool[`${i-7}`] = this.pedidoTudo[i][0];
 
       }
     }
+
 
     for(let i = 16; i < 24; i++) {
       if(pedido[i]) {
-        console.log(pedido[i].semAlcool);
-        console.log(pedido[i].quantSemAlcool);
-        console.log(pedido[i].obsSemAlcool);
+
+        if(pedido[i].obsSemAlcool == null ) {
+          pedido[i].obsSemAlcool = ''
+        }
+
+        this.pedidoTudo[i] = [
+          { pedido: pedido[i].semAlcool.nome, valor: pedido[i].semAlcool.valor, quant: pedido[i].quantSemAlcool, obs: pedido[i].obsSemAlcool }
+        ]
+
+      }
+
+      if(this.pedidoTudo[i]) {
+        this.pedidoRefinadoSemAlcool[`${i-15}`] = this.pedidoTudo[i][0];
+
       }
     }
+
+
 
     for(let i = 24; i < 32; i++) {
       if(pedido[i]) {
-        console.log(pedido[i].sobremesa);
-        console.log(pedido[i].quantSobremesa);
-        console.log(pedido[i].obsSobremesa);
+
+        if(pedido[i].obsSobremesa == null ) {
+          pedido[i].obsSobremesa = ''
+        }
+
+        this.pedidoTudo[i] = [
+          { pedido: pedido[i].sobremesa.nome, valor: pedido[i].sobremesa.valor, quant: pedido[i].quantSobremesa, obs: pedido[i].obsSobremesa }
+        ]
+
+      }
+
+      if(this.pedidoTudo[i]) {
+        this.pedidoRefinadoSobremesa[`${i-23}`] = this.pedidoTudo[i][0];
+
       }
     }
 
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const hour = currentDate.getHours();
+    const minute = currentDate.getMinutes();
+    const currentDateTime = (hour + (minute/60)).toFixed(2);
 
 
 
+    const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+      pratosPedidos: this.pedidoRefinado,
+      alcoolsPedidos: this.pedidoRefinadoComAlcool,
+      semAlcoolsPedidos: this.pedidoRefinadoSemAlcool,
+      sobremesaPedidos: this.pedidoRefinadoSobremesa,
+      horario: currentDateTime
+    });
 
 
   }
+
+
+  getDataNorte(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Norte');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+  getDataSul(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Sul');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+
+
 
   getInf() {
     const auth = getAuth();

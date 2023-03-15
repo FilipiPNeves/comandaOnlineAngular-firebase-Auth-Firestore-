@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
+    { path: '', redirectTo: 'novopedido', pathMatch: 'full' },
     { path: 'novopedido', component: NovoPedidoComponent },
     { path: 'listadepedidos', component: ListaDePedidosComponent }
   ]}
