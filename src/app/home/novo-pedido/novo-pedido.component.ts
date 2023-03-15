@@ -41,8 +41,8 @@ export class NovoPedidoComponent {
     { value: 'Ilha'},
     { value: 'Chalé'}
   ];
-  nomePassanteSelecionado?: string;
-  quartoSelecionado?: string;
+  nomePassanteSelecionado?: any;
+  quartoSelecionado?: any;
 
   estadoCheckbox?: number;
   nomeQuartoCheck: boolean = true;
@@ -907,9 +907,13 @@ export class NovoPedidoComponent {
     }
 
 
+    if(this.quartoSelecionado) {
+      this.firestoreService.enviarPedido(this.pedidoEnvio, this.quartoSelecionado.value);
+    }else {
+      this.firestoreService.enviarPedido(this.pedidoEnvio, this.nomePassanteSelecionado);
+    }
 
 
 
-    this.firestoreService.enviarPedido(this.pedidoEnvio);
   }
 }
