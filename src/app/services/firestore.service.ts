@@ -156,6 +156,8 @@ export class FirestoreService {
     const collectionInstance = collection(this.firestore, 'Norte');
     return collectionData(collectionInstance).pipe(
       map((val: any[]) => {
+
+        //aplicar esse metodo abaixo no array que formarei com todos pedidos do dataBase
         val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
         return val;
       })
