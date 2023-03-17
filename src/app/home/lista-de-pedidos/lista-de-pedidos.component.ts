@@ -55,16 +55,32 @@ export class ListaDePedidosComponent {
 
         }
 
-
         try{
           if(this.arrayNorte[1].pratosPedidos[i+1]) {
             this.elemento2[i] = this.arrayNorte[1].pratosPedidos[i+1]
-            this.elemento2[i].horario = this.arrayNorte[0].horario;
+            this.elemento2[i].horario = this.arrayNorte[1].horario;
             this.elemento2[i].nomePassanteOuQuarto = 'Norte';
             if(this.elemento1) {
               this.elementoPrincipal = this.elemento1.concat(this.elemento2)
             }else {
               this.elementoPrincipal = this.elemento2.concat()
+            }
+          }
+        }catch {
+
+        }
+
+        try{
+          if(this.arrayNorte[2].pratosPedidos[i+1]) {
+            this.elemento3[i] = this.arrayNorte[2].pratosPedidos[i+1]
+            this.elemento3[i].horario = this.arrayNorte[2].horario;
+            this.elemento3[i].nomePassanteOuQuarto = 'Norte';
+            if(this.elemento1 && this.elemento2) {
+              this.elementoPrincipal = this.elemento1.concat(this.elemento2, this.elemento3)
+            }else if(this.elemento1 ) {
+              this.elementoPrincipal = this.elemento1.concat(this.elemento3)
+            }else {
+              this.elementoPrincipal = this.elemento2.concat(this.elemento3)
             }
           }
         }catch {
