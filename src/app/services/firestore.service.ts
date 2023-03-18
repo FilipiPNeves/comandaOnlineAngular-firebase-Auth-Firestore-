@@ -15,17 +15,8 @@ import { map, first } from 'rxjs/operators';
 export class FirestoreService {
 
 
-  constructor(private firestore: Firestore, private app: FirebaseApp, private route: Router) {
+  constructor(private firestore: Firestore, private app: FirebaseApp, private route: Router) {}
 
-  }
-
-
-  pedidoTudo: any = [];
-
-  pedidoRefinado: any = {};
-  pedidoRefinadoComAlcool: any = {};
-  pedidoRefinadoSemAlcool: any = {};
-  pedidoRefinadoSobremesa: any = {};
 
   enviarPedido(pedido: any, nomeQuartoOuPassante: any) {
     /*prato 0 ao 7
@@ -51,43 +42,50 @@ export class FirestoreService {
     console.log(pedido[24].obsSobremesa);
     */
 
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const hour = currentDate.getHours();
+    const minute = currentDate.getMinutes();
+    const currentDateTime = (hour + (minute/60)).toFixed(2);
+
 
     for(let i = 0; i < 8; i++) {
       if(pedido[i]) {
 
-        if(pedido[i].obsPrato == null ) {
-          pedido[i].obsPrato = ''
+        if(pedido[i].obsPrato == null) {
+          pedido[i].obsPrato = '';
         }
 
-        this.pedidoTudo[i] = [
-          { pedido: pedido[i].prato.nome, valor: pedido[i].prato.valor, quant: pedido[i].quantPrato, obs: pedido[i].obsPrato }
-        ]
+        console.log(pedido[i]);
 
-      }
-
-      if(this.pedidoTudo[i]) {
-        this.pedidoRefinado[`${i+1}`] = this.pedidoTudo[i][0];
-
+        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+          prato: pedido[i].prato.nome,
+          valor: pedido[i].prato.valor,
+          obs:	pedido[i].obsPrato,
+          quant: pedido[i].quantPrato,
+          horario: currentDateTime,
+          nomeQuartoOuPassante: nomeQuartoOuPassante
+        });
       }
     }
 
 
     for(let i = 8; i < 16; i++) {
       if(pedido[i]) {
-
-        if(pedido[i].obsAlcool == null ) {
-          pedido[i].obsAlcool = ''
+        if(pedido[i].obsAlcool == null) {
+          pedido[i].obsAlcool = '';
         }
 
-        this.pedidoTudo[i] = [
-          { pedido: pedido[i].alcool.nome, valor: pedido[i].alcool.valor, quant: pedido[i].quantAlcool, obs: pedido[i].obsAlcool }
-        ]
+        console.log(pedido[i]);
 
-      }
-
-      if(this.pedidoTudo[i]) {
-        this.pedidoRefinadoComAlcool[`${i-7}`] = this.pedidoTudo[i][0];
-
+        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+          prato: pedido[i].alcool.nome,
+          valor: pedido[i].alcool.valor,
+          obs:	pedido[i].obsAlcool,
+          quant: pedido[i].quantAlcool,
+          horario: currentDateTime,
+          nomeQuartoOuPassante: nomeQuartoOuPassante
+        });
       }
     }
 
@@ -95,19 +93,20 @@ export class FirestoreService {
     for(let i = 16; i < 24; i++) {
       if(pedido[i]) {
 
-        if(pedido[i].obsSemAlcool == null ) {
-          pedido[i].obsSemAlcool = ''
+        if(pedido[i].obsSemAlcool == null) {
+          pedido[i].obsSemAlcool = '';
         }
 
-        this.pedidoTudo[i] = [
-          { pedido: pedido[i].semAlcool.nome, valor: pedido[i].semAlcool.valor, quant: pedido[i].quantSemAlcool, obs: pedido[i].obsSemAlcool }
-        ]
+        console.log(pedido[i]);
 
-      }
-
-      if(this.pedidoTudo[i]) {
-        this.pedidoRefinadoSemAlcool[`${i-15}`] = this.pedidoTudo[i][0];
-
+        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+          prato: pedido[i].semAlcool.nome,
+          valor: pedido[i].semAlcool.valor,
+          obs:	pedido[i].obsSemAlcool,
+          quant: pedido[i].quantSemAlcool,
+          horario: currentDateTime,
+          nomeQuartoOuPassante: nomeQuartoOuPassante
+        });
       }
     }
 
@@ -116,39 +115,22 @@ export class FirestoreService {
     for(let i = 24; i < 32; i++) {
       if(pedido[i]) {
 
-        if(pedido[i].obsSobremesa == null ) {
-          pedido[i].obsSobremesa = ''
+        if(pedido[i].obsSobremesa == null) {
+          pedido[i].obsSobremesa = '';
         }
 
-        this.pedidoTudo[i] = [
-          { pedido: pedido[i].sobremesa.nome, valor: pedido[i].sobremesa.valor, quant: pedido[i].quantSobremesa, obs: pedido[i].obsSobremesa }
-        ]
+        console.log(pedido[i]);
 
-      }
-
-      if(this.pedidoTudo[i]) {
-        this.pedidoRefinadoSobremesa[`${i-23}`] = this.pedidoTudo[i][0];
-
+        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+          prato: pedido[i].sobremesa.nome,
+          valor: pedido[i].sobremesa.valor,
+          obs: pedido[i].obsSobremesa,
+          quant: pedido[i].quantSobremesa,
+          horario: currentDateTime,
+          nomeQuartoOuPassante: nomeQuartoOuPassante
+        });
       }
     }
-
-    const currentDate = new Date();
-    const day = currentDate.getDate();
-    const hour = currentDate.getHours();
-    const minute = currentDate.getMinutes();
-    const currentDateTime = (hour + (minute/60)).toFixed(2);
-
-
-
-    const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
-      pratosPedidos: this.pedidoRefinado,
-      alcoolsPedidos: this.pedidoRefinadoComAlcool,
-      semAlcoolsPedidos: this.pedidoRefinadoSemAlcool,
-      sobremesaPedidos: this.pedidoRefinadoSobremesa,
-      horario: currentDateTime
-    });
-
-
   }
 
 
@@ -174,8 +156,121 @@ export class FirestoreService {
     );
   }
 
+  getDataLeste(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Leste');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
 
+  getDataSol(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Sol');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
 
+  getDataMaster1(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Master 1');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+  getDataMaster2(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Master 2');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+  getDataMaster3(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Master 3');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+  getDataMaster4(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Master 4');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+  getDataMaster5(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Master 5');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+  getDataVip1(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Vip 1');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+  getDataVip2(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Vip 2');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+  getDataVip3(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Vip 3');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+  getDataIlha(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Ilha');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
+
+  getDataChale(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'Chalé');
+    return collectionData(collectionInstance).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+        return val;
+      })
+    );
+  }
 
   getInf() {
     const auth = getAuth();
