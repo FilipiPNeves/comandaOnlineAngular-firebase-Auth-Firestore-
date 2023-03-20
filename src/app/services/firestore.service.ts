@@ -1,12 +1,20 @@
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut  } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, query, where, getDocs, collectionData  } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, updateDoc, getDoc, deleteDoc  } from '@angular/fire/firestore';
 import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
 import { Observable, from, of } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 
+interface todosPedidos {
+  horario: any,
+  obs: any,
+  prato: any,
+  valor: any,
+  quant: any,
+  nomeQuartoOuPassante: any,
+}
 
 
 @Injectable({
@@ -46,7 +54,8 @@ export class FirestoreService {
     const day = currentDate.getDate();
     const hour = currentDate.getHours();
     const minute = currentDate.getMinutes();
-    const currentDateTime = (hour + (minute/60)).toFixed(2);
+    const seg = currentDate.getSeconds();
+    const currentDateTime = (hour + (minute/60) + ((seg/60)/60));
 
 
     for(let i = 0; i < 8; i++) {
@@ -58,7 +67,7 @@ export class FirestoreService {
 
         console.log(pedido[i]);
 
-        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].prato.nome,
           valor: pedido[i].prato.valor,
           obs:	pedido[i].obsPrato,
@@ -78,7 +87,7 @@ export class FirestoreService {
 
         console.log(pedido[i]);
 
-        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].alcool.nome,
           valor: pedido[i].alcool.valor,
           obs:	pedido[i].obsAlcool,
@@ -99,7 +108,7 @@ export class FirestoreService {
 
         console.log(pedido[i]);
 
-        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].semAlcool.nome,
           valor: pedido[i].semAlcool.valor,
           obs:	pedido[i].obsSemAlcool,
@@ -121,7 +130,7 @@ export class FirestoreService {
 
         console.log(pedido[i]);
 
-        const docRef = addDoc(collection(this.firestore, nomeQuartoOuPassante), {
+        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].sobremesa.nome,
           valor: pedido[i].sobremesa.valor,
           obs: pedido[i].obsSobremesa,
@@ -134,21 +143,9 @@ export class FirestoreService {
   }
 
 
-  getDataNorte(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Norte');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-
-        //aplicar esse metodo abaixo no array que formarei com todos pedidos do dataBase
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-
-  getDataSul(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Sul');
-    return collectionData(collectionInstance).pipe(
+  getPedidos(): Observable<todosPedidos[]> {
+    const collectionInstance = collection(this.firestore, 'pedidos');
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
       map((val: any[]) => {
         val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
         return val;
@@ -156,9 +153,9 @@ export class FirestoreService {
     );
   }
 
-  getDataLeste(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Leste');
-    return collectionData(collectionInstance).pipe(
+  getPedidosFeitos(): Observable<todosPedidos[]> {
+    const collectionInstance = collection(this.firestore, 'pedidosFeitos');
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
       map((val: any[]) => {
         val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
         return val;
@@ -166,111 +163,37 @@ export class FirestoreService {
     );
   }
 
-  getDataSol(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Sol');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
+  pedidoFeito(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
+
+    const docRef = addDoc(collection(this.firestore, 'pedidosFeitos'), {
+      prato: prato,
+      valor: valor,
+      obs:	obs,
+      quant: quantidade,
+      horario: horario,
+      nomeQuartoOuPassante: quarto
+    });
+
+
+    const docInstance = doc(this.firestore, 'pedidos', id);
+    deleteDoc(docInstance);
   }
 
-  getDataMaster1(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Master 1');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
+  pedidoServido(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
+    const docRef = addDoc(collection(this.firestore, 'pedidosServidos'), {
+      prato: prato,
+      valor: valor,
+      obs:	obs,
+      quant: quantidade,
+      horario: horario,
+      nomeQuartoOuPassante: quarto
+    });
+
+
+    const docInstance = doc(this.firestore, 'pedidosFeitos', id);
+    deleteDoc(docInstance);
   }
 
-  getDataMaster2(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Master 2');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-
-  getDataMaster3(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Master 3');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-  getDataMaster4(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Master 4');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-
-  getDataMaster5(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Master 5');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-  getDataVip1(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Vip 1');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-  getDataVip2(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Vip 2');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-
-  getDataVip3(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Vip 3');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-  getDataIlha(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Ilha');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
-
-  getDataChale(): Observable<any[]> {
-    const collectionInstance = collection(this.firestore, 'Chalé');
-    return collectionData(collectionInstance).pipe(
-      map((val: any[]) => {
-        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
-        return val;
-      })
-    );
-  }
 
   getInf() {
     const auth = getAuth();

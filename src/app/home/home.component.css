@@ -1,5 +1,10 @@
 /* Estilos para a barra de ferramentas */
 
+.botaoToolbar {
+  min-width: 12em;
+  max-width: 12em;
+}
+
 .mat-toolbar {
   background-color: #005d8f;
   color: #fff;

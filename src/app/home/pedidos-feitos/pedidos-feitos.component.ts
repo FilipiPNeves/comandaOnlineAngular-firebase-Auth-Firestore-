@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
-
+import { Component } from '@angular/core';
 
 interface todosPedidos {
   horario: any,
@@ -13,16 +12,15 @@ interface todosPedidos {
 
 
 @Component({
-  selector: 'app-lista-de-pedidos',
-  templateUrl: './lista-de-pedidos.component.html',
-  styleUrls: ['./lista-de-pedidos.component.css']
+  selector: 'app-pedidos-feitos',
+  templateUrl: './pedidos-feitos.component.html',
+  styleUrls: ['./pedidos-feitos.component.css']
 })
-export class ListaDePedidosComponent {
+export class PedidosFeitosComponent {
 
   constructor(private firestoreService: FirestoreService) {
     this.getData();
   }
-
 
   displayedColumns: string[] = ['obs', 'pedido', 'quant', 'nomeQuartoOuPassante'];
   dataSource: todosPedidos[] = [];
@@ -37,7 +35,7 @@ export class ListaDePedidosComponent {
   quantPopUp: number = 0;
 
   getData() {
-    this.firestoreService.getPedidos().subscribe((val: todosPedidos[]) => {
+    this.firestoreService.getPedidosFeitos().subscribe((val: todosPedidos[]) => {
       this.dataSource = val;
     });
   }
@@ -53,7 +51,9 @@ export class ListaDePedidosComponent {
     this.quantPopUp = quantidade;
   }
 
-  pedidoFeito(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
-    this.firestoreService.pedidoFeito(id, prato, quarto, horario, obs, valor, quantidade)
+  pedidoServido(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
+    this.firestoreService.pedidoServido(id, prato, quarto, horario, obs, valor, quantidade);
   }
+
+
 }

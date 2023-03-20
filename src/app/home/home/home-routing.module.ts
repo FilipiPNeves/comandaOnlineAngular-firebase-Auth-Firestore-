@@ -1,3 +1,5 @@
+import { CaixaComponent } from './../caixa/caixa.component';
+import { PedidosFeitosComponent } from './../pedidos-feitos/pedidos-feitos.component';
 import { ListaDePedidosComponent } from './../lista-de-pedidos/lista-de-pedidos.component';
 import { NovoPedidoComponent } from './../novo-pedido/novo-pedido.component';
 import { HomeComponent } from './../home.component';
@@ -8,7 +10,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent, children: [
     { path: '', redirectTo: 'novopedido', pathMatch: 'full' },
     { path: 'novopedido', component: NovoPedidoComponent },
-    { path: 'listadepedidos', component: ListaDePedidosComponent }
+    { path: 'listadepedidos', component: ListaDePedidosComponent },
+    { path: 'pedidosfeitos', component: PedidosFeitosComponent },
+    { path: 'caixa', component: CaixaComponent }
   ]}
 ];
 
