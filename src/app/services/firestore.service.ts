@@ -194,6 +194,18 @@ export class FirestoreService {
     deleteDoc(docInstance);
   }
 
+  getServidos() {
+    const collectionInstance = collection(this.firestore, 'pedidosServidos');
+
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+
+        return val;
+      })
+    );
+  }
+
 
   getInf() {
     const auth = getAuth();

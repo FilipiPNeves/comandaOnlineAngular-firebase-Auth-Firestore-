@@ -1,16 +1,52 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Quarto</mat-label>
-    <input type="text"
-           placeholder="Selecione um quarto"
-           aria-label="Quarto"
-           matInput
-           [formControl]="myControl"
-           [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
+<mat-card>
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Quarto</mat-label>
+      <input type="text"
+             placeholder="Selecione um quarto"
+             aria-label="Quarto"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
+  <div class="valorTotal">
+    <h1>Valor total: {{ valorTotal }}</h1>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Obs Column -->
+    <ng-container matColumnDef="obs">
+      <th mat-header-cell *matHeaderCellDef> Obs </th>
+      <td mat-cell *matCellDef="let element"> {{element.obs}} </td>
+    </ng-container>
+
+    <!-- Pedido Column -->
+    <ng-container matColumnDef="pedido">
+      <th mat-header-cell *matHeaderCellDef> Pedido </th>
+      <td mat-cell *matCellDef="let element"> {{element.prato}} </td>
+    </ng-container>
+
+    <!-- Quantidade Column -->
+    <ng-container matColumnDef="quant">
+      <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+      <td mat-cell *matCellDef="let element"> {{element.quant}} </td>
+    </ng-container>
+
+    <!-- Valor Column -->
+    <ng-container matColumnDef="valor">
+      <th mat-header-cell *matHeaderCellDef> Valor </th>
+      <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>

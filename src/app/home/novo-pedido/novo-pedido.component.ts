@@ -52,9 +52,9 @@ export class NovoPedidoComponent {
 
 
   pasteis: Pratos[] = [
-    { nome: 'Pastel Napolitado', valor: 0 },
-    { nome: 'Pastel de queijo', valor: 0 },
-    { nome: 'Pastel de carne', valor: 0 }
+    { nome: 'Pastel Napolitado', valor: 1 },
+    { nome: 'Pastel de queijo', valor: 2 },
+    { nome: 'Pastel de carne', valor: 3 }
   ]
 
   lanches: Pratos[] = [
@@ -909,7 +909,7 @@ export class NovoPedidoComponent {
 
     if(this.quartoSelecionado) {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.quartoSelecionado.value);
-      
+
     }else {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.nomePassanteSelecionado);
     }
