@@ -2,3 +2,56 @@
   display: flex;
   margin: 2em auto 0;
 }
+
+.valorTotal {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.valorTotal h1 {
+  display: flex;
+  width: 90%;
+  margin: 1em auto;
+}
+
+#buttonFinalizarComanda1 {
+  display: flex;
+  margin: 0 auto 2em;
+  background-color: #4CAF50;
+}
+
+#popUp {
+  position: absolute;
+  width: 85%;
+  height: 30%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  z-index: 1;
+}
+
+#popUp h1 {
+  display: flex;
+  width: 80%;
+  margin: 1em auto 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1em 2em 1em 2em;
+}
+
+#buttonFinalizarComanda2 {
+  display: flex;
+  width: 5em;
+  background-color: #4CAF50;
+}
+
+#buttonFechar {
+  width: 5em;
+}
+
+

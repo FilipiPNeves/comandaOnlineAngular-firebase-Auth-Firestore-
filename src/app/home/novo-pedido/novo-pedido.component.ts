@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild  } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { ViewportScroller } from '@angular/common';
 
 interface nomeQuarto {
   value: string;
@@ -20,7 +21,7 @@ interface Pratos {
 })
 export class NovoPedidoComponent {
 
-  constructor(private firestoreService: FirestoreService) {}
+  constructor(private firestoreService: FirestoreService, private readonly viewportScroller: ViewportScroller) {}
 
   pedidoEnvio: any[] = []
 
@@ -52,115 +53,115 @@ export class NovoPedidoComponent {
 
 
   pasteis: Pratos[] = [
-    { nome: 'Pastel Napolitado', valor: 1 },
-    { nome: 'Pastel de queijo', valor: 2 },
-    { nome: 'Pastel de carne', valor: 3 }
+    { nome: 'Pastel Napolitado', valor: 10 },
+    { nome: 'Pastel de queijo', valor: 11 },
+    { nome: 'Pastel de carne', valor: 12 }
   ]
 
   lanches: Pratos[] = [
-    { nome: 'Misto quente', valor: 0 },
-    { nome: 'Cachorro quente', valor: 0 },
-    { nome: 'Hambúrguer', valor: 0 },
-    { nome: 'Desejos', valor: 0 }
+    { nome: 'Misto quente', valor: 22 },
+    { nome: 'Cachorro quente', valor: 22 },
+    { nome: 'Hambúrguer', valor: 22 },
+    { nome: 'Desejos', valor: 22 }
   ]
 
   petiscos: Pratos[] = [
-    { nome: 'Polvo a vinagrete', valor: 0 },
-    { nome: 'Tataki', valor: 0 },
-    { nome: 'Cevitche', valor: 0 },
-    { nome: 'Lula dore', valor: 0 },
-    { nome: 'Camarão dore', valor: 0 },
-    { nome: 'Camarão alho', valor: 0 },
-    { nome: 'Bolinho de bacalhau', valor: 0 },
-    { nome: 'Frango a passarinho', valor: 0 },
-    { nome: 'Filé aperetivo', valor: 0 },
-    { nome: 'Fritas', valor: 0 },
-    { nome: 'Tabua de frios', valor: 0 }
+    { nome: 'Polvo a vinagrete', valor: 22 },
+    { nome: 'Tataki', valor: 22 },
+    { nome: 'Cevitche', valor: 22 },
+    { nome: 'Lula dore', valor: 22 },
+    { nome: 'Camarão dore', valor: 22 },
+    { nome: 'Camarão alho', valor: 22 },
+    { nome: 'Bolinho de bacalhau', valor: 22 },
+    { nome: 'Frango a passarinho', valor: 22 },
+    { nome: 'Filé aperetivo', valor: 22 },
+    { nome: 'Fritas', valor: 22 },
+    { nome: 'Tabua de frios', valor: 22 }
   ]
 
   frangos: Pratos[] = [
-    { nome: 'Frango Grelhado a campanha', valor: 0 },
-    { nome: 'Frango a parmegiana', valor: 0 },
-    { nome: 'Frango ao molho curry', valor: 0 },
-    { nome: 'Strogonoff de frango', valor: 0 }
+    { nome: 'Frango Grelhado a campanha', valor: 22 },
+    { nome: 'Frango a parmegiana', valor: 22 },
+    { nome: 'Frango ao molho curry', valor: 22 },
+    { nome: 'Strogonoff de frango', valor: 22 }
   ]
 
   contraFiles: Pratos[] = [
-    { nome: 'Contra-filé grelhado a campanha', valor: 0 },
-    { nome: 'Contra-filé a parmegiana', valor: 0 },
-    { nome: 'Contra-filé a cavala', valor: 0 },
-    { nome: 'Contra-filé ao molho gorgonzola', valor: 0 },
-    { nome: 'Contra-filé ao molho madeira', valor: 0 }
+    { nome: 'Contra-filé grelhado a campanha', valor: 22 },
+    { nome: 'Contra-filé a parmegiana', valor: 22 },
+    { nome: 'Contra-filé a cavala', valor: 22 },
+    { nome: 'Contra-filé ao molho gorgonzola', valor: 22 },
+    { nome: 'Contra-filé ao molho madeira', valor: 22 }
   ]
   saladas: Pratos[] = [
-    { nome: 'Salada grega', valor: 0 },
-    { nome: 'Salada tropical', valor: 0 },
-    { nome: 'Salada Sentinelas', valor: 0 }
+    { nome: 'Salada grega', valor: 22 },
+    { nome: 'Salada tropical', valor: 22 },
+    { nome: 'Salada Sentinelas', valor: 22 }
   ]
 
   sopas: Pratos[] = [
-    { nome: 'Frutos do mar', valor: 0 },
-    { nome: 'Do dia', valor: 0 }
+    { nome: 'Frutos do mar', valor: 22 },
+    { nome: 'Do dia', valor: 22 }
   ]
 
   frutosDoMar: Pratos[] = [
-    { nome: 'Peixes na brasa', valor: 0 },
-    { nome: 'Peixe frito', valor: 0 },
-    { nome: 'Peixe grelhado', valor: 0 },
-    { nome: 'Ao molho de camarão', valor: 0 },
-    { nome: 'Camarão no abacaxi', valor: 0 },
-    { nome: 'Camarão ao catupiry', valor: 0 },
-    { nome: 'Camarão empanado', valor: 0 },
-    { nome: 'Risoto', valor: 0 },
-    { nome: 'Moqueca', valor: 0 }
+    { nome: 'Peixes na brasa', valor: 22 },
+    { nome: 'Peixe frito', valor: 22 },
+    { nome: 'Peixe grelhado', valor: 22 },
+    { nome: 'Ao molho de camarão', valor: 22 },
+    { nome: 'Camarão no abacaxi', valor: 22 },
+    { nome: 'Camarão ao catupiry', valor: 22 },
+    { nome: 'Camarão empanado', valor: 22 },
+    { nome: 'Risoto', valor: 22 },
+    { nome: 'Moqueca', valor: 22 }
     ]
 
   massas: Pratos[] = [
-    { nome: 'Espaguete com camarão ao pesto', valor: 0 },
-    { nome: 'Parisiense', valor: 0 },
-    { nome: 'Primavera', valor: 0 },
-    { nome: 'Nhoque', valor: 0 },
-    { nome: 'Rondelli', valor: 0 },
-    { nome: 'Canelone', valor: 0 },
-    { nome: 'Raviolli', valor: 0 }
+    { nome: 'Espaguete com camarão ao pesto', valor: 22 },
+    { nome: 'Parisiense', valor: 22 },
+    { nome: 'Primavera', valor: 22 },
+    { nome: 'Nhoque', valor: 22 },
+    { nome: 'Rondelli', valor: 22 },
+    { nome: 'Canelone', valor: 22 },
+    { nome: 'Raviolli', valor: 22 }
   ]
 
   bebidasCom: Pratos[] = [
-    { nome: 'Cervejas', valor: 0 },
-    { nome: 'Dose Whisky', valor: 0 },
-    { nome: 'Dose cachaça', valor: 0 },
-    { nome: 'Dose de run', valor: 0 },
-    { nome: 'Dose de gin', valor: 0 },
-    { nome: 'Dose de vodka', valor: 0 },
-    { nome: 'Vinhos', valor: 0 },
-    { nome: 'Espumantes', valor: 0 },
-    { nome: 'Grin tônica', valor: 0 },
-    { nome: 'Caipivodka', valor: 0 },
-    { nome: 'Caipirinha', valor: 0 },
-    { nome: 'Pina colada', valor: 0 },
-    { nome: 'Margarita', valor: 0 },
-    { nome: 'Mojito', valor: 0 },
-    { nome: 'Sex on the beach', valor: 0 },
-    { nome: 'Corona rita', valor: 0 },
-    { nome: 'Cosmopolitan', valor: 0 },
-    { nome: 'Sunset sentinelas', valor: 0 },
-    { nome: 'Roney night', valor: 0 }
+    { nome: 'Cervejas', valor: 22 },
+    { nome: 'Dose Whisky', valor: 22 },
+    { nome: 'Dose cachaça', valor: 22 },
+    { nome: 'Dose de run', valor: 22 },
+    { nome: 'Dose de gin', valor: 22 },
+    { nome: 'Dose de vodka', valor: 22 },
+    { nome: 'Vinhos', valor: 22 },
+    { nome: 'Espumantes', valor: 22 },
+    { nome: 'Grin tônica', valor: 22 },
+    { nome: 'Caipivodka', valor: 22 },
+    { nome: 'Caipirinha', valor: 22 },
+    { nome: 'Pina colada', valor: 22 },
+    { nome: 'Margarita', valor: 22 },
+    { nome: 'Mojito', valor: 22 },
+    { nome: 'Sex on the beach', valor: 22 },
+    { nome: 'Corona rita', valor: 22 },
+    { nome: 'Cosmopolitan', valor: 22 },
+    { nome: 'Sunset sentinelas', valor: 22 },
+    { nome: 'Roney night', valor: 22 }
   ];
 
 
   bebidasSem: Pratos[] = [
-    { nome: 'Água sem gás', valor: 0 },
-    { nome: 'Água com gás', valor: 0 },
-    { nome: 'Água de coco', valor: 0 },
-    { nome: 'Refrigerante', valor: 0 },
-    { nome: 'Sucos naturais', valor: 0 }
+    { nome: 'Água sem gás', valor: 22 },
+    { nome: 'Água com gás', valor: 22 },
+    { nome: 'Água de coco', valor: 22 },
+    { nome: 'Refrigerante', valor: 22 },
+    { nome: 'Sucos naturais', valor: 22 }
     ];
 
     sobremesas: Pratos[] = [
-      { nome: 'Petiti gateau', valor: 0 },
-      { nome: 'Peras caramelizadas', valor: 0 },
-      { nome: 'Pudim', valor: 0 },
-      { nome: 'Do dia', valor: 0 }
+      { nome: 'Petiti gateau', valor: 22 },
+      { nome: 'Peras caramelizadas', valor: 22 },
+      { nome: 'Pudim', valor: 22 },
+      { nome: 'Do dia', valor: 22 }
       ]
 
 
@@ -210,14 +211,14 @@ export class NovoPedidoComponent {
   quantSelecionada7Alcool?: number = 1;
   quantSelecionada8Alcool?: number = 1;
 
-  observacoes1Alcool?: string;
-  observacoes2Alcool?: string;
-  observacoes3Alcool?: string;
-  observacoes4Alcool?: string;
-  observacoes5Alcool?: string;
-  observacoes6Alcool?: string;
-  observacoes7Alcool?: string;
-  observacoes8Alcool?: string;
+  observacoes1Alcool: string = '';
+  observacoes2Alcool: string = '';
+  observacoes3Alcool: string = '';
+  observacoes4Alcool: string = '';
+  observacoes5Alcool: string = '';
+  observacoes6Alcool: string = '';
+  observacoes7Alcool: string = '';
+  observacoes8Alcool: string = '';
 
 
 
@@ -262,23 +263,23 @@ export class NovoPedidoComponent {
   pratoSelecionado7Sobremesa: string = '';
   pratoSelecionado8Sobremesa: string = '';
 
-  quantSelecionada1Sobremesa?: number = 1;
-  quantSelecionada2Sobremesa?: number = 1;
-  quantSelecionada3Sobremesa?: number = 1;
-  quantSelecionada4Sobremesa?: number = 1;
-  quantSelecionada5Sobremesa?: number = 1;
-  quantSelecionada6Sobremesa?: number = 1;
-  quantSelecionada7Sobremesa?: number = 1;
-  quantSelecionada8Sobremesa?: number = 1;
+  quantSelecionada1Sobremesa: number = 1;
+  quantSelecionada2Sobremesa: number = 1;
+  quantSelecionada3Sobremesa: number = 1;
+  quantSelecionada4Sobremesa: number = 1;
+  quantSelecionada5Sobremesa: number = 1;
+  quantSelecionada6Sobremesa: number = 1;
+  quantSelecionada7Sobremesa: number = 1;
+  quantSelecionada8Sobremesa: number = 1;
 
-  observacoes1Sobremesa?: string;
-  observacoes2Sobremesa?: string;
-  observacoes3Sobremesa?: string;
-  observacoes4Sobremesa?: string;
-  observacoes5Sobremesa?: string;
-  observacoes6Sobremesa?: string;
-  observacoes7Sobremesa?: string;
-  observacoes8Sobremesa?: string;
+  observacoes1Sobremesa: string = '';
+  observacoes2Sobremesa: string = '';
+  observacoes3Sobremesa: string = '';
+  observacoes4Sobremesa: string = '';
+  observacoes5Sobremesa: string = '';
+  observacoes6Sobremesa: string = '';
+  observacoes7Sobremesa: string = '';
+  observacoes8Sobremesa: string = '';
 
   quants  = [
     {valor: 1},
@@ -331,6 +332,8 @@ export class NovoPedidoComponent {
   mostrarSobremesa8 = false;
 
 
+
+
   addPrato() {
     if(this.mostrarPrato1 === false) {
       this.mostrarPrato1 = true;
@@ -349,7 +352,18 @@ export class NovoPedidoComponent {
     } else if (this.mostrarPrato8 === false ){
       this.mostrarPrato8 = true;
     }
+
+    const element = document.getElementById('botaoMaisPrato');
+    if (element) {
+      const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+      const margin = 20 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+      const position = topOffset - margin;
+      this.viewportScroller.scrollToPosition([0, position]);
+    }
+
+
   }
+
 
   addBebidaCom() {
     if(this.mostrarBebidaCom1 === false) {
@@ -368,6 +382,14 @@ export class NovoPedidoComponent {
       this.mostrarBebidaCom7 = true;
     } else if (this.mostrarBebidaCom8 === false ){
       this.mostrarBebidaCom8 = true;
+    }
+
+    const element = document.getElementById('botaoMaisBebidaCom');
+    if (element) {
+      const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+      const margin = 20 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+      const position = topOffset - margin;
+      this.viewportScroller.scrollToPosition([0, position]);
     }
   }
 
@@ -389,6 +411,14 @@ export class NovoPedidoComponent {
     } else if (this.mostrarBebidaSem8 === false ){
       this.mostrarBebidaSem8 = true;
     }
+
+    const element = document.getElementById('botaoMaisBebidaSem');
+    if (element) {
+      const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+      const margin = 18 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+      const position = topOffset - margin;
+      this.viewportScroller.scrollToPosition([0, position]);
+    }
   }
 
   addSobremesa() {
@@ -408,6 +438,14 @@ export class NovoPedidoComponent {
       this.mostrarSobremesa7 = true;
     } else if (this.mostrarSobremesa8 === false ){
       this.mostrarSobremesa8 = true;
+    }
+
+    const element = document.getElementById('botaoEnviar');
+    if (element) {
+      const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+      const margin = 28 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+      const position = topOffset - margin;
+      this.viewportScroller.scrollToPosition([0, position]);
     }
   }
 
@@ -910,9 +948,321 @@ export class NovoPedidoComponent {
     if(this.quartoSelecionado) {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.quartoSelecionado.value);
 
+      this.pedidoEnvio = []
+      this.mostrarPrato1 = false;
+      this.mostrarPrato2 = false;
+      this.mostrarPrato3 = false;
+      this.mostrarPrato4 = false;
+      this.mostrarPrato5 = false;
+      this.mostrarPrato6 = false;
+      this.mostrarPrato7 = false;
+      this.mostrarPrato8 = false;
+
+      this.mostrarBebidaCom1 = false;
+      this.mostrarBebidaCom2 = false;
+      this.mostrarBebidaCom3 = false;
+      this.mostrarBebidaCom4 = false;
+      this.mostrarBebidaCom5 = false;
+      this.mostrarBebidaCom6 = false;
+      this.mostrarBebidaCom7 = false;
+      this.mostrarBebidaCom8 = false;
+
+      this.mostrarBebidaSem1 = false;
+      this.mostrarBebidaSem2 = false;
+      this.mostrarBebidaSem3 = false;
+      this.mostrarBebidaSem4 = false;
+      this.mostrarBebidaSem5 = false;
+      this.mostrarBebidaSem6 = false;
+      this.mostrarBebidaSem7 = false;
+      this.mostrarBebidaSem8 = false;
+
+      this.mostrarSobremesa1 = false;
+      this.mostrarSobremesa2 = false;
+      this.mostrarSobremesa3 = false;
+      this.mostrarSobremesa4 = false;
+      this.mostrarSobremesa5 = false;
+      this.mostrarSobremesa6 = false;
+      this.mostrarSobremesa7 = false;
+      this.mostrarSobremesa8 = false;
+
+      this.pratoSelecionado1 = '';
+      this.pratoSelecionado2 = '';
+      this.pratoSelecionado3 = '';
+      this.pratoSelecionado4 = '';
+      this.pratoSelecionado5 = '';
+      this.pratoSelecionado6 = '';
+      this.pratoSelecionado7 = '';
+      this.pratoSelecionado8 = '';
+
+      this.quantSelecionada1 = 1;
+      this.quantSelecionada2 = 1;
+      this.quantSelecionada3 = 1;
+      this.quantSelecionada4 = 1;
+      this.quantSelecionada5 = 1;
+      this.quantSelecionada6 = 1;
+      this.quantSelecionada7 = 1;
+      this.quantSelecionada8 = 1;
+
+      this.observacoes1 = '';
+      this.observacoes2 = '';
+      this.observacoes3 = '';
+      this.observacoes4 = '';
+      this.observacoes5 = '';
+      this.observacoes6 = '';
+      this.observacoes7 = '';
+      this.observacoes8 = '';
+
+      this.pratoSelecionado1Alcool = '';
+      this.pratoSelecionado2Alcool = '';
+      this.pratoSelecionado3Alcool = '';
+      this.pratoSelecionado4Alcool = '';
+      this.pratoSelecionado5Alcool = '';
+      this.pratoSelecionado6Alcool = '';
+      this.pratoSelecionado7Alcool = '';
+      this.pratoSelecionado8Alcool = '';
+
+      this.quantSelecionada1Alcool = 1;
+      this.quantSelecionada2Alcool = 1;
+      this.quantSelecionada3Alcool = 1;
+      this.quantSelecionada4Alcool = 1;
+      this.quantSelecionada5Alcool = 1;
+      this.quantSelecionada6Alcool = 1;
+      this.quantSelecionada7Alcool = 1;
+      this.quantSelecionada8Alcool = 1;
+
+      this.observacoes1Alcool = '';
+      this.observacoes2Alcool = '';
+      this.observacoes3Alcool = '';
+      this.observacoes4Alcool = '';
+      this.observacoes5Alcool = '';
+      this.observacoes6Alcool = '';
+      this.observacoes7Alcool = '';
+      this.observacoes8Alcool = '';
+
+
+
+
+      this.pratoSelecionado1SemAlcool = '';
+      this.pratoSelecionado2SemAlcool = '';
+      this.pratoSelecionado3SemAlcool = '';
+      this.pratoSelecionado4SemAlcool = '';
+      this.pratoSelecionado5SemAlcool = '';
+      this.pratoSelecionado6SemAlcool = '';
+      this.pratoSelecionado7SemAlcool = '';
+      this.pratoSelecionado8SemAlcool = '';
+
+      this.quantSelecionada1SemAlcool = 1;
+      this.quantSelecionada2SemAlcool = 1;
+      this.quantSelecionada3SemAlcool = 1;
+      this.quantSelecionada4SemAlcool = 1;
+      this.quantSelecionada5SemAlcool = 1;
+      this.quantSelecionada6SemAlcool = 1;
+      this.quantSelecionada7SemAlcool = 1;
+      this.quantSelecionada8SemAlcool = 1;
+
+      this.observacoes1SemAlcool = '';
+      this.observacoes2SemAlcool = '';
+      this.observacoes3SemAlcool = '';
+      this.observacoes4SemAlcool = '';
+      this.observacoes5SemAlcool = '';
+      this.observacoes6SemAlcool = '';
+      this.observacoes7SemAlcool = '';
+      this.observacoes8SemAlcool = '';
+
+      this.pratoSelecionado1Sobremesa = '';
+      this.pratoSelecionado2Sobremesa = '';
+      this.pratoSelecionado3Sobremesa = '';
+      this.pratoSelecionado4Sobremesa = '';
+      this.pratoSelecionado5Sobremesa = '';
+      this.pratoSelecionado6Sobremesa = '';
+      this.pratoSelecionado7Sobremesa = '';
+      this.pratoSelecionado8Sobremesa = '';
+
+      this.quantSelecionada1Sobremesa = 1;
+      this.quantSelecionada2Sobremesa = 1;
+      this.quantSelecionada3Sobremesa = 1;
+      this.quantSelecionada4Sobremesa = 1;
+      this.quantSelecionada5Sobremesa = 1;
+      this.quantSelecionada6Sobremesa = 1;
+      this.quantSelecionada7Sobremesa = 1;
+      this.quantSelecionada8Sobremesa = 1;
+
+      this.observacoes1Sobremesa = '';
+      this.observacoes2Sobremesa = '';
+      this.observacoes3Sobremesa = '';
+      this.observacoes4Sobremesa = '';
+      this.observacoes5Sobremesa = '';
+      this.observacoes6Sobremesa = '';
+      this.observacoes7Sobremesa = '';
+      this.observacoes8Sobremesa = '';
+
+      const element = document.getElementById('divHospedePassante');
+      if(element) {
+        const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+        const margin = 18 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+        const position = topOffset - margin;
+        this.viewportScroller.scrollToPosition([0, position]);
+      }
     }else {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.nomePassanteSelecionado);
+
+
+      this.mostrarPrato1 = false;
+      this.mostrarPrato2 = false;
+      this.mostrarPrato3 = false;
+      this.mostrarPrato4 = false;
+      this.mostrarPrato5 = false;
+      this.mostrarPrato6 = false;
+      this.mostrarPrato7 = false;
+      this.mostrarPrato8 = false;
+
+      this.mostrarBebidaCom1 = false;
+      this.mostrarBebidaCom2 = false;
+      this.mostrarBebidaCom3 = false;
+      this.mostrarBebidaCom4 = false;
+      this.mostrarBebidaCom5 = false;
+      this.mostrarBebidaCom6 = false;
+      this.mostrarBebidaCom7 = false;
+      this.mostrarBebidaCom8 = false;
+
+      this.mostrarBebidaSem1 = false;
+      this.mostrarBebidaSem2 = false;
+      this.mostrarBebidaSem3 = false;
+      this.mostrarBebidaSem4 = false;
+      this.mostrarBebidaSem5 = false;
+      this.mostrarBebidaSem6 = false;
+      this.mostrarBebidaSem7 = false;
+      this.mostrarBebidaSem8 = false;
+
+      this.mostrarSobremesa1 = false;
+      this.mostrarSobremesa2 = false;
+      this.mostrarSobremesa3 = false;
+      this.mostrarSobremesa4 = false;
+      this.mostrarSobremesa5 = false;
+      this.mostrarSobremesa6 = false;
+      this.mostrarSobremesa7 = false;
+      this.mostrarSobremesa8 = false;
+
+      this.pratoSelecionado1 = '';
+      this.pratoSelecionado2 = '';
+      this.pratoSelecionado3 = '';
+      this.pratoSelecionado4 = '';
+      this.pratoSelecionado5 = '';
+      this.pratoSelecionado6 = '';
+      this.pratoSelecionado7 = '';
+      this.pratoSelecionado8 = '';
+
+      this.quantSelecionada1 = 1;
+      this.quantSelecionada2 = 1;
+      this.quantSelecionada3 = 1;
+      this.quantSelecionada4 = 1;
+      this.quantSelecionada5 = 1;
+      this.quantSelecionada6 = 1;
+      this.quantSelecionada7 = 1;
+      this.quantSelecionada8 = 1;
+
+      this.observacoes1 = '';
+      this.observacoes2 = '';
+      this.observacoes3 = '';
+      this.observacoes4 = '';
+      this.observacoes5 = '';
+      this.observacoes6 = '';
+      this.observacoes7 = '';
+      this.observacoes8 = '';
+
+      this.pratoSelecionado1Alcool = '';
+      this.pratoSelecionado2Alcool = '';
+      this.pratoSelecionado3Alcool = '';
+      this.pratoSelecionado4Alcool = '';
+      this.pratoSelecionado5Alcool = '';
+      this.pratoSelecionado6Alcool = '';
+      this.pratoSelecionado7Alcool = '';
+      this.pratoSelecionado8Alcool = '';
+
+      this.quantSelecionada1Alcool = 1;
+      this.quantSelecionada2Alcool = 1;
+      this.quantSelecionada3Alcool = 1;
+      this.quantSelecionada4Alcool = 1;
+      this.quantSelecionada5Alcool = 1;
+      this.quantSelecionada6Alcool = 1;
+      this.quantSelecionada7Alcool = 1;
+      this.quantSelecionada8Alcool = 1;
+
+      this.observacoes1Alcool = '';
+      this.observacoes2Alcool = '';
+      this.observacoes3Alcool = '';
+      this.observacoes4Alcool = '';
+      this.observacoes5Alcool = '';
+      this.observacoes6Alcool = '';
+      this.observacoes7Alcool = '';
+      this.observacoes8Alcool = '';
+
+
+
+
+      this.pratoSelecionado1SemAlcool = '';
+      this.pratoSelecionado2SemAlcool = '';
+      this.pratoSelecionado3SemAlcool = '';
+      this.pratoSelecionado4SemAlcool = '';
+      this.pratoSelecionado5SemAlcool = '';
+      this.pratoSelecionado6SemAlcool = '';
+      this.pratoSelecionado7SemAlcool = '';
+      this.pratoSelecionado8SemAlcool = '';
+
+      this.quantSelecionada1SemAlcool = 1;
+      this.quantSelecionada2SemAlcool = 1;
+      this.quantSelecionada3SemAlcool = 1;
+      this.quantSelecionada4SemAlcool = 1;
+      this.quantSelecionada5SemAlcool = 1;
+      this.quantSelecionada6SemAlcool = 1;
+      this.quantSelecionada7SemAlcool = 1;
+      this.quantSelecionada8SemAlcool = 1;
+
+      this.observacoes1SemAlcool = '';
+      this.observacoes2SemAlcool = '';
+      this.observacoes3SemAlcool = '';
+      this.observacoes4SemAlcool = '';
+      this.observacoes5SemAlcool = '';
+      this.observacoes6SemAlcool = '';
+      this.observacoes7SemAlcool = '';
+      this.observacoes8SemAlcool = '';
+
+      this.pratoSelecionado1Sobremesa = '';
+      this.pratoSelecionado2Sobremesa = '';
+      this.pratoSelecionado3Sobremesa = '';
+      this.pratoSelecionado4Sobremesa = '';
+      this.pratoSelecionado5Sobremesa = '';
+      this.pratoSelecionado6Sobremesa = '';
+      this.pratoSelecionado7Sobremesa = '';
+      this.pratoSelecionado8Sobremesa = '';
+
+      this.quantSelecionada1Sobremesa = 1;
+      this.quantSelecionada2Sobremesa = 1;
+      this.quantSelecionada3Sobremesa = 1;
+      this.quantSelecionada4Sobremesa = 1;
+      this.quantSelecionada5Sobremesa = 1;
+      this.quantSelecionada6Sobremesa = 1;
+      this.quantSelecionada7Sobremesa = 1;
+      this.quantSelecionada8Sobremesa = 1;
+
+      this.observacoes1Sobremesa = '';
+      this.observacoes2Sobremesa = '';
+      this.observacoes3Sobremesa = '';
+      this.observacoes4Sobremesa = '';
+      this.observacoes5Sobremesa = '';
+      this.observacoes6Sobremesa = '';
+      this.observacoes7Sobremesa = '';
+      this.observacoes8Sobremesa = '';
+
+      const element = document.getElementById('divCheckboxecompania');
+      if(element) {
+        const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+        const margin = 30 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+        const position = topOffset - margin;
+        this.viewportScroller.scrollToPosition([0, position]);
+      }
     }
+
 
 
 

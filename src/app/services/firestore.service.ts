@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut  } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, updateDoc, getDoc, deleteDoc  } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, updateDoc, getDoc, deleteDoc, getDocs  } from '@angular/fire/firestore';
 import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
 import { Observable, from, of } from 'rxjs';
@@ -65,7 +65,6 @@ export class FirestoreService {
           pedido[i].obsPrato = '';
         }
 
-        console.log(pedido[i]);
 
         const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].prato.nome,
@@ -85,7 +84,6 @@ export class FirestoreService {
           pedido[i].obsAlcool = '';
         }
 
-        console.log(pedido[i]);
 
         const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].alcool.nome,
@@ -106,7 +104,6 @@ export class FirestoreService {
           pedido[i].obsSemAlcool = '';
         }
 
-        console.log(pedido[i]);
 
         const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].semAlcool.nome,
@@ -128,7 +125,6 @@ export class FirestoreService {
           pedido[i].obsSobremesa = '';
         }
 
-        console.log(pedido[i]);
 
         const docRef = addDoc(collection(this.firestore, 'pedidos'), {
           prato: pedido[i].sobremesa.nome,
@@ -179,6 +175,19 @@ export class FirestoreService {
     deleteDoc(docInstance);
   }
 
+  excluirPedido(id: string) {
+    const collectionInstance = collection(this.firestore, 'pedidos');
+    const docReference = doc(collectionInstance, id);
+
+    deleteDoc(docReference)
+  }
+
+  updatePedido(pedido: any, id: string) {
+    const docInstance = doc(this.firestore, 'pedidos', id);
+
+    updateDoc(docInstance, pedido)
+  }
+
   pedidoServido(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
     const docRef = addDoc(collection(this.firestore, 'pedidosServidos'), {
       prato: prato,
@@ -204,6 +213,37 @@ export class FirestoreService {
         return val;
       })
     );
+  }
+
+  getNomesQuartosClientes(): Observable<string[]> {
+    const collectionInstance = collection(this.firestore, 'pedidosServidos');
+
+    return collectionData(collectionInstance).pipe(
+      map((pedidos: any[]) => pedidos.map(pedido => pedido.nomeQuartoOuPassante)),
+    );
+  }
+
+  finalizarcomanda(id: string) {
+    const collectionInstance = collection(this.firestore, 'pedidosServidos');
+    const docRef = doc(collectionInstance, id);
+
+    getDoc(docRef).then((docSnapshot) => {
+      if (docSnapshot.exists()) {
+        // o documento existe, então você pode fazer o que precisa com ele
+        console.log(`Documento ${id} encontrado na coleção.`);
+        // Exemplo: excluir o documento
+        deleteDoc(docRef).then(() => {
+          console.log(`Documento ${id} excluído com sucesso.`);
+        }).catch((error) => {
+          console.error(`Erro ao excluir o documento ${id}: ${error}`);
+        });
+      } else {
+        // o documento não existe
+        console.log(`Documento ${id} não encontrado na coleção.`);
+      }
+    }).catch(() => {
+
+    })
   }
 
 

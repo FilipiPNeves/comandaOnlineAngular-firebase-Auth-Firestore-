@@ -1,7 +1,7 @@
 <form #pedido="ngForm" (ngSubmit)="enviarPedido(pedido)">
 
 
-  <div class="checkboxecompania">
+  <div class="checkboxecompania" id="divCheckboxecompania">
     <div class="checkboxs">
       <mat-radio-group [(ngModel)]="estadoCheckbox" (change)="onChangeCheckbox()" name="check">
         <mat-radio-button class="radioButton" value="1">Hospede</mat-radio-button>
@@ -10,7 +10,7 @@
     </div>
 
 
-    <div [class.displayNone]="nomeQuartoCheck">
+    <div id="divHospedePassante" class="divHospedePassante" [class.displayNone]="nomeQuartoCheck">
       <mat-form-field appearance="fill">
         <mat-label>Nome do quarto</mat-label>
         <mat-select [(ngModel)]="quartoSelecionado" name="selectedQuarto">
@@ -21,7 +21,7 @@
       </mat-form-field>
     </div>
 
-    <div [class.displayNone]="nomePassanteCheck"  >
+    <div class="divHospedePassante" [class.displayNone]="nomePassanteCheck"  >
       <mat-form-field appearance="fill">
         <mat-label>Nome do passante</mat-label>
         <input matInput [(ngModel)]="nomePassanteSelecionado" name="nomePassante">
@@ -571,7 +571,7 @@
       </div>
     </mat-card>
 
-    <button class="buttonAddPrato" mat-raised-button (click)="addPrato()" type="button">Adicionar Prato</button>
+    <button class="buttonAddPrato" id="botaoMaisPrato" mat-raised-button (click)="addPrato()" type="button">Adicionar Prato</button>
 
     <mat-divider></mat-divider>
 
@@ -888,7 +888,7 @@
 
 
 
-    <button class="buttonAddPrato" mat-raised-button (click)="addBebidaCom()" type="button">Adicionar Alcool</button>
+    <button class="buttonAddPrato" id="botaoMaisBebidaCom" mat-raised-button (click)="addBebidaCom()" type="button">Adicionar Alcool</button>
 
     <mat-divider></mat-divider>
 
@@ -1197,7 +1197,7 @@
 
 
 
-    <button class="buttonAddPrato" mat-raised-button (click)="addBebidaSem()" type="button">Adicionar S/ Alcool</button>
+    <button class="buttonAddPrato" mat-raised-button  id="botaoMaisBebidaSem" (click)="addBebidaSem()" type="button">Adicionar S/ Alcool</button>
 
     <mat-divider></mat-divider>
 
@@ -1508,15 +1508,13 @@
 
 
 
-    <button class="buttonAddPrato" mat-raised-button (click)="addSobremesa()" type="button">Adicionar S/ Alcool</button>
+    <button class="buttonAddPrato" mat-raised-button  id="botaoMaisSobremesa" (click)="addSobremesa()" type="button">Adicionar Sobremesa</button>
 
     <mat-divider></mat-divider>
 
 
-  <br>
-  <br>
-  <br>
 
-  <button mat-raised-button color="primary" class="login-button" type="submit">Enviar</button>
+
+  <button mat-raised-button color="primary" id="botaoEnviar" class="login-button" type="submit">Enviar</button>
   <mat-divider></mat-divider>
 </form>

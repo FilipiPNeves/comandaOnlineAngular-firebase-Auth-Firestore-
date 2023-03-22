@@ -27,7 +27,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row.id, row.prato, row.nomeQuartoOuPassante, row.horario, row.obs, row.valor, row.quant)"></tr>
 </table>
-<div *ngIf="flagPopUp">
+<div id="popUp" *ngIf="flagPopUp">
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>Quarto: {{ quartoPopUp }}</mat-card-title>
@@ -36,9 +36,7 @@
       <p>Deseja marcar o pedido: {{ pratoPopUp }} como SERVIDO?</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="pedidoServido(idPopUp, pratoPopUp, quartoPopUp, horarioPopUp, obsPopUp, valorPopUp, quantPopUp)">Sim</button>
-      <button mat-raised-button color="primary">Editar</button>
-      <button mat-raised-button color="warn">Excluir</button>
+      <button  id="botaoSim" mat-raised-button (click)="pedidoServido(idPopUp, pratoPopUp, quartoPopUp, horarioPopUp, obsPopUp, valorPopUp, quantPopUp)">Sim</button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -1,9 +1,10 @@
 import { FirestoreService } from 'src/app/services/firestore.service';
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
 
 interface todosPedidos {
   horario: any,
@@ -12,8 +13,8 @@ interface todosPedidos {
   valor: any,
   quant: any,
   nomeQuartoOuPassante: any,
+  id: any
 }
-
 
 @Component({
   selector: 'app-caixa',
@@ -21,18 +22,12 @@ interface todosPedidos {
   styleUrls: ['./caixa.component.css']
 })
 export class CaixaComponent implements OnInit {
-
-  constructor(private firestoreService: FirestoreService) {}
-
   myControl = new FormControl('');
-  options: string[] = ['Norte', 'Sul', 'Leste', 'Sol', 'Master 1', 'Master 2', 'Master 3', 'Master 4', 'Master 5', 'Vip 1', 'Vip 2', 'Vip 3', 'Ilha', 'Chalé' ];
+  options: string[] = [];
   filteredOptions?: Observable<string[]>;
   selectedOption: string = '';
-
   displayedColumns: string[] = ['obs', 'pedido', 'quant', 'valor'];
   dataSource: todosPedidos[] = [];
-
-  flagPopUp: boolean = false;
   idPopUp: string = '';
   pratoPopUp: string = '';
   quartoPopUp: string = '';
@@ -40,33 +35,45 @@ export class CaixaComponent implements OnInit {
   obsPopUp: string = '';
   valorPopUp: number = 0;
   quantPopUp: number = 0;
-
   valorTotal: number = 0;
+  flagDialog: boolean = false;
+
+  constructor(
+    private firestoreService: FirestoreService,
+    private _eref: ElementRef
+  ) {}
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    this.firestoreService.getServidos().subscribe((val: todosPedidos[]) => {
+      // Filtra os valores duplicados
+      this.options = val.map((pedido: todosPedidos) => pedido.nomeQuartoOuPassante)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+      );
+    });
   }
+
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent) {
     this.selectedOption = event.option.value;
-
     this.getData(this.selectedOption);
   }
 
   getData(option: any) {
     this.firestoreService.getServidos().subscribe((val: todosPedidos[]) => {
       this.dataSource = val.filter((pedido: todosPedidos) => {
+
+        console.log(val);
         return pedido.nomeQuartoOuPassante === option;
       });
+      console.log(this.dataSource);
 
       this.valorTotal = this.dataSource.reduce((total, pedido) => {
         return total + Number(pedido.valor);
@@ -74,5 +81,30 @@ export class CaixaComponent implements OnInit {
     });
   }
 
+  finalizarComanda() {
+    console.log(this.dataSource);
+    this.dataSource.forEach((pedido) => {
+      console.log(pedido.id);
+      this.firestoreService.finalizarcomanda(pedido.id);
+
+    })
+    this.flagDialog = false;
+  }
+
+  openDialog() {
+    this.flagDialog = true;
+  }
+
+  fecharPopUp() {
+    this.flagDialog = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  closePopUp(event: MouseEvent) {
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.flagDialog = false;
+    }
+  }
 
 }
+

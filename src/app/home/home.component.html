@@ -1,28 +1,34 @@
 <div>
-  <mat-toolbar>
+  <mat-toolbar id="toolbar1">
 
-    <span>{{ usuario }}</span>
+    <span id="usuario">{{ usuario }}</span>
 
-    <span>ComandaOn</span>
+    <span id="tituloComandOn">ComandaOn</span>
 
-    <span><button (click)="logout()">LogOut</button></span>
+    <span id="logOut">
+      <button id="logOutButton" (click)="logout()">LogOut</button>
+    </span>
 
   </mat-toolbar>
 
-  <mat-toolbar>
+  <mat-toolbar id="toolbar2">
     <span>
-      <button class="botaoToolbar" mat-button routerLink="novopedido">Novo pedido</button>
+      <button id="botao1" mat-button routerLinkActive="active" routerLink="novopedido">Novo</button>
     </span>
     <span>
-      <button class="botaoToolbar" mat-button routerLink="listadepedidos">Lista de pedidos</button>
+      <button id="botao2" mat-button routerLinkActive="active" routerLink="listadepedidos">Cozinha</button>
     </span>
     <span>
-      <button class="botaoToolbar" mat-button routerLink="pedidosfeitos">Pedidos feitos</button>
+      <button id="botao3" mat-button routerLinkActive="active" routerLink="pedidosfeitos">Feitos</button>
     </span>
     <span>
-      <button class="botaoToolbar" mat-button routerLink="caixa">Finalizar comanda</button>
+      <button id="botao4" mat-button routerLinkActive="active" routerLink="caixa">Caixa</button>
     </span>
+
   </mat-toolbar>
+
+
 
   <router-outlet></router-outlet>
+
 </div>

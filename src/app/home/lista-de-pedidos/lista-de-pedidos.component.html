@@ -28,7 +28,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row.id, row.prato, row.nomeQuartoOuPassante, row.horario, row.obs, row.valor, row.quant)"></tr>
 </table>
 
-<div *ngIf="flagPopUp">
+<div id="popUp" *ngIf="flagPopUp">
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>Quarto: {{ quartoPopUp }}</mat-card-title>
@@ -37,9 +37,70 @@
       <p>Deseja marcar o pedido: {{ pratoPopUp }} como feito?</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="pedidoFeito(idPopUp, pratoPopUp, quartoPopUp, horarioPopUp, obsPopUp, valorPopUp, quantPopUp)">Sim</button>
-      <button mat-raised-button color="primary">Editar</button>
-      <button mat-raised-button color="warn">Excluir</button>
+      <button mat-raised-button color="warn" (click)="excluirPedido()">Excluir</button>
+      <button mat-raised-button color="primary" (click)="editarPedido()">Editar</button>
+      <button id="botaoSim" mat-raised-button (click)="pedidoFeito(idPopUp, pratoPopUp, quartoPopUp, horarioPopUp, obsPopUp, valorPopUp, quantPopUp)">Sim</button>
     </mat-card-actions>
+  </mat-card>
+</div>
+
+<div id="divEditar" *ngIf="flagDivEditarPedido">
+  <mat-card id="divEditarMat">
+    <h1 id="titleQuartoPassante">Quarto/Passante: {{ quartoPopUp }}</h1>
+    <form class="example-form" #pedido="ngForm" (ngSubmit)="salvarEdicao(pedido)">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Prato Antigo: {{ pratoAntigoOuAtual }}</mat-label>
+        <mat-select [(ngModel)]="pratoPopUp" name="prato">
+          <label for="pasteis">Pastéis</label>
+          <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+            {{prato.nome}}
+          </mat-option>
+          <label for="lanches">Lanches</label>
+          <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+            {{prato.nome}}
+          </mat-option>
+          <label for="petiscos">Petiscos</label>
+          <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+            {{prato.nome}}
+          </mat-option>
+          <label for="frangos">Frangos</label>
+          <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+            {{prato.nome}}
+          </mat-option>
+          <label for="contraFiles">Contra files</label>
+          <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+            {{prato.nome}}
+          </mat-option>
+          <label for="saladas">Saladas</label>
+          <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+            {{prato.nome}}
+          </mat-option>
+          <label for="sopas">Sopas</label>
+          <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+            {{prato.nome}}
+          </mat-option>
+          <label for="frutosDoMar">Frutos do mar</label>
+          <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+            {{prato.nome}}
+          </mat-option>
+          <label for="massas">Massas</label>
+          <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+            {{prato.nome}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Obs</mat-label>
+        <input matInput  [value]="obsPopUp" name="obs" [(ngModel)]="obsPopUp">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Quantidade</mat-label>
+        <input matInput  [value]="quantPopUp" name="quantidade" [(ngModel)]="quantPopUp">
+      </mat-form-field>
+      <div id="divBotoesFecharSalvar">
+        <button mat-raised-button color="warn" (click)="fecharDivEditar()">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+      </div>
+    </form>
   </mat-card>
 </div>

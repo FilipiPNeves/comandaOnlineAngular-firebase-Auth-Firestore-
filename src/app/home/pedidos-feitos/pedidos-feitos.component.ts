@@ -1,5 +1,5 @@
 import { FirestoreService } from 'src/app/services/firestore.service';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 
 interface todosPedidos {
   horario: any,
@@ -18,7 +18,10 @@ interface todosPedidos {
 })
 export class PedidosFeitosComponent {
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(
+    private firestoreService: FirestoreService,
+    private _eref: ElementRef
+    ) {
     this.getData();
   }
 
@@ -41,7 +44,10 @@ export class PedidosFeitosComponent {
   }
 
   onRowClicked(id: string, prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
-    this.flagPopUp = true;
+    if(this.flagPopUp == true) {
+      this.flagPopUp = false;
+    }else this.flagPopUp = true;
+
     this.idPopUp = id;
     this.quartoPopUp = quarto;
     this.pratoPopUp = prato;
@@ -53,6 +59,14 @@ export class PedidosFeitosComponent {
 
   pedidoServido(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
     this.firestoreService.pedidoServido(id, prato, quarto, horario, obs, valor, quantidade);
+    this.flagPopUp = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  closePopUp(event: MouseEvent) {
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.flagPopUp = false;
+    }
   }
 
 
