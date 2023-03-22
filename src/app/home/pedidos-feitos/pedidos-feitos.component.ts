@@ -55,7 +55,7 @@ export class PedidosFeitosComponent {
     // Verifica se o usuário está na rota correta ou se a última rota dele foi essa
     const currentUrl = this.router.url;
     const lastUrl = localStorage.getItem('lastUrl');
-    if (currentUrl !== '/home/pedidosfeitos' && lastUrl !== '/home/pedidosfeitos') {
+    if (currentUrl !== '/home/pedidosfeitos' && lastUrl !== '/home/pedidosfeitos' && currentUrl == '/home/novopedido') {
       return;
     }
 
