@@ -27,7 +27,7 @@
 
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr class="teste" mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'green-row': row.feito}" (click)="onRowClicked(row.id, row.prato, row.nomeQuartoOuPassante, row.horario, row.obs, row.valor, row.quant, row.feito)"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'green-row': row.feito}" (click)="onRowClicked(row.id, row.prato, row.nomeQuartoOuPassante, row.horario, row.obs, row.valor, row.quant, row.feito)"></tr>
 
 </table>
 
