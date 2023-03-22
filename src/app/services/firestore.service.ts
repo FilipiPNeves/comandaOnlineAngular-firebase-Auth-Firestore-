@@ -14,6 +14,7 @@ interface todosPedidos {
   valor: any,
   quant: any,
   nomeQuartoOuPassante: any,
+  feito: any
 }
 
 
@@ -184,6 +185,16 @@ export class FirestoreService {
 
   updatePedido(pedido: any, id: string) {
     const docInstance = doc(this.firestore, 'pedidos', id);
+
+    updateDoc(docInstance, pedido)
+  }
+
+  pedidoSendoFeito(id: string) {
+    const docInstance = doc(this.firestore, 'pedidos', id);
+
+    let pedido = {
+      feito: true
+    }
 
     updateDoc(docInstance, pedido)
   }

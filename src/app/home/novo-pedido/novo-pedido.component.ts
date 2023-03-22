@@ -1099,10 +1099,12 @@ export class NovoPedidoComponent {
       const element = document.getElementById('divHospedePassante');
       if(element) {
         const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
-        const margin = 18 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+        const margin = 18 * 16; // 18em em pixels
         const position = topOffset - margin;
         this.viewportScroller.scrollToPosition([0, position]);
       }
+
+
     }else {
       this.firestoreService.enviarPedido(this.pedidoEnvio, this.nomePassanteSelecionado);
 
@@ -1262,9 +1264,15 @@ export class NovoPedidoComponent {
         this.viewportScroller.scrollToPosition([0, position]);
       }
     }
+  }
 
-
-
-
+  scrollFinalDaPagina() {
+    const element = document.getElementById('botaoEnviar');
+      if(element) {
+        const topOffset = element.getBoundingClientRect().top + this.viewportScroller.getScrollPosition()[1];
+        const margin = 30 * 16; // 10em em pixels (assumindo font-size padrão de 16px)
+        const position = topOffset - margin;
+        this.viewportScroller.scrollToPosition([0, position]);
+      }
   }
 }

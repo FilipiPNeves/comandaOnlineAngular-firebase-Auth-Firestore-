@@ -101,8 +101,15 @@
   display: flex;
   width: 60%;
   height: 3em;
-  margin: 3em auto 10em;
+  margin: 3em auto 8em;
   background-color: #005d8f;
   text-transform: uppercase;
   font-size: 20px;
+}
+
+#botaoScroll {
+  width: 20%;
+  position: fixed;
+  right: 0%;
+  top: 92%;
 }

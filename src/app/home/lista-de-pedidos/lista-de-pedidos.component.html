@@ -24,8 +24,11 @@
     <td mat-cell *matCellDef="let element"> {{element.nomeQuartoOuPassante}} </td>
   </ng-container>
 
+
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row.id, row.prato, row.nomeQuartoOuPassante, row.horario, row.obs, row.valor, row.quant)"></tr>
+  <tr class="teste" mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'green-row': row.feito}" (click)="onRowClicked(row.id, row.prato, row.nomeQuartoOuPassante, row.horario, row.obs, row.valor, row.quant, row.feito)"></tr>
+
 </table>
 
 <div id="popUp" *ngIf="flagPopUp">
@@ -39,6 +42,7 @@
     <mat-card-actions>
       <button mat-raised-button color="warn" (click)="excluirPedido()">Excluir</button>
       <button mat-raised-button color="primary" (click)="editarPedido()">Editar</button>
+      <button id="botaoFazendo" mat-raised-button (click)="pedidoSendoFeito(idPopUp)" *ngIf="!feito">Fazendo</button>
       <button id="botaoSim" mat-raised-button (click)="pedidoFeito(idPopUp, pratoPopUp, quartoPopUp, horarioPopUp, obsPopUp, valorPopUp, quantPopUp)">Sim</button>
     </mat-card-actions>
   </mat-card>
@@ -104,3 +108,15 @@
     </form>
   </mat-card>
 </div>
+
+
+<div class="confirm-dialog-backdrop" *ngIf="flagPopUpExcluirPedido">
+  <div class="confirm-dialog">
+    <div class="confirm-dialog-message">Deseja excluir pedido {{ pratoPopUp }} do Quarto: {{ quartoPopUp }}?</div>
+    <div class="confirm-dialog-buttons">
+      <button (click)="onConfirm()">Sim</button>
+      <button (click)="onCancel()">Não</button>
+    </div>
+  </div>
+</div>
+

@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { Router } from '@angular/router';
 
 interface todosPedidos {
   horario: any,
@@ -8,6 +9,7 @@ interface todosPedidos {
   valor: any,
   quant: any,
   nomeQuartoOuPassante: any,
+  feito: any
 }
 
 interface Pratos {
@@ -23,9 +25,11 @@ interface Pratos {
 export class ListaDePedidosComponent {
   constructor(
     private firestoreService: FirestoreService,
-    private _eref: ElementRef
+    private _eref: ElementRef,
+    private router: Router
   ) {
     this.getData();
+    this.requestNotificationPermission();
   }
 
   displayedColumns: string[] = ['obs', 'pedido', 'quant', 'nomeQuartoOuPassante'];
@@ -43,6 +47,10 @@ export class ListaDePedidosComponent {
   pratoAntigoOuAtual = '';
 
   flagDivEditarPedido = false;
+
+  feito: any = false;
+
+  flagPopUpExcluirPedido: boolean = false;
 
   pasteis: Pratos[] = [
     { nome: 'Pastel Napolitado', valor: 10 },
@@ -149,19 +157,59 @@ export class ListaDePedidosComponent {
     { nome: 'Sucos naturais', valor: 22 }
     ];
 
-    sobremesas: Pratos[] = [
-      { nome: 'Petiti gateau', valor: 22 },
-      { nome: 'Peras caramelizadas', valor: 22 },
-      { nome: 'Pudim', valor: 22 },
-      { nome: 'Do dia', valor: 22 }
-      ]
+  sobremesas: Pratos[] = [
+    { nome: 'Petiti gateau', valor: 22 },
+    { nome: 'Peras caramelizadas', valor: 22 },
+    { nome: 'Pudim', valor: 22 },
+    { nome: 'Do dia', valor: 22 }
+    ]
 
 
-  getData() {
-    this.firestoreService.getPedidos().subscribe((val: todosPedidos[]) => {
-      this.dataSource = val;
-    });
-  }
+    async requestNotificationPermission() {
+      if ('Notification' in window) {
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          console.warn('Permissão para notificações não concedida');
+        }
+      } else {
+        console.warn('Este navegador não suporta notificações');
+      }
+    }
+
+    getData() {
+      this.firestoreService.getPedidos().subscribe((val: todosPedidos[]) => {
+        const oldLength = this.dataSource.length;
+        this.dataSource = val;
+
+        if (this.dataSource.length > oldLength) {
+          this.notifyNewElement();
+        }
+      });
+    }
+
+    notifyNewElement() {
+      // Verifica se o usuário está na rota correta ou se a última rota dele foi essa
+      const currentUrl = this.router.url;
+      const lastUrl = localStorage.getItem('lastUrl');
+      if (currentUrl !== '/home/listadepedidos' && lastUrl !== '/home/listadepedidos') {
+        return;
+      }
+
+      // Verifica se a tela do usuário está oculta
+      if ('visibilityState' in document && document.visibilityState !== 'visible') {
+        // Salva a última rota do usuário
+        localStorage.setItem('lastUrl', currentUrl);
+
+        if ('Notification' in window && Notification.permission === 'granted') {
+          const notification = new Notification('Novo Pedido', { silent: true });
+          if ('vibrate' in navigator) {
+            navigator.vibrate(500); // Vibração por 500ms
+          }
+        }
+      }
+    }
+
+
 
   onRowClicked(
     id: string,
@@ -170,7 +218,8 @@ export class ListaDePedidosComponent {
     horario: string,
     obs: string,
     valor: number,
-    quantidade: number
+    quantidade: number,
+    feito: any
   ) {
     if(this.flagPopUp == true) {
       this.flagPopUp = false;
@@ -184,6 +233,7 @@ export class ListaDePedidosComponent {
     this.obsPopUp = obs;
     this.valorPopUp = valor;
     this.quantPopUp = quantidade;
+    this.feito = feito;
   }
 
   pedidoFeito(
@@ -206,9 +256,19 @@ export class ListaDePedidosComponent {
     }
   }
 
+
   excluirPedido() {
-    this.firestoreService.excluirPedido(this.idPopUp);
+    this.flagPopUpExcluirPedido = true;
     this.flagPopUp = false;
+  }
+
+  onConfirm() {
+    this.firestoreService.excluirPedido(this.idPopUp);
+    this.flagPopUpExcluirPedido = false;
+  }
+
+  onCancel() {
+    this.flagPopUpExcluirPedido = false;
   }
 
   editarPedido() {
@@ -221,14 +281,6 @@ export class ListaDePedidosComponent {
   }
 
   salvarEdicao(pedido: any) {
-    console.log(pedido.value.prato.nome);
-    console.log(pedido.value.prato.valor);
-    console.log(pedido.value.obs);
-    console.log(pedido.value.quantidade);
-    this.idPopUp; // id do pedido selecionado, que se for editado será excluido
-    this.quartoPopUp;
-    this.horarioPopUp; //aproveitarei o horario para o novo objeto
-    this.valorPopUp;
 
     let obj = {
       horario: this.horarioPopUp,
@@ -246,5 +298,10 @@ export class ListaDePedidosComponent {
       alert("Alteração não concluida com sucesso!")
     }
     this.flagDivEditarPedido = false;
+  }
+
+  pedidoSendoFeito(idPopUp: string) {
+    this.firestoreService.pedidoSendoFeito(idPopUp);
+    this.flagPopUp = false;
   }
 }
