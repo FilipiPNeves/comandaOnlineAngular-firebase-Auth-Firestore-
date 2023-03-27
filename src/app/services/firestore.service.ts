@@ -257,23 +257,20 @@ export class FirestoreService {
     })
   }
 
-
-  getInf() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    let emailEscrito: string;
-
-    if (user !== null) {
-      const email = user.email;
-      emailEscrito = email!;
-      localStorage.setItem('email', emailEscrito);
-    }
-
-    return emailEscrito!;
+  getNomeGarcomService(): Observable<any> {
+    return new Observable((observer) => {
+      const auth = getAuth();
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          const email = user.email;
+          observer.next(email);
+          observer.complete();
+        }
+      });
+    });
   }
 
-
-
+ 
   LoginAutomatico() {
     const auth = getAuth(this.app);
 

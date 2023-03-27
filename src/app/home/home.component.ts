@@ -1,5 +1,5 @@
 import { FirestoreService } from './../services/firestore.service';
-import { Component, AfterViewInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,15 +7,22 @@ import { Component, AfterViewInit  } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-  usuario: string = '';
+  nome: string = '';
 
   constructor(
     private firestore: FirestoreService
   ) {
-    const email = localStorage.getItem('email') || '';
-    this.usuario = email.charAt(0).toUpperCase() + email.slice(1).split(/@/)[0];
+    this.getNomeGarcom();
   }
+
+
+
+  getNomeGarcom() {
+    this.firestore.getNomeGarcomService().subscribe((email) => {
+      this.nome = email.charAt(0).toUpperCase() + email.slice(1).split(/@/)[0];
+    })
+  }
+
 
   logout() {
     this.firestore.logoutService();

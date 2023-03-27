@@ -35,7 +35,7 @@ export class CaixaComponent implements OnInit {
   obsPopUp: string = '';
   valorPopUp: number = 0;
   quantPopUp: number = 0;
-  valorTotal: number = 0;
+  valorTotal?: number;
   flagDialog: boolean = false;
 
   constructor(
@@ -70,10 +70,8 @@ export class CaixaComponent implements OnInit {
     this.firestoreService.getServidos().subscribe((val: todosPedidos[]) => {
       this.dataSource = val.filter((pedido: todosPedidos) => {
 
-        console.log(val);
         return pedido.nomeQuartoOuPassante === option;
       });
-      console.log(this.dataSource);
 
       this.valorTotal = this.dataSource.reduce((total, pedido) => {
         return total + Number(pedido.valor);
@@ -82,9 +80,7 @@ export class CaixaComponent implements OnInit {
   }
 
   finalizarComanda() {
-    console.log(this.dataSource);
     this.dataSource.forEach((pedido) => {
-      console.log(pedido.id);
       this.firestoreService.finalizarcomanda(pedido.id);
 
     })
