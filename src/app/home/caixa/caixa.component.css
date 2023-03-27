@@ -3,27 +3,16 @@
   margin: 2em auto 0;
 }
 
-.valorTotal {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.valorTotal h1 {
-  display: flex;
-  width: 90%;
-  margin: 1em auto;
-}
-
 #buttonFinalizarComanda1 {
   display: flex;
-  margin: 0 auto 2em;
+  margin: 2em auto;
   background-color: #4CAF50;
 }
 
 #popUp {
   position: absolute;
   width: 85%;
-  height: 30%;
+  height: 35%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -31,7 +20,7 @@
   z-index: 1;
 }
 
-#popUp h1 {
+.h1PopUp {
   display: flex;
   width: 80%;
   margin: 1em auto 0;
@@ -54,4 +43,14 @@
   width: 5em;
 }
 
+.divValorTotal {
+  margin: 2em 0em -2em;
+  display: flex;
+  justify-content: center;
+
+}
+
+.divValorTotal h1 {
+  text-transform: uppercase;
+}
 

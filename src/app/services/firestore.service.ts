@@ -225,6 +225,7 @@ export class FirestoreService {
       })
     );
   }
+  
 
   getNomesQuartosClientes(): Observable<string[]> {
     const collectionInstance = collection(this.firestore, 'pedidosServidos');
@@ -270,7 +271,7 @@ export class FirestoreService {
     });
   }
 
- 
+
   LoginAutomatico() {
     const auth = getAuth(this.app);
 

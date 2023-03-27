@@ -51,16 +51,19 @@
 
 
 <mat-card>
-  <div class="valorTotal">
-    <h1>Valor total: {{ valorTotal }}</h1>
+  <div>
     <button (click)="openDialog()" id="buttonFinalizarComanda1" mat-raised-button>Finalizar comanda</button>
   </div>
 </mat-card>
 
 <mat-card id="popUp" *ngIf="flagDialog">
-  <h1>Tem certeza que deseja finalizar comanda do quarto/passante {{ dataSource[0].nomeQuartoOuPassante }}?</h1>
+  <div class="divValorTotal">
+    <h1>Valor total: {{ valorTotal }}</h1>
+  </div>
+  <h1 class="h1PopUp">Tem certeza que deseja finalizar comanda do quarto/passante {{ dataSource[0].nomeQuartoOuPassante }}?</h1>
   <div class="buttons">
     <button (click)="fecharPopUp()" id="buttonFechar" color="warn" mat-raised-button>Fechar</button>
     <button (click)="finalizarComanda()" id="buttonFinalizarComanda2" mat-raised-button>Sim</button>
   </div>
+
 </mat-card>
