@@ -1,3 +1,91 @@
+.stepper {
+  margin: 1.5em 0;
+  height: 100%;
+  width: 100%;
+}
+
+.tituloSteps {
+  font-size: 1.5em;
+}
+
+.divBoxPedido {
+  width: 100%;
+  margin: 1em 0 1em 0;
+}
+
+.pedidoTam {
+  font-size: 29px;
+}
+
+.botaoAddPedido {
+  display: block;
+  width: 30%;
+  margin: 0 auto 6em;
+  height: 5em;
+  width: 20em;
+  z-index: 4;
+}
+
+.menosMarginTop {
+  margin-top: -5em;
+}
+
+.addBotao {
+  font-size: 1.8em;
+  letter-spacing: 10px;
+}
+
+.buttonsGroup {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.buttonUnid {
+  font-size: 17px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  height: 3em;
+  max-width: 8em;
+  min-width: 8em;
+  margin: 0.6em 0;
+}
+
+.back-button {
+  font-size: 20px;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+}
+
+.next-button {
+  font-size: 20px;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+}
+
+.table-container {
+  max-width: 100%;
+}
+
+.tableCSS {
+  margin-bottom: 145px;
+}
+
+.tableLetters {
+  font-size: 20px;
+  text-align: center;
+}
+
+.uppercase {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+
+
 .checkboxecompania {
   width: 50%;
   margin: 2em auto 2em;
@@ -10,10 +98,19 @@
   margin: 0 0 1em;
 }
 
+.radiosButton {
+  font-size: 20px;
+}
 
 .radioButton {
   display: flex;
   width: 100%;
+}
+
+.radioButton2 {
+  display: flex;
+  width: 100%;
+  margin: 1.5em 0 1em 0;
 }
 
 .divHospedePassante {
@@ -26,6 +123,8 @@
   display: none;
 }
 
+
+
 #prato {
   display: none;
 }
@@ -34,6 +133,7 @@
   width: 100%;
   margin: 2em 0 1em;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .bordaItem {
@@ -55,14 +155,28 @@
   flex: 1;
 }
 
-.botaoExcluir {
+
+.divPedido {
+  width: 90%;
+  margin: 0 auto;
 }
 
-
-.divPratoQuantExcluir {
+.divObsQuant {
   display: flex;
   width: 90%;
-  margin: 1em auto 0;
+  margin: 0 auto ;
+}
+
+.labelPedidos {
+  font-weight: bold;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+mat-option {
+  border: solid 0.01px rgb(159, 158, 158);
+  font-size: 23px;
+  margin: 0.2em 0.1em;
 }
 
 .quantidade {
@@ -71,16 +185,9 @@
 }
 
 
-
-.obs {
-  width: 90%;
-  margin: 0 auto;
-}
-
 .example-full-width {
   width: 100%;
 }
-
 
 .buttonAddPrato {
   display: flex;
@@ -95,21 +202,136 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
 }
 
 .login-button {
   display: flex;
   width: 60%;
   height: 3em;
-  margin: 3em auto 8em;
+  margin: 1em auto 1em;
   background-color: #005d8f;
   text-transform: uppercase;
   font-size: 20px;
 }
 
-#botaoScroll {
-  width: 20%;
+
+
+
+
+/* Estilo para o fundo do diálogo */
+.confirm-dialog-backdrop {
   position: fixed;
-  right: 0%;
-  top: 92%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para o diálogo */
+.confirm-dialog {
+  background-color: #fff; /* Cor de fundo do diálogo */
+  border-radius: 8px; /* Borda arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombreamento */
+  padding: 20px;
+  max-width: 400px; /* Largura máxima do diálogo */
+  text-align: center;
+}
+
+/* Estilo para a mensagem do diálogo */
+.confirm-dialog-message {
+  font-size: 18px;
+}
+
+/* Estilo para um botão de fechar opcional (X no canto superior direito) */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+@media (min-width: 1000px) {
+  .buttonUnid {
+    font-size: 14.5px;
+    height: 4em;
+  }
+
+
+
+
+}
+
+@media (max-width: 1100px) {
+  .diferente {
+    display: none;
+  }
+
+  .buttonsGroup {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -2em 0 2em 0;
+  }
+
+  .buttonUnid {
+    font-size: 21px;
+  }
+
+
+}
+
+
+@media (max-width: 450px) {
+  .buttonAddPrato {
+    font-size: 15px;
+  }
+  .botaoScroll {
+    font-size: 10px;
+  }
+  .buttonsGroup {
+    margin: -4em 0 2em 0;
+  }
+  .buttonUnid {
+    font-size: 14px;
+  }
+  .tituloSteps {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 395px) {
+  .buttonAddPrato {
+    font-size: 14px;
+  }
+  .buttonUnid {
+    font-size: 13px;
+  }
+}
+
+
+
+@media (max-width: 363px) {
+  .buttonAddPrato {
+    font-size: 13px;
+  }
+  .buttonUnid {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 285px) {
+  .buttonAddPrato {
+    font-size: 12.1px;
+  }
+  .botaoScroll {
+    font-size: 9px;
+  }
+  .buttonUnid {
+    font-size: 11px;
+  }
 }

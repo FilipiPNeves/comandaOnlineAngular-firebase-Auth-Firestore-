@@ -1,0 +1,94 @@
+.title {
+  font-size: 1.3em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.direita {
+  width: 25%;
+  margin-left: 5%;
+}
+
+.esquerda {
+  width: 70%;
+}
+
+.esquerdaIf {
+  width: 45%;
+}
+
+.meio {
+  width: 20%;
+  margin: 0 5%;
+}
+
+.direitaIf {
+  width: 24%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.buttonIcon {
+  width: 40%;
+   background-color: red;
+   color: white;
+   font-size: 24px;
+   height: 36px;
+   padding: 6px;
+   border-radius: 50%;
+   margin: 0 auto;
+}
+
+.buttonIconMaisDiv {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  margin-top: 1em; /* Adicione margem superior se necessário */
+}
+
+
+.buttonIconMais {
+  width: 10%;
+   background-color: green;
+   color: white;
+   font-size: 24px;
+   height: 36px;
+   padding: 6px;
+   border-radius: 50%;
+   margin: 0 auto;
+}
+
+.custom-icon {
+  font-size: 24px;
+}
+
+.input {
+  font-size: 2em;
+}
+
+.actions {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  margin-bottom: 1em;
+}
+
+.buttonDiv {
+  margin-left: 4em;
+}
+
+.buttonCancelar {
+  height: 5em;
+}
+
+.buttonConfirmar {
+  height: 5em;
+  background-color: #005d8f;
+}
+
+.buttonFont {
+  font-size: 1.5em;
+}
+
+.Confirmar {
+  color: white;
+}

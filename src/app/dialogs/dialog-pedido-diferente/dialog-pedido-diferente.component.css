@@ -1,0 +1,77 @@
+/* Estilo para centralizar conteúdo do container */
+.checkboxecompania,
+.divHospedePassante,
+.checkboxs,
+.mat-form-field,
+.mat-divider,
+button {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.divHospedePassante {
+  width: 100%; /* Ocupa toda a largura do seu container */
+  max-width: 300px; /* Ajuste conforme necessário */
+  margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+/* Centraliza o conteúdo horizontalmente */
+.mat-dialog-content {
+    display: block;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Para os radio buttons que precisam ficar lado a lado */
+.checkboxs > mat-radio-group {
+    display: flex;
+    justify-content: center;
+}
+
+.radioButton {
+    margin: 0 5px; /* Adiciona espaço entre os radio buttons */
+}
+
+.contentRadioButton {
+  font-size: 20px;
+}
+
+/* Centralizar o botão */
+.login-button {
+  margin-top: 2%;
+  width: 80%;
+  height: 4em;
+  margin: 0 auto;
+}
+
+.width100 {
+  width: 100%; /* Ocupa toda a largura do seu container */
+  margin: 0 auto 1px 0; /* Centraliza horizontalmente */
+  font-size: 24px;
+}
+
+.obsequant {
+  display: flex;
+}
+
+.width70 {
+  width: 80%; /* Ocupa toda a largura do seu container */
+  font-size: 24px;
+}
+
+.width20 {
+  width: 20%; /* Ocupa toda a largura do seu container */
+  max-width: 300px; /* Ajuste conforme necessário */
+  margin-left: 5%;
+  font-size: 24px;
+}
+mat-divider {
+  margin: 0 0 1em 0;
+}
+
+mat-option {
+  border: solid 0.01px rgb(159, 158, 158);
+  font-size: 23px;
+  margin: 0.2em 0.1em;
+}

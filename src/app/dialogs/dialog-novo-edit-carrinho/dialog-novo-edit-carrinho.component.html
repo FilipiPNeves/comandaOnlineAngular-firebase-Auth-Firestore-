@@ -1,0 +1,60 @@
+
+<div>
+  <h1 mat-dialog-title><div class="title">{{item.nome}}</div></h1>
+  <div mat-dialog-content>
+    <mat-form-field class="esquerda">
+      <mat-label>Descrição</mat-label>
+      <input class="input" matInput [(ngModel)]="descricao">
+    </mat-form-field>
+
+    <mat-form-field class="direita">
+      <mat-label>Quantidade</mat-label>
+      <mat-select class="input" [(ngModel)]="quantidade">
+        <mat-option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="i">{{ i }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="ngIf1">
+      <mat-form-field class="esquerdaIf">
+        <mat-label>adicional 1</mat-label>
+        <input class="input" matInput [(ngModel)]="adicional1Nome">
+      </mat-form-field>
+      <mat-form-field class="meio">
+        <mat-label>valor</mat-label>
+        <input class="input" matInput type="number" [(ngModel)]="adicional1Valor">
+      </mat-form-field>
+      <div class="direitaIf">
+        <button class="buttonIcon" mat-icon-button (click)="fecharDiv('ngIf1')">
+          <mat-icon class="custom-icon">clear</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="ngIf2">
+      <mat-form-field class="esquerdaIf">
+        <mat-label>adicional 2</mat-label>
+        <input class="input" matInput [(ngModel)]="adicional2Nome">
+      </mat-form-field>
+      <mat-form-field class="meio">
+        <mat-label>valor</mat-label>
+        <input class="input" matInput type="number" [(ngModel)]="adicional2Valor">
+      </mat-form-field>
+      <div class="direitaIf">
+        <button class="buttonIcon" mat-icon-button (click)="fecharDiv('ngIf2')">
+          <mat-icon class="custom-icon">clear</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="buttonIconMaisDiv">
+      <button class="buttonIconMais" *ngIf="!(ngIf1 && ngIf2)" mat-icon-button (click)="toggleNgIf()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="actions">
+    <div mat-dialog-actions>
+      <button mat-raised-button class="buttonConfirmar" (click)="confirmar()"><div class="buttonFont Confirmar">Confirmar</div></button>
+    </div>
+  </div>
+</div>

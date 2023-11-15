@@ -1,0 +1,11 @@
+/* Centralizar o título do diálogo */
+.titulo {
+  text-align: center;
+}
+
+/* Centralizar os botões e adicionar espaçamento */
+.botoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adicione o espaçamento desejado entre os botões */
+}

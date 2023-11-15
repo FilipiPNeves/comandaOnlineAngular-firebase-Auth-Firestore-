@@ -1,0 +1,74 @@
+<div mat-dialog-content>
+  <h1 mat-dialog-title class="centralizar">{{ data.quarto }}</h1>
+    <form id="divEditarMat" class="example-form" #pedido="ngForm" (ngSubmit)="salvarEdicao(pedido)">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label class="centralizar">{{ this.data.prato }}</mat-label>
+        <mat-select ngModel name="prato">
+          <label class="labelPedidos" for="entradas">Entradas</label>
+          <mat-option *ngFor="let prato of entradas" [value]="prato" name="entrada">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="saladas">Saladas</label>
+          <mat-option *ngFor="let prato of saladas" [value]="prato" name="saladas">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="sopas">Sopas</label>
+          <mat-option *ngFor="let prato of sopas" [value]="prato" name="sopas">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="lanches">Lanches</label>
+          <mat-option *ngFor="let prato of lanches" [value]="prato" name="lanches">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="petiscos">Petiscos</label>
+          <mat-option *ngFor="let prato of petiscos" [value]="prato" name="petiscos">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="pasteis">Pastéis</label>
+          <mat-option *ngFor="let prato of pasteis" [value]="prato" name="pasteis">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="frangos">Frangos</label>
+          <mat-option *ngFor="let prato of frangos" [value]="prato" name="frangos">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="contraFiles">Contra files</label>
+          <mat-option *ngFor="let prato of contraFiles" [value]="prato" name="contraFiles">
+            {{prato.nome}}
+          </mat-option><label class="labelPedidos" for="risotos">Risotos</label>
+          <mat-option *ngFor="let prato of risotos" [value]="prato" name="risotos">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="massas">Massas</label>
+          <mat-option *ngFor="let prato of massas" [value]="prato" name="massas">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="frutosDoMar">Frutos do mar</label>
+          <mat-option *ngFor="let prato of frutosDoMar" [value]="prato" name="frutosDoMar">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="bebidasSem">SEM Alcool</label>
+          <mat-option *ngFor="let prato of bebidas" [value]="prato" name="bebidasSem">
+            {{prato.nome}}
+          </mat-option>
+          <label class="labelPedidos" for="bebidasCom">Alcoólicas</label>
+          <mat-option *ngFor="let prato of alcool" [value]="prato" name="bebidasCom">
+            {{prato.nome}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>{{data.obs || "Obs"}}</mat-label>
+        <input matInput  name="obs" ngModel>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>{{data.quant || "Quantidade"}}</mat-label>
+        <input matInput name="quantidade" ngModel>
+      </mat-form-field>
+      <div id="divBotoesFecharSalvar">
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+      </div>
+    </form>
+</div>
+
+

@@ -1,0 +1,43 @@
+
+.centralizar {
+  text-align: center;
+}
+
+#divEditarMat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.labelPedidos {
+  font-weight: bold;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+mat-option {
+  border: solid 0.01px rgb(159, 158, 158);
+  font-size: 23px;
+  margin: 0.2em 0.1em;
+}
+
+@media (max-width: 450px) {
+  .centralizar {
+    font-size: 15px;
+  }
+
+  .prato {
+    max-width: 100px;
+    height: 60px;
+  }
+
+  .obs {
+
+  }
+
+  .quant {
+
+  }
+}

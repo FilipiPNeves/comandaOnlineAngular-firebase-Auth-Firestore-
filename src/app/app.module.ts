@@ -19,6 +19,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { ListaDePedidosComponent } from './home/lista-de-pedidos/lista-de-pedidos.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
+import { NgxPrintModule } from 'ngx-print';
 
 
 @NgModule({
@@ -41,7 +42,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatToolbarModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxPrintModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,11 @@
+@import '@angular/material/theming';
+
+// Defina a cor primária e use o branco como a cor de acentuação
+$my-primary: mat-palette($mat-blue);
+$my-accent: mat-palette($mat-grey, 50);
+
+// Crie o tema com base nas paletas definidas
+$my-theme: mat-light-theme($my-primary, $my-accent);
+
+// Inclua o tema no seu aplicativo Angular Material
+@include angular-material-theme($my-theme);

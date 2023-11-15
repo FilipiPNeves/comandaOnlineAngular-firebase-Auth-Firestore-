@@ -1,0 +1,46 @@
+<style>
+  .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
+
+  mat-dialog-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  mat-form-field, mat-card {
+      width: 100%;
+      margin-bottom: 16px;
+  }
+
+  mat-dialog-actions {
+      display: flex;
+      justify-content: center; /* Centralizará o botão */
+      width: 100%;
+  }
+
+  button {
+      margin: 0 auto;
+  }
+</style>
+
+<div class="center">
+  <h1 mat-dialog-title>CALCULAR TROCO</h1>
+</div>
+<div mat-dialog-content>
+  <p>Qual valor pago?</p>
+  <mat-form-field>
+      <mat-label>Valor</mat-label>
+      <input matInput [(ngModel)]="data.valorPago" />
+  </mat-form-field>
+  <mat-card>
+      <mat-card-content>Troco: {{ funcao0() }}</mat-card-content>
+  </mat-card>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.valorPago" cdkFocusInitial>Fechar</button>
+</div>

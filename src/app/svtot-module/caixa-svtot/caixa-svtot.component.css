@@ -1,0 +1,66 @@
+.back {
+  height: 100vh;
+  background-color: #acacac;
+}
+
+.cabeçalho {
+  width: 100%;
+  height: 5.5%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.botaoVoltar {
+  margin-left: 0.5em;
+}
+
+.nomeCliente {
+  margin-right: 1.5em;
+}
+
+.nomeClienteH1 {
+  margin: auto 0;
+}
+
+.NomeClienteDiv {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+}
+
+.NomeClienteMat {
+  flex: 1; /* Ocupa todo o espaço horizontal disponível */
+  max-width: 90%; /* Define uma largura máxima para evitar que ocupe toda a largura */
+  margin: 1.5em 1em 0.3em; /* Espaçamento igual nas margens esquerda e direita */
+  font-size: 2em;
+}
+
+.matGridList {
+  width: 93%;
+  height: auto; /* ou defina a altura desejada aqui */
+}
+
+.matGridTile {
+  flex: 1; /* Isso faz com que todos os tiles ocupem o mesmo espaço */
+  box-sizing: border-box; /* Certifique-se de que o preenchimento não afete o tamanho total */
+}
+
+.matCard {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc; /* Borda opcional para destacar os cards */
+}
+
+.nomeItemPedido {
+  text-align: center;
+  font-size: 2em;
+}
+
+
+
+

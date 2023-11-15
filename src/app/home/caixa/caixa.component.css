@@ -1,56 +1,244 @@
+
 .example-form {
   display: flex;
   margin: 2em auto 0;
+  flex-direction: column; /* garante que os elementos são empilhados verticalmente */
 }
 
-#buttonFinalizarComanda1 {
+.tableCSS {
+  margin-bottom: 150px;
+}
+
+.tableLetters {
+  font-size: 20px;
+  text-align: center;
+}
+
+.uppercase {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.matCardBotoes {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.divImprimirFinzalizarComanda {
   display: flex;
-  margin: 2em auto;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.buttonFinalizarComanda {
+  display: flex;
+  margin: 2em 5%;
+  color: #fff; /* para garantir que o texto seja legível */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* bordas arredondadas */
+  transition: 0.3s; /* transição suave para hover */
+}
+
+#buttonFinalizarComandaa:hover {
+  background-color: #02478f; /* cor um pouco mais escura para o hover */
+}
+
+#buttonFinalizarComandaa {
+  background-color: #0056b3;
+}
+
+#buttonFinalizarComandaaa:hover {
+  background-color: #45a049; /* cor um pouco mais escura para o hover */
+}
+
+#buttonFinalizarComandaaa {
   background-color: #4CAF50;
 }
+
 
 #popUp {
   position: absolute;
   width: 85%;
-  height: 35%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
   z-index: 1;
+  text-align: center;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
 }
 
 .h1PopUp {
   display: flex;
   width: 80%;
-  margin: 1em auto 0;
+  margin: 3em auto 0;
+  text-align: center; /* centralizar o texto */
+  justify-content: center; /* centralizar horizontalmente dentro do flex container */
+  align-items: center; /* centralizar verticalmente dentro do flex container */
+}
+
+.divValorTotal {
+  margin: 2em 0em -2em;
+  display: flex;
+  flex-direction: column; /* alinhar os h1's verticalmente */
+  justify-content: center;
+  align-items: center; /* centraliza os h1's horizontalmente */
+}
+
+.divValorTotal h1 {
+  text-transform: uppercase;
+  margin-bottom: 10px; /* espaço entre os h1's */
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 1em 2em 1em 2em;
+  margin: 2em 2em;
+}
+
+#buttonFinalizarComanda2,
+#buttonFechar {
+  width: 20%;
+  height: 100%;
+  padding: 10px 20px;
+  border-radius: 5px; /* bordas arredondadas */
+  transition: 0.3s; /* transição suave para hover */
 }
 
 #buttonFinalizarComanda2 {
-  display: flex;
-  width: 5em;
   background-color: #4CAF50;
+  color: #fff; /* cor do texto */
+}
+
+#buttonFinalizarComanda2:hover {
+  background-color: #45a049;
 }
 
 #buttonFechar {
-  width: 5em;
+  color: #000000; /* cor do texto */
 }
 
-.divValorTotal {
-  margin: 2em 0em -2em;
+#buttonFechar:hover {
+}
+
+#divEditar {
+  position: absolute;
+  width: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+#titleQuartoPassante {
+  text-align: center;
+  margin: 1em 0 0;
+}
+
+#divBotoesFecharSalvar {
   display: flex;
-  justify-content: center;
-
+  justify-content: space-between;
 }
 
-.divValorTotal h1 {
+#idValorTotal {
+  position: absolute;
+  width: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.labelPedidos {
+  font-weight: bold;
+  font-size: 30px;
   text-transform: uppercase;
 }
 
+mat-option {
+  border: solid 0.01px rgb(159, 158, 158);
+  font-size: 23px;
+  margin: 0.2em 0.1em;
+}
+
+/* Estilo para o fundo do diálogo */
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para o diálogo */
+.confirm-dialog {
+  background-color: #fff; /* Cor de fundo do diálogo */
+  border-radius: 8px; /* Borda arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombreamento */
+  padding: 20px;
+  max-width: 400px; /* Largura máxima do diálogo */
+  text-align: center;
+}
+
+/* Estilo para a mensagem do diálogo */
+.confirm-dialog-message {
+  font-size: 18px;
+}
+
+
+@media only screen and (max-width: 450px) {
+  .buttons {
+    margin: 2em 1em 0;
+  }
+
+  #buttonFinalizarComanda2,
+  #buttonFechar {
+    width: 33%;
+    height: 60%;
+  }
+
+  .tableLetters {
+    font-size: 14px;
+  }
+
+}
+
+@media (max-width: 390px) {
+  .tableLetters {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 370px) {
+  .tableLetters {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  .tableLetters {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 320px) {
+  .tableLetters {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 290px) {
+  .tableLetters {
+    font-size: 9px;
+  }
+}

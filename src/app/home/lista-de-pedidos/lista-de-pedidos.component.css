@@ -1,3 +1,19 @@
+.table-container {
+  max-width: 100%; /* Define a largura máxima para o recipiente */
+  overflow-x: auto; /* Adiciona uma barra de rolagem horizontal se necessário */
+  margin-bottom: 150px;
+}
+
+.tableLetters {
+  font-size: 20px;
+  text-align: center;
+}
+
+.uppercase {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .teste:hover {
   background-color: #37addc !important;
 }
@@ -5,10 +21,41 @@
 
 #popUp {
   position: absolute;
-  width: 85%;
-  top: 50%;
+  width: 40%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.matCardBotoes {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.divmatCardBotoes {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.buttonArrayClientes {
+  display: flex;
+  margin: 2em 1em;
+  background-color: #4CAF50;
+  color: #fff; /* para garantir que o texto seja legível */
+  border: none;
+  padding: 10px 40px;
+  border-radius: 5px; /* bordas arredondadas */
+  transition: 0.3s; /* transição suave para hover */
+  font-size: 20px;
+}
+
+.buttonArrayClientes:hover {
+  background-color: #45a049; /* cor um pouco mais escura para o hover */
+  cursor: pointer;
+
 }
 
 mat-card-actions {
@@ -83,4 +130,135 @@ mat-card-actions {
 .confirm-dialog-buttons {
   display: flex;
   justify-content: space-around;
+}
+
+.botaoLigarCozinha {
+  position: fixed;
+  top: 4.7em;
+  right: 20px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 9999; /* Certifique-se de que o botão esteja acima de outros elementos */
+}
+
+.botaoLigarCozinha.ligado {
+  background-color: rgb(68, 255, 0);
+}
+
+.botaoLigarCozinha.ligado:hover {
+  background-color: rgb(45, 158, 4);
+}
+
+
+.botaoLigarCozinha:hover {
+  background-color: #d32f2f;
+}
+
+.botaoLigarCozinha:focus {
+  outline: none;
+}
+
+/* Estilo para o botão no topo da página */
+.botaoImprimirArray {
+  position: fixed; /* Fixa o botão na tela */
+  top: 75px; /* Define a distância do topo da tela */
+  right: 20px; /* Define a distância da direita da tela */
+  padding: 10px 20px; /* Espaçamento interno do botão */
+  background-color: #4CAF50; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  border: none; /* Remove a borda do botão */
+  border-radius: 5px; /* Borda arredondada */
+  cursor: pointer; /* Altera o cursor para indicar interatividade */
+}
+
+/* Estilo quando o cursor está sobre o botão */
+.botaoImprimirArray:hover {
+  background-color: #0056b3; /* Cor de fundo quando hover */
+}
+
+/* Estilo para o fundo do diálogo */
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para o diálogo */
+.confirm-dialog {
+  background-color: #fff; /* Cor de fundo do diálogo */
+  border-radius: 8px; /* Borda arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombreamento */
+  padding: 20px;
+  max-width: 400px; /* Largura máxima do diálogo */
+  text-align: center;
+}
+
+/* Estilo para a mensagem do diálogo */
+.confirm-dialog-message {
+  font-size: 18px;
+}
+
+@media (max-width: 1100px) {
+  .botaoImprimirArray {
+    display: none;
+  }
+  .matCardBotoes {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  #popUp {
+    width: 95%;
+  }
+  .botaoImprimirArray {
+    display: none;
+  }
+  .tableLetters {
+    font-size: 14px;
+  }
+  .matCardBotoes {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .tableLetters {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 370px) {
+  .tableLetters {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  .tableLetters {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 320px) {
+  .tableLetters {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 290px) {
+  .tableLetters {
+    font-size: 9px;
+  }
 }

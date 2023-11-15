@@ -9,7 +9,13 @@ const routes: Routes = [
   { path:
     'home',
     loadChildren: () => import('./home/home/home.module').then(m => m.HomeModule),
-    canActivate: [AuthGuard] }
+    canActivate: [AuthGuard]
+  },
+  { path:
+    'principal',
+    loadChildren: () => import('./svtot-module/svtot-module.module').then(m => m.SvtotModuleModule),
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

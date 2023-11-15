@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+  <div class="divValorTotal">
+    <h1>Valor total = {{ formatarValorComoDinheiro(data.valorTotal) }}</h1>
+    <h1>10% = {{ formatarValorComoDinheiro(data.valorTotal*0.1) }}</h1>
+    <h1>Total + 10% = {{ formatarValorComoDinheiro(data.valorTotal*1.1) }}</h1>
+  </div>
+
+  <h1 class="h1PopUp">Tem certeza que deseja finalizar comanda do quarto/passante {{ data.dataSource[0].nomeQuartoOuPassante }}?</h1>
+  <div class="buttons">
+    <button (click)="finalizarComanda()" id="buttonFinalizarComanda2" mat-raised-button>Sim</button>
+    <button (click)="finalizarComandaCom10()" id="buttonFinalizarComanda2" mat-raised-button>Sim, com 10%</button>
+  </div>
+</div>

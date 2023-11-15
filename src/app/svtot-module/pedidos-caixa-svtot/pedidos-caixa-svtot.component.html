@@ -1,0 +1,56 @@
+<div class="back">
+  <div class="cabeçalho">
+    <div class="botaoVoltar">
+      <button (click)="voltar()" mat-icon-button color="warn">
+        <mat-icon class="iconVoltar">arrow_back</mat-icon>
+      </button>
+    </div>
+    <div class="nomeCliente">
+      <h1 class="nomeClienteH1">{{ nomeCliente }}</h1>
+    </div>
+  </div>
+
+  <div class="cardDiv">
+    <mat-card *ngFor="let item of pedidosClienteSelecionado" class="cardCarrinho">
+      <mat-card-content (click)="clickPedido(item)" class="divItemTudo">
+        <div class="divItemNomeQuantidadeValor">
+          <div class="divItemNome">{{ item.nome }}</div>
+          <div class="divItemQuantidadeValor">
+            <div class="divItemQuantidade">{{ item.quantidade }} UNID</div>
+            <div class="divItemValor">{{ formatToBrazilianReal(somaValores(item.valor, item.adicional1?.valor, item.adicional2?.valor)) }}</div>
+          </div>
+        </div>
+        <div class="divItemExcluirEditar">
+          <div class="divItemExcluir">
+            <mat-icon (click)="excluirItem(item)" class="delete-icon">delete</mat-icon>
+          </div>
+          <div class="divItemEditar">
+            <mat-icon (click)="editItemOpenDialog(item)" class="edit-icon">edit</mat-icon>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="acimaDoRodape">
+    <div class="acimaDoRodapeFilho">
+      <div class="subTotal subTotalServiçoTotal">
+        subTotal<br>{{ formatToBrazilianReal(subTotal) }}
+      </div>
+      <div class="serviço subTotalServiçoTotal">
+        Serviço<br>{{ formatToBrazilianReal(subTotal*0.1) }}
+      </div>
+      <div class="total subTotalServiçoTotal">
+        Total<br>{{ formatToBrazilianReal(subTotal + subTotal*0.1) }}
+      </div>
+    </div>
+    <div class="rodape">
+      <div class="divImprimirFinalizar">
+        <button class="buttonImprimirFinalizar">Imprimir Comanda</button>
+      </div>
+      <div class="divImprimirFinalizar">
+        <button class="buttonImprimirFinalizar">Finalizar Comanda</button>
+      </div>
+    </div>
+  </div>
+</div>

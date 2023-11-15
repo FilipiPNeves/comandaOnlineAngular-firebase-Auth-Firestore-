@@ -1,0 +1,41 @@
+<div mat-dialog-content>
+  <form (submit)="enviarPedido()">
+    <div class="checkboxecompania" id="divCheckboxecompania">
+      <div class="checkboxs">
+        <mat-radio-group [formControl]="recepOuBebi">
+          <mat-radio-button class="radioButton" value="Bebidas"><div class="contentRadioButton">Bebidas</div></mat-radio-button>
+          <mat-radio-button class="radioButton" value="Recepção"><div class="contentRadioButton">Cozinha(Recepção)</div></mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+    </div>
+    <mat-divider></mat-divider>
+
+    <div style="width: 100%;">
+      <mat-form-field class="width100">
+        <mat-label>Pedido</mat-label>
+        <input matInput placeholder="Ex. Pizza" [formControl]="pedido">
+      </mat-form-field>
+      <mat-form-field class="width100">
+        <mat-label>Valor</mat-label>
+        <input type="number" matInput placeholder="Ex. 25" [formControl]="valor">
+      </mat-form-field>
+    </div>
+
+    <div class="obsequant">
+      <mat-form-field class="width70">
+        <mat-label>Observação</mat-label>
+        <input matInput placeholder="Ex. sem catupiry" [formControl]="obs">
+      </mat-form-field>
+      <mat-form-field  class="width20">
+        <mat-select style="font-size: 24px;" type="number" [formControl]="quantidade">
+          <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+            {{quant.valor}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" class="login-button" type="submit">Adicionar</button>
+
+</form>

@@ -1,0 +1,30 @@
+/* This will centralize all the content inside mat-dialog-content */
+.mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* This targets the div that wraps around your h1 tags and centralizes its content */
+.divValorTotal {
+  text-align: center;
+}
+
+/* This will style the buttons to be equally spaced */
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;  /* Equally spaced */
+}
+
+/* If you need additional space between the h1 and buttons, you can add margin as follows */
+.h1PopUp {
+  text-align: center;
+  margin-bottom: 20px;  /* Adjust as needed */
+}
+
+#buttonFinalizarComanda2 {
+  width: 45%;
+  background-color: #4CAF50;
+}

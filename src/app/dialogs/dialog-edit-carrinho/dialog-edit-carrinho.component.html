@@ -1,0 +1,38 @@
+<div mat-dialog-content>
+    <form id="divEditarMat" class="example-form">
+      <div class="centralizar">
+        <h1 class="">{{ data.row.nome }}</h1>
+      </div>
+      <div class="divObsQuant">
+        <mat-form-field class="example-full-width pedidoTam">
+          <mat-label>Observações</mat-label>
+          <input matInput [(ngModel)]="pedidoObs" name="obs">
+        </mat-form-field>
+        <mat-form-field class="quantidade" appearance="fill">
+          <mat-select class="pedidoTam" [(ngModel)]="pedidoQnt" name="qnt">
+            <mat-option *ngFor="let quant of quants" [value]="quant.valor">
+              {{quant.valor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="divObsQuant" *ngIf="ngIfAdicional">
+        <mat-form-field class="example-full-width pedidoTam">
+          <mat-label>Com adiconal de:</mat-label>
+          <input matInput [(ngModel)]="pedidoAdicional" name="adiconal">
+        </mat-form-field>
+        <mat-form-field class="quantidade">
+          <mat-label>valor</mat-label>
+          <input matInput [(ngModel)]="pedidoValorAdiconal" name="valor">
+        </mat-form-field>
+      </div>
+
+      <div id="divBotoesFecharSalvar">
+        <button mat-raised-button color="warn" (click)="excluir()">Excluir</button>
+        <button mat-raised-button color="primary" (click)="salvarEdicao()">Salvar</button>
+      </div>
+    </form>
+</div>
+
+

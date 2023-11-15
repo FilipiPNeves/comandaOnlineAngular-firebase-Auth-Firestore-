@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+  <h1 mat-dialog-title class="titulo">{{ data.quarto }}</h1>
+  <mat-card-content>
+    <h2 class="titulo">Pedido: {{ data.prato }}</h2>
+    <h3 class="titulo">Quantidade: {{ data.quant }}</h3>
+    <h3 class="titulo">Obs: {{ data.obs }}</h3>
+  </mat-card-content>
+  <mat-card-actions class="botoes">
+    <button mat-raised-button color="warn" (click)="excluirPedido(data)">Excluir</button>
+    <button mat-raised-button color="primary" (click)="editarPedido(data)">Editar</button>
+    <button *ngIf="cancelButtonEnviar" id="botaoSim" mat-raised-button style="background-color: #4CAF50;color: #fff;" (click)="pedidoFeito(data)">{{botao}}</button>
+  </mat-card-actions>
+</div>

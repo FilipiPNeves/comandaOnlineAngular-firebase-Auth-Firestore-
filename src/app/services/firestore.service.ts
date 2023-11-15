@@ -4,8 +4,10 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, updateDoc, getDoc, deleteDoc, getDocs  } from '@angular/fire/firestore';
 import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
-import { Observable, from, of } from 'rxjs';
-import { map, first } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Timestamp} from 'firebase/firestore';
+import { PratosNovo } from 'src/app/pratos-novo';
 
 interface todosPedidos {
   horario: any,
@@ -14,43 +16,27 @@ interface todosPedidos {
   valor: any,
   quant: any,
   nomeQuartoOuPassante: any,
-  feito: any
+  feito: any,
+  nomeGarcom: any
 }
 
+
+interface pedidosCarrinho {
+  nome: string,
+  valor: number,
+  obs: string,
+  qnt: number,
+  bebida: boolean
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FirestoreService {
-
-
   constructor(private firestore: Firestore, private app: FirebaseApp, private route: Router) {}
 
-
-  enviarPedido(pedido: any, nomeQuartoOuPassante: any) {
-    /*prato 0 ao 7
-    console.log(pedido[0].prato);
-    console.log(pedido[0].quantPrato);
-    console.log(pedido[0].obsPrato);
-
-
-    alcool 8 ao 15
-    console.log(pedido[8].alcool);
-    console.log(pedido[8].quantAlcool);
-    console.log(pedido[8].obsAlcool);
-
-
-    Sem alcool 16 ao 23
-    console.log(pedido[16].semAlcool);
-    console.log(pedido[16].quantSemAlcool);
-    console.log(pedido[16].obsSemAlcool);
-
-    Sobremesa 24 ao 31
-    console.log(pedido[24].sobremesa);
-    console.log(pedido[24].quantSobremesa);
-    console.log(pedido[24].obsSobremesa);
-    */
-
+  enviarPedido2(nomeDoQuartoOuPassante: string, pedidos: pedidosCarrinho[], nomeGarcom: string) {
     const currentDate = new Date();
     const day = currentDate.getDate();
     const hour = currentDate.getHours();
@@ -58,93 +44,136 @@ export class FirestoreService {
     const seg = currentDate.getSeconds();
     const currentDateTime = (hour + (minute/60) + ((seg/60)/60));
 
-
-    for(let i = 0; i < 8; i++) {
-      if(pedido[i]) {
-
-        if(pedido[i].obsPrato == null) {
-          pedido[i].obsPrato = '';
-        }
-
-
+    pedidos.forEach(pedido => {
+      if(pedido.bebida === false) {
         const docRef = addDoc(collection(this.firestore, 'pedidos'), {
-          prato: pedido[i].prato.nome,
-          valor: pedido[i].prato.valor,
-          obs:	pedido[i].obsPrato,
-          quant: pedido[i].quantPrato,
+          prato: pedido.nome,
+          valor: pedido.valor,
+          obs:	pedido.obs,
+          quant: pedido.qnt,
           horario: currentDateTime,
-          nomeQuartoOuPassante: nomeQuartoOuPassante
+          nomeQuartoOuPassante: nomeDoQuartoOuPassante,
+          nomeGarcom: nomeGarcom
+        }).then(() => {
+          let confirmDialog = document.getElementById('confirm-dialog');
+          let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+          confirmDialogMessage!.innerHTML = 'Enviado com sucesso.';
+          confirmDialog!.style.display = 'flex';
+
+        }).catch(() => {
+          let confirmDialog = document.getElementById('confirm-dialog');
+          let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+          confirmDialogMessage!.innerHTML = 'ERRO, tente novamente.';
+          confirmDialog!.style.display = 'flex';
+
         });
-      }
-    }
-
-
-    for(let i = 8; i < 16; i++) {
-      if(pedido[i]) {
-        if(pedido[i].obsAlcool == null) {
-          pedido[i].obsAlcool = '';
+      }else {
+        if(pedido.nome.includes('Sucos naturais')) {
+          const docRef = addDoc(collection(this.firestore, 'pedidos'), {
+            prato: pedido.nome,
+            valor: pedido.valor,
+            obs:	pedido.obs,
+            quant: pedido.qnt,
+            horario: currentDateTime,
+            nomeQuartoOuPassante: nomeDoQuartoOuPassante,
+            nomeGarcom: nomeGarcom
+          }).then(() => {
+            let confirmDialog = document.getElementById('confirm-dialog');
+            let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+            confirmDialogMessage!.innerHTML = 'Enviado com sucesso.';
+            confirmDialog!.style.display = 'flex';
+            /*
+            setTimeout(function() {
+              confirmDialog!.style.display = 'none';
+            }, 5000); // 5000 milissegundos = 5 segundos
+            */
+          }).catch(() => {
+            let confirmDialog = document.getElementById('confirm-dialog');
+            let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+            confirmDialogMessage!.innerHTML = 'ERRO, tente novamente.';
+            confirmDialog!.style.display = 'flex';
+            /*
+            setTimeout(function() {
+              confirmDialog!.style.display = 'none';
+            }, 5000); // 5000 milissegundos = 5 segundos
+            */
+          });
+        }else {
+          const docRef = addDoc(collection(this.firestore, 'bebidas'), {
+            prato: pedido.nome,
+            valor: pedido.valor,
+            obs:	pedido.obs,
+            quant: pedido.qnt,
+            horario: currentDateTime,
+            nomeQuartoOuPassante: nomeDoQuartoOuPassante,
+            nomeGarcom: nomeGarcom
+          }).then(() => {
+            let confirmDialog = document.getElementById('confirm-dialog');
+            let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+            confirmDialogMessage!.innerHTML = 'Enviado com sucesso.';
+            confirmDialog!.style.display = 'flex';
+            /*
+            setTimeout(function() {
+              confirmDialog!.style.display = 'none';
+            }, 5000); // 5000 milissegundos = 5 segundos
+            */
+          }).catch(() => {
+            let confirmDialog = document.getElementById('confirm-dialog');
+            let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+            confirmDialogMessage!.innerHTML = 'ERRO, tente novamente.';
+            confirmDialog!.style.display = 'flex';
+            /*
+            setTimeout(function() {
+              confirmDialog!.style.display = 'none';
+            }, 5000); // 5000 milissegundos = 5 segundos
+            */
+          });
         }
-
-
-        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
-          prato: pedido[i].alcool.nome,
-          valor: pedido[i].alcool.valor,
-          obs:	pedido[i].obsAlcool,
-          quant: pedido[i].quantAlcool,
-          horario: currentDateTime,
-          nomeQuartoOuPassante: nomeQuartoOuPassante
-        });
       }
-    }
-
-
-    for(let i = 16; i < 24; i++) {
-      if(pedido[i]) {
-
-        if(pedido[i].obsSemAlcool == null) {
-          pedido[i].obsSemAlcool = '';
-        }
-
-
-        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
-          prato: pedido[i].semAlcool.nome,
-          valor: pedido[i].semAlcool.valor,
-          obs:	pedido[i].obsSemAlcool,
-          quant: pedido[i].quantSemAlcool,
-          horario: currentDateTime,
-          nomeQuartoOuPassante: nomeQuartoOuPassante
-        });
-      }
-    }
-
-
-
-    for(let i = 24; i < 32; i++) {
-      if(pedido[i]) {
-
-        if(pedido[i].obsSobremesa == null) {
-          pedido[i].obsSobremesa = '';
-        }
-
-
-        const docRef = addDoc(collection(this.firestore, 'pedidos'), {
-          prato: pedido[i].sobremesa.nome,
-          valor: pedido[i].sobremesa.valor,
-          obs: pedido[i].obsSobremesa,
-          quant: pedido[i].quantSobremesa,
-          horario: currentDateTime,
-          nomeQuartoOuPassante: nomeQuartoOuPassante
-        });
-      }
-    }
+    });
   }
+  async deleteImprimir() {
+    const collectionRef = collection(this.firestore, 'pedidosImprimir');
+    const querySnapshot = await getDocs(collectionRef);
 
+    // Itera sobre os documentos encontrados e os exclui um por um
+    querySnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+  }
 
   getPedidos(): Observable<todosPedidos[]> {
     const collectionInstance = collection(this.firestore, 'pedidos');
     return collectionData(collectionInstance, {idField: 'id'}).pipe(
       map((val: any[]) => {
         val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+
+        return val;
+      })
+    );
+  }
+
+  getReturnPedidos() {
+    const collectionInstance = collection(this.firestore, 'pedidos');
+
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+
+        return val;
+      })
+    );
+  }
+
+
+  getBebidas() {
+    const collectionInstance = collection(this.firestore, 'bebidas');
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
+      map((val: any[]) => {
+        val.sort((a, b) => parseFloat(a.horario) - parseFloat(b.horario));
+
+
+
         return val;
       })
     );
@@ -160,33 +189,170 @@ export class FirestoreService {
     );
   }
 
-  pedidoFeito(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
-
-    const docRef = addDoc(collection(this.firestore, 'pedidosFeitos'), {
-      prato: prato,
-      valor: valor,
-      obs:	obs,
-      quant: quantidade,
-      horario: horario,
-      nomeQuartoOuPassante: quarto
+  enviarPedidosParaImprimir(objetoImprimir: any) {
+    const docRef = addDoc(collection(this.firestore, 'pedidosParaImpressao'), {
+      prato: objetoImprimir.prato,
+      quarto: objetoImprimir.quarto,
+      horario: objetoImprimir.horario,
+      obs: objetoImprimir.obs,
+      quantidade: objetoImprimir.quantidade
     });
+  }
 
+  getImprimir(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'pedidosParaImpressao');
 
-    const docInstance = doc(this.firestore, 'pedidos', id);
+    return collectionData(collectionInstance);
+  }
+
+  excluirImprimir(): Promise<void> {
+    const collectionInstance = collection(this.firestore, 'pedidosParaImpressao');
+
+    return getDocs(collectionInstance)
+      .then((querySnapshot) => {
+        const promises: Promise<void>[] = []; // Especificando o tipo da matriz
+
+        // Para cada documento na coleção, crie uma promessa para excluí-lo
+        querySnapshot.forEach((doc) => {
+          const promise = deleteDoc(doc.ref);
+          promises.push(promise);
+        });
+
+        // Aguarde todas as promessas serem resolvidas
+        return Promise.all(promises);
+      })
+      .then(() => {
+        console.log('Todos os documentos excluídos com sucesso.');
+      })
+      .catch((error) => {
+        console.error('Erro ao excluir documentos:', error);
+        throw error;
+      });
+  }
+
+  pedidoFeito(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number, nomeGarcom: string) {
+    let pedidos = "pedidos"
+    const docInstance = doc(this.firestore, pedidos, id);
     deleteDoc(docInstance);
+
+    this.pedidoServido(id, prato, quarto, horario, obs, valor, quantidade, nomeGarcom, pedidos);
+  }
+
+  pedidoFeitoBebidas(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number, nomeGarcom: any) {
+
+    let bebidas = "bebidas";
+
+    const docInstance = doc(this.firestore, bebidas, id);
+    deleteDoc(docInstance);
+
+    this.pedidoServido(id, prato, quarto, horario, obs, valor, quantidade, nomeGarcom, bebidas);
   }
 
   excluirPedido(id: string) {
     const collectionInstance = collection(this.firestore, 'pedidos');
     const docReference = doc(collectionInstance, id);
 
-    deleteDoc(docReference)
+    deleteDoc(docReference).then(() => {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Excluído com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
   }
+
+  excluirPedidoBebidas(id: string) {
+    const collectionInstance = collection(this.firestore, 'bebidas');
+    const docReference = doc(collectionInstance, id);
+
+    deleteDoc(docReference).then(() => {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Excluído com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
+  }
+
+  excluirPedidoCaixa(id: string) {
+    const collectionInstance = collection(this.firestore, 'pedidosServidos');
+    const docReference = doc(collectionInstance, id);
+
+    deleteDoc(docReference).then(() => {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Excluído com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
+  }
+
+  /*
+  EXCLUIR DO RELATORIO DE ACORDO COM DATA
+
+  async excluirPedidosPorData(data: any) {
+    const collectionInstance = collection(this.firestore, 'relatorio');
+
+    // Execute uma consulta para obter todos os documentos da coleção 'relatorio'
+    const querySnapshot = await getDocs(collectionInstance);
+
+    // Itere sobre os documentos e exclua aqueles com a data desejada no campo 'horario'
+    querySnapshot.forEach(async (docSnapshot) => {
+      const docData = docSnapshot.data();
+      if (docData && docData['horario'].includes(data)) {
+        const docReference = doc(collectionInstance, docSnapshot.id);
+        try {
+          await deleteDoc(docReference);
+          console.log(`Documento com ID ${docSnapshot.id} excluído com sucesso.`);
+        } catch (error) {
+          console.error(`Erro ao excluir o documento com ID ${docSnapshot.id}: ${error}`);
+        }
+      }
+    });
+  }
+  */
+
 
   updatePedido(pedido: any, id: string) {
     const docInstance = doc(this.firestore, 'pedidos', id);
 
-    updateDoc(docInstance, pedido)
+    updateDoc(docInstance, pedido).then(() => {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Atualizado com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
+  }
+
+  updatePedidoBebidas(pedido: any, id: string) {
+    const docInstance = doc(this.firestore, 'bebidas', id);
+
+    updateDoc(docInstance, pedido).then(() => {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Atualizado com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
+  }
+
+  updatePedidoCaixa(pedido: any, id: string) {
+    const docInstance = doc(this.firestore, 'pedidosServidos', id);
+
+    updateDoc(docInstance, pedido).then(() => {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Atualizado com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
   }
 
   pedidoSendoFeito(id: string) {
@@ -199,14 +365,23 @@ export class FirestoreService {
     updateDoc(docInstance, pedido)
   }
 
-  pedidoServido(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number) {
+  pedidoServido(id: string,  prato: string, quarto: string, horario: string, obs: string, valor: number, quantidade: number, nomeGarcom: any, tipoPedido: string) {
+
     const docRef = addDoc(collection(this.firestore, 'pedidosServidos'), {
       prato: prato,
       valor: valor,
       obs:	obs,
       quant: quantidade,
       horario: horario,
-      nomeQuartoOuPassante: quarto
+      nomeQuartoOuPassante: quarto,
+      nomeGarcom: nomeGarcom
+    }).then(() => {
+      if(tipoPedido === "bebidas") {
+        let confirmDialog = document.getElementById('confirm-dialog');
+          let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+          confirmDialogMessage!.innerHTML = 'Sucesso na entrega!';
+          confirmDialog!.style.display = 'flex';
+      }
     });
 
 
@@ -225,7 +400,6 @@ export class FirestoreService {
       })
     );
   }
-  
 
   getNomesQuartosClientes(): Observable<string[]> {
     const collectionInstance = collection(this.firestore, 'pedidosServidos');
@@ -235,28 +409,97 @@ export class FirestoreService {
     );
   }
 
+  finalizarcomandaCom10(id: string) {
+    const collectionInstance = collection(this.firestore, 'pedidosServidos');
+    const docRef = doc(collectionInstance, id);
+    const collectionInstanceRelatorio = collection(this.firestore, 'relatorio');
+
+    getDoc(docRef)
+      .then(async (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          // Obtenha os dados do documento
+          const docData = docSnapshot.data();
+
+          // Obtenha a data de hoje no formato 'dd/mm/aaaa'
+          const hoje = new Date();
+          const dd = String(hoje.getDate()).padStart(2, '0');
+          const mm = String(hoje.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+          const aaaa = hoje.getFullYear();
+          const dataHoje = `${dd}/${mm}/${aaaa}`;
+
+          let horarioFormatado = this.formatarHora(docData['horario']);
+
+          // Atualize o campo 'horario' com a data de hoje
+          docData['horario'] = `${horarioFormatado} ${dataHoje}`;
+          docData['valor'] = docData['valor']*1.1;
+          docData['dezporcento'] = true;
+
+          // Crie um novo documento na coleção "relatorio" com os dados atualizados
+          await addDoc(collectionInstanceRelatorio, docData);
+
+          // Exclua o documento da coleção original
+          await deleteDoc(docRef);
+        } else {
+          console.log(`Documento ${id} não encontrado na coleção.`);
+        }
+      })
+      .catch((error) => {
+        console.error(`Erro ao processar o documento ${id}: ${error}`);
+      });
+  }
+
   finalizarcomanda(id: string) {
     const collectionInstance = collection(this.firestore, 'pedidosServidos');
     const docRef = doc(collectionInstance, id);
+    const collectionInstanceRelatorio = collection(this.firestore, 'relatorio');
 
-    getDoc(docRef).then((docSnapshot) => {
-      if (docSnapshot.exists()) {
-        // o documento existe, então você pode fazer o que precisa com ele
-        console.log(`Documento ${id} encontrado na coleção.`);
-        // Exemplo: excluir o documento
-        deleteDoc(docRef).then(() => {
-          console.log(`Documento ${id} excluído com sucesso.`);
-        }).catch((error) => {
-          console.error(`Erro ao excluir o documento ${id}: ${error}`);
-        });
-      } else {
-        // o documento não existe
-        console.log(`Documento ${id} não encontrado na coleção.`);
-      }
-    }).catch(() => {
+    getDoc(docRef)
+      .then(async (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          // Obtenha os dados do documento
+          const docData = docSnapshot.data();
 
-    })
+          // Obtenha a data de hoje no formato 'dd/mm/aaaa'
+          const hoje = new Date();
+          const dd = String(hoje.getDate()).padStart(2, '0');
+          const mm = String(hoje.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+          const aaaa = hoje.getFullYear();
+          const dataHoje = `${dd}/${mm}/${aaaa}`;
+
+          let horarioFormatado = this.formatarHora(docData['horario']);
+
+          // Atualize o campo 'horario' com a data de hoje
+          docData['horario'] = `${horarioFormatado} ${dataHoje}`;
+          docData['dezporcento'] = false;
+
+          // Crie um novo documento na coleção "relatorio" com os dados atualizados
+          await addDoc(collectionInstanceRelatorio, docData);
+
+          // Exclua o documento da coleção original
+          await deleteDoc(docRef);
+        } else {
+          console.log(`Documento ${id} não encontrado na coleção.`);
+        }
+      })
+      .catch((error) => {
+        console.error(`Erro ao processar o documento ${id}: ${error}`);
+      });
   }
+
+  formatarHora(hora: string): string {
+    const horaNumerica = parseFloat(hora); // Converter para número
+    const horas = Math.floor(horaNumerica);
+    const minutos = Math.round((horaNumerica - horas) * 60);
+
+    // Formate a hora e os minutos com dois dígitos (por exemplo, 09:30)
+    const horaFormatada = horas.toString().padStart(2, '0');
+    const minutosFormatados = minutos.toString().padStart(2, '0');
+
+    return `${horaFormatada}:${minutosFormatados}`;
+  }
+
+
+
 
   getNomeGarcomService(): Observable<any> {
     return new Observable((observer) => {
@@ -270,6 +513,8 @@ export class FirestoreService {
       });
     });
   }
+
+
 
 
   LoginAutomatico() {
@@ -304,15 +549,177 @@ export class FirestoreService {
     })
   }
 
-
-
   setterTeste(objSended: any) {
-    console.log(objSended.value.teste);
-
     const docRef = addDoc(collection(this.firestore, "users"), {
       valor: objSended.value.teste
     });
+  }
+
+  getRelatorio(): Observable<any[]> {
+    const collectionInstance = collection(this.firestore, 'relatorio');
+
+    return collectionData(collectionInstance);
+  }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  enviarPedidoNovo(carrinho: PratosNovo[]) {
+    let confirmDialogMessage = false;
+    carrinho.forEach((pedidoCarrinho) => {
+      let pedido: PratosNovo = {
+        nome: '',
+        valor: 0,
+        tipo: '',
+        descricao: '',
+        quantidade: 0,
+        adicional1: {valor: 0, nome: ''},
+        adicional2:  {valor: 0, nome: ''},
+        cliente: '',
+        garcom: '',
+        horario: Timestamp.now(),
+        id: ''
+      };
+      if(pedidoCarrinho.adicional1) {
+        if(pedidoCarrinho.adicional1.nome !== '' && pedidoCarrinho.adicional1.nome !== undefined) {
+          pedido.adicional1!.nome = pedidoCarrinho.adicional1.nome;
+          pedido.adicional1!.valor = pedidoCarrinho.adicional1.valor;
+        } else {
+          delete pedido.adicional1;
+        }
+      }
+      if(pedidoCarrinho.adicional2) {
+        if(pedidoCarrinho.adicional2.nome !== '' && pedidoCarrinho.adicional2.nome !== undefined) {
+          pedido.adicional2!.nome = pedidoCarrinho.adicional2.nome;
+          pedido.adicional2!.valor = pedidoCarrinho.adicional2.valor;
+        } else {
+          delete pedido.adicional2;
+        }
+      }
+      if(pedidoCarrinho.descricao !== '' && pedidoCarrinho.descricao !== undefined) {
+        pedido.descricao = pedidoCarrinho.descricao;
+      }else {
+        delete pedido.descricao;
+      }
+      pedido.nome = pedidoCarrinho.nome;
+      pedido.valor = pedidoCarrinho.valor;
+      pedido.tipo = pedidoCarrinho.tipo;
+      pedido.quantidade = pedidoCarrinho.quantidade;
+      pedido.cliente = pedidoCarrinho.cliente;
+      pedido.garcom = pedidoCarrinho.garcom;
+      pedido.horario = pedidoCarrinho.horario;
+
+      if(pedido.tipo.includes('bebida')) {
+        const docRef = addDoc(collection(this.firestore, 'caixa'), {
+          pedido
+        }).then(() => {
+          if(confirmDialogMessage === false) {
+            this.confirmDialog(true);
+            confirmDialogMessage = true;
+          }
+        }).catch(() => {
+          this.confirmDialog(false)
+        });
+      } else {
+        const docRef = addDoc(collection(this.firestore, 'impressao'), {
+          pedido
+        }).then(() => {
+          if(confirmDialogMessage === false) {
+            this.confirmDialog(true);
+            confirmDialogMessage = true;
+          }
+        }).catch(() => {
+          this.confirmDialog(false)
+        });
+        const docRef2 = addDoc(collection(this.firestore, 'caixa'), {
+          pedido
+        }).then(() => {
+          if(confirmDialogMessage === false) {
+            this.confirmDialog(true);
+            confirmDialogMessage = true;
+          }
+        }).catch(() => {
+          this.confirmDialog(false)
+        });
+      }
+    });
+  }
+
+  confirmDialog(flag: boolean) {
+    if(flag === true) {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'Enviado com sucesso.';
+      confirmDialog!.style.display = 'flex';
+    } else {
+      let confirmDialog = document.getElementById('confirm-dialog');
+      let confirmDialogMessage = document.getElementById('confirm-dialog-message');
+      confirmDialogMessage!.innerHTML = 'ERRO, tente novamente.';
+      confirmDialog!.style.display = 'flex';
+    }
+  }
+
+  getNomeGarcomServiceNovo(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const auth = getAuth();
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          const email = user.email;
+          const nomeGarcom = email!.charAt(0).toUpperCase() + email!.slice(1).split(/@/)[0];
+          resolve(nomeGarcom);
+        } else {
+          reject('Usuário não autenticado');
+        }
+      });
+    });
+  }
+
+
+  getPedidosCaixa(): Observable<any[]> {
+    const collectionRef = collection(this.firestore, 'caixa');
+    const query = collectionData(collectionRef);
+
+    return query.pipe(
+      map((colecao) => {
+        return colecao.map((item) => item['pedido']);
+      })
+    );
+  }
+
+  getPedidosCaixaNovo(): Observable<PratosNovo[]> {
+    const collectionInstance = collection(this.firestore, 'caixa');
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
+      map((colecao: any[]) => {
+        colecao.forEach((pedido) => {
+          pedido.pedido.id = pedido.id;
+          delete pedido.id;
+        });
+        return colecao.map((item) => item['pedido']);
+      })
+    );
+  }
+
+  excluirPedidoCaixaNovo(id: string) {
+    const collectionInstance = collection(this.firestore, 'caixa');
+    const docReference = doc(collectionInstance, id);
+    deleteDoc(docReference).then(() => {
+      alert('Pedido Excluido!')
+    }).catch(() => {
+      alert("Erro. Tente novamente!")
+    })
   }
 }

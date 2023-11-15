@@ -5,6 +5,30 @@ body {
   font-family: Arial, sans-serif;
 }
 
+#divToolbars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: transform 0.3s;
+  transform: translateY(0);
+}
+
+#divToolbars.hidden {
+  transform: translateY(-100%);
+}
+
+#toggleToolbarButton {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 11em; /* Ajuste este valor se necessário para posicionar o botão logo abaixo da barra de ferramentas */
+  z-index: 1001;
+}
+
+
+
 /* Estilo do menu */
 #toolbar1 {
   background-color: #00a8e8;
@@ -21,6 +45,7 @@ body {
 }
 
 #tituloComandOn {
+  margin-left: -1.1em;
   font-weight: bold;
   font-size: 24px;
 }
@@ -86,3 +111,147 @@ body {
   color: #fff;
   background-color: #00a8e8;
 }
+
+#botao1, #botao2, #botao4, #botao5 {
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  #botao2 {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  #usuario {
+    font-size: 20px;
+  }
+
+  #tituloComandOn {
+    font-size: 28px;
+  }
+
+  #logOutButton {
+    font-size: 20px;
+  }
+
+  #toolbar2 button {
+    font-size: 20px;
+    margin: 0 0.3em;
+  }
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 450px) {
+  #usuario {
+    font-size: 15px;
+  }
+
+  #tituloComandOn {
+    font-size: 18px;
+  }
+
+  #logOutButton {
+    font-size: 15px;
+  }
+
+  #toolbar2 button {
+    font-size: 14px;
+    margin: 0 0.3em;
+  }
+}
+
+@media (max-width: 375px) {
+  #usuario {
+    font-size: 15px;
+  }
+
+  #tituloComandOn {
+    font-size: 18px;
+  }
+
+  #logOutButton {
+    font-size: 15px;
+  }
+
+  #toolbar2 button {
+    font-size: 13px;
+    margin: 0 0.3em;
+  }
+}
+
+@media (max-width: 350px) {
+  #usuario {
+    font-size: 15px;
+  }
+
+  #tituloComandOn {
+    font-size: 18px;
+  }
+
+  #logOutButton {
+    font-size: 15px;
+  }
+
+  #toolbar2 button {
+    font-size: 12px;
+    margin: 0 0.2em;
+  }
+}
+
+@media (max-width: 320px) {
+  #usuario {
+    font-size: 15px;
+  }
+
+  #tituloComandOn {
+    font-size: 18px;
+  }
+
+  #logOutButton {
+    font-size: 15px;
+  }
+
+  #toolbar2 button {
+    font-size: 11px;
+    margin: 0 0.2em;
+  }
+}
+
+@media (max-width: 300px) {
+  #usuario {
+    font-size: 14px;
+  }
+
+  #tituloComandOn {
+    font-size: 17px;
+  }
+
+  #logOutButton {
+    font-size: 14px;
+  }
+
+  #toolbar2 button {
+    font-size: 10px;
+    margin: 0 0.1em;
+  }
+}
+
+@media (max-width: 280px) {
+  #usuario {
+    font-size: 13px;
+  }
+
+  #tituloComandOn {
+    font-size: 15px;
+  }
+
+  #logOutButton {
+    font-size: 13px;
+  }
+
+  #toolbar2 button {
+    font-size: 9px;
+  }
+}
+

@@ -1,0 +1,221 @@
+.novo-pedido {
+  height: 100vh;
+  background-color: #acacac;
+}
+
+.cardapio {
+  width: 7.1em;
+}
+
+.tab-label-custom {
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+.grupoBotões {
+  display: flex; /* Usa flexbox para alinhamento */
+  flex-wrap: wrap; /* Permite que os itens passem para a próxima linha */
+  justify-content: center; /* Centraliza os itens na linha */
+  gap: 10px; /* Espaço entre os botões */
+  padding: 0.8em; /* Espaçamento ao redor do grupo de botões */
+  margin-top: 1.3em;
+}
+
+.umBotao {
+  flex: 1 0 calc(20% - 10px); /* Define que cada botão deve ocupar 20% do espaço da linha, subtraindo o gap */
+  max-width: calc(25% - 10px); /* Define a largura máxima para se adequar a 5 botões por linha */
+  box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+  margin: 0 0 0.2em; /* Espaço abaixo de cada botão para quando quebrar a linha */
+  text-transform: uppercase;
+  font-size: 1.1em;
+}
+
+.matGridList {
+  margin-top: 0.5em;
+}
+
+.matCard {
+  width: 90%;
+  height: 80%;
+}
+
+.imgCard {
+  width: 100%;
+  height: 60%;
+}
+
+.matCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: center; /* Centraliza horizontalmente */
+  text-align: center; /* Alinha o texto no centro */
+  height: 2.7em; /* Garante que o conteúdo ocupe toda a altura */
+}
+
+.nomeItemPedido {
+  text-transform: uppercase;
+  font-weight: bolder;
+  margin: auto; /* Adiciona margem igual para centralização vertical */
+}
+
+.selectedButton {
+  background-color: #005d8f;
+  color: #FFFFFF;
+}
+
+.selectedCard {
+  border: 2px solid #002539;
+  background-color: #005d8f;
+  color: white;
+}
+
+.nomeItemPedidoLongo {
+  font-size: 12px;
+  z-index: 2;
+  line-height: 1;
+}
+
+
+
+
+
+
+
+
+.cardDiv {
+  margin-bottom: 10em;
+}
+
+.carrinhoNomeClienteDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.carrinhoNomeClienteMat {
+  flex: 1;
+  max-width: 90%;
+  margin: 1.1em 1em 0.3em;
+  font-size: 2em;
+}
+
+.options {
+  margin: 1em;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.option {
+  font-size: 2em;
+}
+
+.cardCarrinho {
+  margin: 0 2em 1em;
+  background-color: rgb(255, 255, 255);
+}
+
+.divItemTudo {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.divItemNomeQuantidadeValor {
+  flex: 0 0 70%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.divItemNome {
+  flex: 0 0 100%;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: 1.4em;
+}
+
+.divItemQuantidadeValor {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.divItemQuantidade,
+.divItemValor {
+  flex: 0 0 50%;
+  font-size: 1.1em;
+}
+
+.divItemExcluirEditar {
+  flex: 0 0 30%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.divItemExcluir,
+.divItemEditar {
+  flex: 0 0 50%;
+  text-align: center;
+}
+
+.delete-icon {
+  color: red;
+}
+
+
+.edit-icon {
+  color: #005d8f;
+}
+
+.buttonEnvioNovo {
+  position: fixed;
+  width: 91%;
+  height: 3em;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #005d8f;
+  font-size: 2em;
+}
+
+
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.confirm-dialog {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Estilo para a mensagem do diálogo */
+.confirm-dialog-message {
+  font-size: 18px;
+}
+
+
+@media (min-width: 1100px) {
+  .matCardContent {
+    height: 6.8em;
+  }
+
+  .nomeItemPedido {
+    font-size: 2em;
+  }
+}

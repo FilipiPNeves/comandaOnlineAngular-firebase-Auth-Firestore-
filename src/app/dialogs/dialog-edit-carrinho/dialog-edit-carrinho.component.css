@@ -1,0 +1,36 @@
+.divObsQuant {
+  display: flex;
+  width: 90%;
+  margin: 0 auto ;
+}
+
+.quantidade {
+  width: 5em;
+  margin: 0 0 0 2em;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.pedidoTam {
+  font-size: 29px;
+}
+
+.centralizar {
+  text-align: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+.centralizar h1 {
+  margin: 1em 0; /* Remove margens para alinhar o texto verticalmente */
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+#divBotoesFecharSalvar {
+  text-align: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+#divBotoesFecharSalvar button:first-child {
+  margin-right: 10px; /* Adicione a quantidade de espaço desejada */
+}

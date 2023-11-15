@@ -1,5 +1,6 @@
+import { Router } from '@angular/router';
 import { FirestoreService } from './../services/firestore.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,19 @@ export class HomeComponent {
   nome: string = '';
 
   constructor(
-    private firestore: FirestoreService
+    private firestore: FirestoreService,
+    private router: Router
   ) {
     this.getNomeGarcom();
   }
 
-
+  reload() {
+    const rotaDesejada = '/home/listadepedidos';
+    // Redireciona para a rota desejada
+    this.router.navigateByUrl(rotaDesejada).then(() => {
+      window.location.reload();
+    });
+  }
 
   getNomeGarcom() {
     this.firestore.getNomeGarcomService().subscribe((email) => {
@@ -27,4 +35,10 @@ export class HomeComponent {
   logout() {
     this.firestore.logoutService();
   }
+
+  toolbarHidden = true;
+  toggleToolbar() {
+    this.toolbarHidden = !this.toolbarHidden;
+  }
+
 }

@@ -1,0 +1,29 @@
+
+<div style="touch-action: manipulation;">
+  <div id="divToolbars" [ngClass]="{'hidden': toolbarHidden}">
+    <mat-toolbar id="toolbar1">
+      <span id="usuario">{{ nomeGarcom }}</span>
+      <span id="tituloComandOn">Sentinelas do Mar</span>
+      <span id="logOut">
+        <button id="logOutButton" (click)="logout()">Sair</button>
+      </span>
+    </mat-toolbar>
+    <mat-toolbar id="toolbar2">
+      <span>
+        <button id="botao1" (click)="toggleToolbar()" mat-button routerLinkActive="active" routerLink="novopedido">+ Pedido</button>
+      </span>
+      <span>
+        <button id="botao4" (click)="toggleToolbar()" mat-button routerLinkActive="active" routerLink="caixa">Caixa</button>
+      </span>
+    </mat-toolbar>
+    <div class="toggleToolbarButton">
+      <button mat-raised-button  [ngStyle]="buttonStyle" (click)="toggleToolbar()">
+        <div class="icon">
+          <mat-icon>{{ toolbarHidden ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+        </div>
+      </button>
+    </div>
+    <div *ngIf="transparenteNgIf" class="transparent" (click)="toggleToolbar()"></div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

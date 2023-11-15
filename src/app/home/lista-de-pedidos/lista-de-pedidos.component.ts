@@ -1,6 +1,11 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Router } from '@angular/router';
+import { DialogOpcoesPedidosComponent } from 'src/app/dialogs/dialog-opcoes-pedidos/dialog-opcoes-pedidos.component';
+import { MatDialog } from '@angular/material/dialog';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { entradas, pasteis, lanches, petiscos, frangos, contraFiles, saladas, risotos, sopas, frutosDoMar, massas, bebidasCompleto, alcool, sobremesas } from 'src/app/shared/pratos';
 
 interface todosPedidos {
   horario: any,
@@ -9,8 +14,10 @@ interface todosPedidos {
   valor: any,
   quant: any,
   nomeQuartoOuPassante: any,
-  feito: any
+  feito: any,
+  nomeGarcom: any
 }
+
 
 interface Pratos {
   nome: string;
@@ -26,14 +33,22 @@ export class ListaDePedidosComponent {
   constructor(
     private firestoreService: FirestoreService,
     private _eref: ElementRef,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.getData();
     this.requestNotificationPermission();
+    this.getImprimir();
   }
+
+
+
+  arrayImprimirPedidos: any[] = []
 
   displayedColumns: string[] = ['obs', 'pedido', 'quant', 'nomeQuartoOuPassante'];
   dataSource: todosPedidos[] = [];
+  pedidos: todosPedidos[] = [];
+  dataSource2 = new MatTableDataSource(this.pedidos);
 
   flagPopUp = false;
   idPopUp = '';
@@ -43,6 +58,9 @@ export class ListaDePedidosComponent {
   obsPopUp = '';
   valorPopUp = 0;
   quantPopUp = 0;
+  nomeGarcom = '';
+
+  arrayClientes: string[] = []
 
   pratoAntigoOuAtual = '';
 
@@ -52,201 +70,155 @@ export class ListaDePedidosComponent {
 
   flagPopUpExcluirPedido: boolean = false;
 
-  pasteis: Pratos[] = [
-    { nome: 'Pastel Napolitado', valor: 10 },
-    { nome: 'Pastel de queijo', valor: 11 },
-    { nome: 'Pastel de carne', valor: 12 }
-  ]
+  imprimir: any[] = [];
+  cozinhaLigadoOuDesligado: boolean = false;
 
-  lanches: Pratos[] = [
-    { nome: 'Misto quente', valor: 22 },
-    { nome: 'Cachorro quente', valor: 22 },
-    { nome: 'Hambúrguer', valor: 22 },
-    { nome: 'Desejos', valor: 22 }
-  ]
-
-  petiscos: Pratos[] = [
-    { nome: 'Polvo a vinagrete', valor: 22 },
-    { nome: 'Tataki', valor: 22 },
-    { nome: 'Cevitche', valor: 22 },
-    { nome: 'Lula dore', valor: 22 },
-    { nome: 'Camarão dore', valor: 22 },
-    { nome: 'Camarão alho', valor: 22 },
-    { nome: 'Bolinho de bacalhau', valor: 22 },
-    { nome: 'Frango a passarinho', valor: 22 },
-    { nome: 'Filé aperetivo', valor: 22 },
-    { nome: 'Fritas', valor: 22 },
-    { nome: 'Tabua de frios', valor: 22 }
-  ]
-
-  frangos: Pratos[] = [
-    { nome: 'Frango Grelhado a campanha', valor: 22 },
-    { nome: 'Frango a parmegiana', valor: 22 },
-    { nome: 'Frango ao molho curry', valor: 22 },
-    { nome: 'Strogonoff de frango', valor: 22 }
-  ]
-
-  contraFiles: Pratos[] = [
-    { nome: 'Contra-filé grelhado a campanha', valor: 22 },
-    { nome: 'Contra-filé a parmegiana', valor: 22 },
-    { nome: 'Contra-filé a cavala', valor: 22 },
-    { nome: 'Contra-filé ao molho gorgonzola', valor: 22 },
-    { nome: 'Contra-filé ao molho madeira', valor: 22 }
-  ]
-  saladas: Pratos[] = [
-    { nome: 'Salada grega', valor: 22 },
-    { nome: 'Salada tropical', valor: 22 },
-    { nome: 'Salada Sentinelas', valor: 22 }
-  ]
-
-  sopas: Pratos[] = [
-    { nome: 'Frutos do mar', valor: 22 },
-    { nome: 'Do dia', valor: 22 }
-  ]
-
-  frutosDoMar: Pratos[] = [
-    { nome: 'Peixes na brasa', valor: 22 },
-    { nome: 'Peixe frito', valor: 22 },
-    { nome: 'Peixe grelhado', valor: 22 },
-    { nome: 'Ao molho de camarão', valor: 22 },
-    { nome: 'Camarão no abacaxi', valor: 22 },
-    { nome: 'Camarão ao catupiry', valor: 22 },
-    { nome: 'Camarão empanado', valor: 22 },
-    { nome: 'Risoto', valor: 22 },
-    { nome: 'Moqueca', valor: 22 }
-    ]
-
-  massas: Pratos[] = [
-    { nome: 'Espaguete com camarão ao pesto', valor: 22 },
-    { nome: 'Parisiense', valor: 22 },
-    { nome: 'Primavera', valor: 22 },
-    { nome: 'Nhoque', valor: 22 },
-    { nome: 'Rondelli', valor: 22 },
-    { nome: 'Canelone', valor: 22 },
-    { nome: 'Raviolli', valor: 22 }
-  ]
-
-  bebidasCom: Pratos[] = [
-    { nome: 'Cervejas', valor: 22 },
-    { nome: 'Dose Whisky', valor: 22 },
-    { nome: 'Dose cachaça', valor: 22 },
-    { nome: 'Dose de run', valor: 22 },
-    { nome: 'Dose de gin', valor: 22 },
-    { nome: 'Dose de vodka', valor: 22 },
-    { nome: 'Vinhos', valor: 22 },
-    { nome: 'Espumantes', valor: 22 },
-    { nome: 'Grin tônica', valor: 22 },
-    { nome: 'Caipivodka', valor: 22 },
-    { nome: 'Caipirinha', valor: 22 },
-    { nome: 'Pina colada', valor: 22 },
-    { nome: 'Margarita', valor: 22 },
-    { nome: 'Mojito', valor: 22 },
-    { nome: 'Sex on the beach', valor: 22 },
-    { nome: 'Corona rita', valor: 22 },
-    { nome: 'Cosmopolitan', valor: 22 },
-    { nome: 'Sunset sentinelas', valor: 22 },
-    { nome: 'Roney night', valor: 22 }
-  ];
-
-
-  bebidasSem: Pratos[] = [
-    { nome: 'Água sem gás', valor: 22 },
-    { nome: 'Água com gás', valor: 22 },
-    { nome: 'Água de coco', valor: 22 },
-    { nome: 'Refrigerante', valor: 22 },
-    { nome: 'Sucos naturais', valor: 22 }
-    ];
-
-  sobremesas: Pratos[] = [
-    { nome: 'Petiti gateau', valor: 22 },
-    { nome: 'Peras caramelizadas', valor: 22 },
-    { nome: 'Pudim', valor: 22 },
-    { nome: 'Do dia', valor: 22 }
-    ]
-
-
-    async requestNotificationPermission() {
-      if ('Notification' in window) {
-        const permission = await Notification.requestPermission();
-        if (permission !== 'granted') {
-          console.warn('Permissão para notificações não concedida');
-        }
-      } else {
-        console.warn('Este navegador não suporta notificações');
+  async requestNotificationPermission() {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        console.warn('Permissão para notificações não concedida');
       }
+    } else {
+      console.warn('Este navegador não suporta notificações');
     }
+  }
 
-    getData() {
-      this.firestoreService.getPedidos().subscribe((val: todosPedidos[]) => {
-        const oldLength = this.dataSource.length;
-        this.dataSource = val;
+  funcao() {
+    this.arrayClientes[0]
+  }
 
-        if (this.dataSource.length > oldLength) {
-          this.notifyNewElement();
+
+  getData() {
+    this.firestoreService.getPedidos()
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged((prev: todosPedidos[], curr: todosPedidos[]) => {
+          return JSON.stringify(prev) === JSON.stringify(curr);
+        })
+      )
+      .subscribe({
+        next: (val: todosPedidos[]) => {
+          if (this.dataSource.length < val.length) {
+            this.notifyNewElement();
+          }
+          this.dataSource = val;
+          this.dataSource2 = new MatTableDataSource(val);
+          this.arrayClientes = [...new Set(this.dataSource.map(item => item.nomeQuartoOuPassante))];
+          this.imprimirArrayClientes(this.arrayClientes[0])
+        },
+        error: (error: any) => {
+          console.error("Ocorreu um erro ao buscar os pedidos:", error);
         }
       });
-    }
+  }
 
-    notifyNewElement() {
-      // Verifica se o usuário está na rota correta ou se a última rota dele foi essa
-      const currentUrl = this.router.url;
-      const lastUrl = localStorage.getItem('lastUrl');
-      if (currentUrl !== '/home/listadepedidos' && lastUrl !== '/home/listadepedidos') {
-        return;
-      }
 
-      // Verifica se a tela do usuário está oculta
-      if ('visibilityState' in document && document.visibilityState !== 'visible') {
-        // Salva a última rota do usuário
-        localStorage.setItem('lastUrl', currentUrl);
+  imprimirArrayClientes(cliente: string) {
+    let gruposDeClientes: any[] = [];
+    let grupoAtual: any[] = [];
 
-        if ('Notification' in window && Notification.permission === 'granted') {
-          const notification = new Notification('Novo Pedido', { silent: true });
-          if ('vibrate' in navigator) {
-            navigator.vibrate(500); // Vibração por 500ms
-          }
+    for (let i = 0; i < this.dataSource.length; i++) {
+      const obj = this.dataSource[i];
+
+      if (obj.nomeQuartoOuPassante === cliente) {
+        grupoAtual.push(obj);
+      } else {
+        if (grupoAtual.length > 0) {
+          gruposDeClientes.push(grupoAtual);
         }
+        grupoAtual = [];
       }
     }
 
+    // Verificar se o último grupo deve ser adicionado
+    if (grupoAtual.length > 0) {
+      gruposDeClientes.push(grupoAtual);
+    }
+
+    this.imprimirPedidosDoArrayCerto(gruposDeClientes[0]);
+  }
+
+  converterNumeroParaHora(numero: any) {
+    // Extrai a parte inteira e decimal do número
+    let parteInteira = Math.floor(numero);
+    let parteDecimal = Math.round((numero - parteInteira) * 60);
+
+    // Formata a string no formato "HH:MM"
+    let hora = parteInteira.toString().padStart(2, '0');
+    let minutos = parteDecimal.toString().padStart(2, '0');
+
+    return `${hora}:${minutos}`;
+  }
+
+  notifyNewElement() {
+    // Verifica se o usuário está na rota correta ou se a última rota dele foi essa
+    const currentUrl = this.router.url;
+    const lastUrl = localStorage.getItem('lastUrl');
+    if (currentUrl !== '/home/listadepedidos' && lastUrl !== '/home/listadepedidos') {
+        return;
+    }
+
+    // Salva a última rota do usuário
+    localStorage.setItem('lastUrl', currentUrl);
+
+    // Checar suporte a notificações e permissão
+    if ('Notification' in window && Notification.permission === 'granted') {
+        const notification = new Notification('Novo Pedido!', { silent: false });
+        if ('vibrate' in navigator) {
+            navigator.vibrate(500); // Vibração por 500ms
+        }
+    }
+  }
 
 
   onRowClicked(
-    id: string,
-    prato: string,
-    quarto: string,
-    horario: string,
-    obs: string,
-    valor: number,
-    quantidade: number,
-    feito: any
-  ) {
-    if(this.flagPopUp == true) {
-      this.flagPopUp = false;
-    }else this.flagPopUp = true;
+    row: any
+    ) {
+    this.idPopUp = row.id;
+    this.quartoPopUp = row.nomeQuartoOuPassante;
+    this.pratoPopUp = row.prato;
+    this.pratoAntigoOuAtual = row.prato;
+    this.horarioPopUp = row.horario;
+    this.obsPopUp = row.obs;
+    this.valorPopUp = row.valor;
+    this.quantPopUp = row.quant;
+    this.nomeGarcom = row.nomeGarcom;
 
-    this.idPopUp = id;
-    this.quartoPopUp = quarto;
-    this.pratoPopUp = prato;
-    this.pratoAntigoOuAtual = prato;
-    this.horarioPopUp = horario;
-    this.obsPopUp = obs;
-    this.valorPopUp = valor;
-    this.quantPopUp = quantidade;
-    this.feito = feito;
+    this.openDialog(row);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
-  pedidoFeito(
-    id: string,
-    prato: string,
-    quarto: string,
-    horario: string,
-    obs: string,
-    valor: number,
-    quantidade: number
-  ) {
-    this.firestoreService.pedidoFeito(id, prato, quarto, horario, obs, valor, quantidade);
-    this.flagPopUp = false
+  getRouter() {
+    const rotaAtual: string = this.router.url;
+    return rotaAtual;
+  }
+
+  openDialog(row: any): void {
+    const rota = this.getRouter();
+    const dialogRef = this.dialog.open(DialogOpcoesPedidosComponent, {
+      width: '350px', // Defina a largura do diálogo conforme necessário
+      data: { id: row.id, prato: row.prato, quarto: row.nomeQuartoOuPassante, horario: row.horario, obs: row.obs, valor: row.valor, quant: row.quant, nomeGarcom: row.nomeGarcom, rota: rota},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.feito) {
+        this.firestoreService.pedidoFeito(result.id, result.prato, result.quarto, result.horario, result.obs, result.valor, result.quant, result.nomeGarcom);
+        const pedidoParaImprimir = {
+          prato: result.prato,
+          quarto: result.quarto,
+          horario: result.horario,
+          obs: result.obs,
+          quantidade: result.quant
+        };
+        this.firestoreService.enviarPedidosParaImprimir(pedidoParaImprimir);
+      }else if(result.excluir) {
+        this.firestoreService.excluirPedido(result.id);
+      }
+    });
   }
 
   @HostListener('document:click', ['$event'])
@@ -256,52 +228,136 @@ export class ListaDePedidosComponent {
     }
   }
 
-
-  excluirPedido() {
-    this.flagPopUpExcluirPedido = true;
-    this.flagPopUp = false;
-  }
-
-  onConfirm() {
-    this.firestoreService.excluirPedido(this.idPopUp);
-    this.flagPopUpExcluirPedido = false;
-  }
-
-  onCancel() {
-    this.flagPopUpExcluirPedido = false;
-  }
-
-  editarPedido() {
-    this.flagPopUp = false;
-    this.flagDivEditarPedido = true;
-  }
-
-  fecharDivEditar() {
-    this.flagDivEditarPedido = false;
-  }
-
-  salvarEdicao(pedido: any) {
-
-    let obj = {
-      horario: this.horarioPopUp,
-      nomeQuartoOuPassante: this.quartoPopUp,
-      obs: pedido.value.obs,
-      prato: pedido.value.prato.nome,
-      quant: pedido.value.quantidade,
-      valor: pedido.value.prato.valor
-    }
-
-    try{
-      this.firestoreService.updatePedido(obj, this.idPopUp);
-      alert("Alteração concluida com sucesso!")
-    }catch{
-      alert("Alteração não concluida com sucesso!")
-    }
-    this.flagDivEditarPedido = false;
-  }
-
   pedidoSendoFeito(idPopUp: string) {
     this.firestoreService.pedidoSendoFeito(idPopUp);
     this.flagPopUp = false;
+  }
+
+
+
+
+
+
+
+
+
+  async imprimirPedidosDoArrayCerto(array: any[]) {
+    // Formate os pedidos como uma comanda
+    const textoFormatado = this.formatarPedidosComoComandaCerto(array);
+
+    // Abra uma nova aba com o conteúdo formatado
+    const novaAba = window.open('', '_blank', 'height=500,width=500');
+    novaAba?.document.open();
+    novaAba?.document.write('<html><body>');
+    novaAba?.document.write('<div style="transform: rotate(90deg); display: flex; flex-direction: row; flex-wrap: wrap;">'); // Rotacionar a página em 90 graus
+    novaAba?.document.write(`<pre>${textoFormatado}</pre>`);
+    novaAba?.document.write('</div>'); // Fim da rotação
+    novaAba?.document.write('</body></html>');
+    novaAba?.document.close();
+
+    // Acione o comando de impressão na nova aba
+    novaAba?.print();
+    novaAba?.close();
+
+    array.forEach(element => {
+      this.firestoreService.pedidoFeito(element.id, element.prato, element.nomeQuartoOuPassante, element.horario, element.obs, element.valor, element.quant, element.nomeGarcom);
+    });
+  }
+
+  metodod(any: string) {
+    let array = any.split(" ");
+    let result = '';
+    array.forEach(element => {
+      result += element + "<br>"
+    });
+    return result;
+  }
+
+  formatarPedidosComoComandaCerto(pedidos: any[]): string {
+    let textoFormatado = '';
+
+    textoFormatado += `<div style="display: inline-block; width: 120px; border-right: 1px solid black; height: 100%; text-align: center;"><div style="font-size: 25px; margin: 3em 0 1em -2em;">${this.formatarHorario(pedidos[0].horario)}</div><div style="font-size: 20px; margin: 0 0 0 -2em;">${this.metodod(pedidos[0].quarto || pedidos[0].nomeQuartoOuPassante)}</div></div>`;
+
+    pedidos.forEach((pedido) => {
+      textoFormatado += '<div style="margin: 15px 0.7em; padding: 10px; display: inline-block; width: 280px; border-right: 1px solid black; vertical-align: top; text-align: center; height: 100%;">';
+
+      if (pedido.prato.length <= 14) {
+        textoFormatado += `<h1 style="font-size: 30px; text-transform: uppercase;">${pedido.prato}</h1></span>`;
+      } else if (pedido.prato.length >= 15 && pedido.prato.length <= 28) {
+        const primeiraParte = pedido.prato.substring(0, 14);
+        const segundaParte = pedido.prato.substring(14);
+        textoFormatado += `<h1 style="font-size: 30px; text-transform: uppercase;">${primeiraParte}<br>${segundaParte}</h1></span>`;
+      } else if (pedido.prato.length >= 29 && pedido.prato.length <= 42) {
+        const primeiraParte = pedido.prato.substring(0, 14);
+        const segundaParte = pedido.prato.substring(14, 28);
+        const terceiraParte = pedido.prato.substring(28);
+        textoFormatado += `<h1 style="font-size: 30px; text-transform: uppercase;">${primeiraParte}<br>${segundaParte}<br>${terceiraParte}</h1></span>`;
+      } else if (pedido.prato.length >= 43) {
+        const primeiraParte = pedido.prato.substring(0, 14);
+        const segundaParte = pedido.prato.substring(14, 28);
+        const terceiraParte = pedido.prato.substring(28, 42);
+        const quartaParte = pedido.prato.substring(42);
+        textoFormatado += `<h1 style="font-size: 30px; text-transform: uppercase;">${primeiraParte}<br>${segundaParte}<br>${terceiraParte}<br>${quartaParte}</h1></span>`;
+      }
+
+      textoFormatado += `<h3 style="font-size: 25px;">Quant: ${pedido.quantidade || pedido.quant}</h3>`;
+
+      if (pedido.obs) {
+        textoFormatado += `<h3 style="font-size: 25px;">Obs: `;
+        const partesObs: string[] = this.dividirTexto(pedido.obs, 10);
+        partesObs.forEach((parte, indice) => {
+          textoFormatado += `${parte}<br>`;
+        });
+        textoFormatado += `</h3>`;
+      } else {
+        textoFormatado += `<h3 style="font-size: 25px;">Obs: <br></h3>`;
+      }
+      textoFormatado += `</div>`;
+    });
+
+    return textoFormatado;
+  }
+
+
+
+
+
+
+
+  dividirTexto(texto: string, limite: number): string[] {
+    const partes: string[] = [];
+    while (texto.length > limite) {
+      partes.push(texto.substr(0, limite));
+      texto = texto.substr(limite);
+    }
+    partes.push(texto);
+    return partes;
+  }
+
+  private formatarHorario(horarioDecimal: number): string {
+    const horas = Math.floor(horarioDecimal);
+    const minutos = Math.floor((horarioDecimal % 1) * 60);
+    const minutosFormatados = minutos < 10 ? `0${minutos}` : minutos.toString();
+    return `${horas}:${minutosFormatados}`;
+  }
+
+  getImprimir(): void {
+    this.firestoreService.getImprimir().subscribe((pedidos: any[]) => {
+      this.arrayImprimirPedidos = pedidos;
+    });
+  }
+
+  @HostListener('click', ['$event.target'])
+  onClick(target: HTMLElement): void {
+    if (target.classList.contains('confirm-dialog-backdrop')) {
+      this.fecharDialog();
+    }
+  }
+
+  // Função para fechar o diálogo
+  fecharDialog(): void {
+    let confirmDialog = document.getElementById('confirm-dialog');
+
+    confirmDialog!.style.display = 'none';
   }
 }

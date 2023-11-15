@@ -1,0 +1,51 @@
+  <div class="table-container mat-elevation-z8">
+    <mat-form-field class="filtro">
+      <mat-label>Quarto/Passante</mat-label>
+      <input matInput [matAutocomplete]="auto" (keyup)="applyFilter($event)" placeholder="Ex: Norte" #input>
+    </mat-form-field>
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      <mat-option class="options" *ngFor="let nome of nomesClientes" [value]="nome">
+        {{ nome }}
+      </mat-option>
+    </mat-autocomplete>
+
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Obs Column -->
+      <ng-container matColumnDef="obs">
+        <th mat-header-cell *matHeaderCellDef class="tableLetters uppercase"> Obs </th>
+        <td mat-cell *matCellDef="let element" class="tableLetters"> {{element.obs}} </td>
+      </ng-container>
+      <!-- Pedido Column -->
+      <ng-container matColumnDef="pedido">
+        <th mat-header-cell *matHeaderCellDef class="tableLetters uppercase"> Pedido </th>
+        <td mat-cell *matCellDef="let element" class="tableLetters"> {{element.prato}} </td>
+      </ng-container>
+      <!-- Quantidade Column -->
+      <ng-container matColumnDef="quant">
+        <th mat-header-cell *matHeaderCellDef class="tableLetters uppercase"> Quantidade </th>
+        <td mat-cell *matCellDef="let element" class="tableLetters"> {{element.quant}} </td>
+      </ng-container>
+      <!-- Quarto ou Passante Column -->
+      <ng-container matColumnDef="nomeQuartoOuPassante">
+        <th mat-header-cell *matHeaderCellDef class="tableLetters uppercase"> Cliente </th>
+        <td mat-cell *matCellDef="let element" class="tableLetters"> {{element.nomeQuartoOuPassante}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'green-row': row.feito}" (click)="onRowClicked(row)"></tr>
+    </table>
+  </div>
+
+
+<div class="confirm-dialog-backdrop" id="confirm-dialog">
+  <div class="confirm-dialog">
+    <div class="confirm-dialog-message" id="confirm-dialog-message">
+
+    </div>
+  </div>
+</div>
+
+
+
+

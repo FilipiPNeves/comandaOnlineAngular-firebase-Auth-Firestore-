@@ -1,0 +1,234 @@
+.table-container {
+  max-width: 100%; /* Define a largura máxima para o recipiente */
+  overflow-x: auto; /* Adiciona uma barra de rolagem horizontal se necessário */
+}
+
+.filtro {
+  display: block;
+  width: 200px;
+  margin: 1.3em auto 0;
+}
+
+.tableLetters {
+  font-size: 20px;
+  text-align: center;
+}
+
+.uppercase {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.teste:hover {
+  background-color: #37addc !important;
+}
+
+#popUp {
+  position: absolute;
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+#botaoFazendo {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+#botaoSim {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#divEditar {
+  position: absolute;
+  width: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#titleQuartoPassante {
+  display: flex;
+  width: 80%;
+  margin: 1em auto 1em;
+}
+
+.example-full-width {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#divBotoesFecharSalvar {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 2em 1em 2em;
+}
+
+.green-row {
+  background-color: rgb(141, 249, 141);
+}
+
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-dialog {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.confirm-dialog-message {
+  margin-bottom: 20px;
+}
+
+.confirm-dialog-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.botaoLigarCozinha {
+  position: fixed;
+  top: 4.7em;
+  right: 20px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 9999; /* Certifique-se de que o botão esteja acima de outros elementos */
+}
+
+.botaoLigarCozinha.ligado {
+  background-color: rgb(68, 255, 0);
+}
+
+.botaoLigarCozinha.ligado:hover {
+  background-color: rgb(45, 158, 4);
+}
+
+
+.botaoLigarCozinha:hover {
+  background-color: #d32f2f;
+}
+
+.botaoLigarCozinha:focus {
+  outline: none;
+}
+
+/* Estilo para o botão no topo da página */
+.botaoImprimirArray {
+  position: fixed; /* Fixa o botão na tela */
+  top: 75px; /* Define a distância do topo da tela */
+  right: 20px; /* Define a distância da direita da tela */
+  padding: 10px 20px; /* Espaçamento interno do botão */
+  background-color: #007bff; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  border: none; /* Remove a borda do botão */
+  border-radius: 5px; /* Borda arredondada */
+  cursor: pointer; /* Altera o cursor para indicar interatividade */
+}
+
+/* Estilo quando o cursor está sobre o botão */
+.botaoImprimirArray:hover {
+  background-color: #0056b3; /* Cor de fundo quando hover */
+}
+
+/* Estilo para o fundo do diálogo */
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para o diálogo */
+.confirm-dialog {
+  background-color: #fff; /* Cor de fundo do diálogo */
+  border-radius: 8px; /* Borda arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombreamento */
+  padding: 20px;
+  max-width: 400px; /* Largura máxima do diálogo */
+  text-align: center;
+}
+
+/* Estilo para a mensagem do diálogo */
+.confirm-dialog-message {
+  font-size: 18px;
+}
+
+.labelPedidos {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+mat-option {
+  border: solid 0.01px rgb(159, 158, 158);
+  font-size: 23px;
+  margin: 0.2em 0.1em;
+}
+
+@media (max-width: 450px) {
+  #popUp {
+    width: 95%;
+  }
+  .tableLetters {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 390px) {
+  .tableLetters {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 370px) {
+  .tableLetters {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  .tableLetters {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 320px) {
+  .tableLetters {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 290px) {
+  .tableLetters {
+    font-size: 9px;
+  }
+}

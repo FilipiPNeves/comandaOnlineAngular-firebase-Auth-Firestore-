@@ -1,0 +1,59 @@
+.filtro-datas {
+  text-align: center;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.filtro-datas .mat-form-field {
+  width: 100%; /* Define a largura total */
+}
+
+.filtro-datas .Botao {
+  margin-top: 20px; /* Espaçamento entre os datepickers e o botão */
+}
+
+
+.pedidos-container {
+  text-align: center;
+}
+
+.botaoNovaPesquisa {
+  margin-left: 2.3%;
+  margin-bottom: 1%;
+}
+
+.filtro {
+  margin-top: 1%;
+}
+
+/* styles.css (ou seu arquivo de estilo) */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.card {
+  text-align: center; /* Centralizar o conteúdo dentro do mat-card */
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.tableCSS {
+  margin-bottom: 150px;
+}
+
+.tableLetters {
+  font-size: 20px;
+  text-align: center;
+}
+
+.uppercase {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+/* Estilize conforme necessário para atender às suas preferências visuais */
