@@ -4,22 +4,39 @@
   text-transform: uppercase;
 }
 
-.direita {
+.divObs {
+  display: inline-flex;
+  width: 70%;
+}
+
+.matObs {
+  width: 100%;
+  font-size: 1.8em;
+}
+
+.divQuant {
+  display: inline-flex;
   width: 25%;
   margin-left: 5%;
 }
 
-.esquerda {
-  width: 70%;
+.matQuant {
+  width: 100%;
+}
+
+.input2 {
+  font-size: 2.1em;
 }
 
 .esquerdaIf {
   width: 45%;
+  font-size: 2em;
 }
 
 .meio {
   width: 20%;
   margin: 0 5%;
+  font-size: 2em;
 }
 
 .direitaIf {
@@ -41,11 +58,10 @@
 
 .buttonIconMaisDiv {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  margin-top: 1em; /* Adicione margem superior se necessário */
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
 }
-
 
 .buttonIconMais {
   width: 10%;
@@ -62,13 +78,10 @@
   font-size: 24px;
 }
 
-.input {
-  font-size: 2em;
-}
 
 .actions {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
+  justify-content: center;
   margin-bottom: 1em;
 }
 

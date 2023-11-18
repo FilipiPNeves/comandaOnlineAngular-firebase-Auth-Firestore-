@@ -366,6 +366,7 @@ export class NovoPedidoComponent {
     { value: 'Ilha'},
     { value: 'Chalé'},
     { value: 'Anexo'},
+    { value: 'Aroeira'},
   ];
   nomePassanteSelecionado?: any;
   quartoSelecionado?: any;

@@ -24,6 +24,10 @@ export class PedidosCaixaSvtotComponent {
   subTotal: number = 0;
   pedidosClienteSelecionado: PratosNovo[] = []
 
+  maisPedido(nomeCliente: string) {
+    this.router.navigate(['/principal/novopedido', nomeCliente]);
+  }
+
   getPedidos() {
     this.sharedDataService.getPedidos().subscribe((todosPedidos: PratosNovo[]) => {
       this.subTotal = 0;
@@ -75,5 +79,18 @@ export class PedidosCaixaSvtotComponent {
   }
 
   clickPedido(pedido: PratosNovo) {
+  }
+
+  capitalizeFirstLetterOfEachWord(inputString: string): string {
+    const words = inputString.split(' ');
+    const capitalizedWords = words.map((word) => {
+      if (word.length > 0) {
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+      } else {
+        return word;
+      }
+    });
+    const resultString = capitalizedWords.join(' ');
+    return resultString;
   }
 }

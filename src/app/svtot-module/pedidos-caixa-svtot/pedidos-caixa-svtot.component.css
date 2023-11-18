@@ -1,20 +1,19 @@
 .back {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #acacac;
+  position: relative; /* Certifique-se de que a posição seja relativa para os elementos filhos usarem corretamente */
 }
 
 .cabeçalho {
+  position: fixed;
   width: 100%;
-  height: 5.5%;
+  height: 3.3em;
+  top: 0;
   background-color: white;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.botaoVoltar {
-  margin-left: 0.5em;
-  margin-bottom: 0.3em;
 }
 
 .iconVoltar {
@@ -23,17 +22,20 @@
 }
 
 .nomeCliente {
-  margin-right: 1.5em;
+  font-size: 2.5em;
+  margin-left: 0.5em;
+  flex-grow: 1;
 }
 
-.nomeClienteH1 {
-  margin: auto 0;
-  font-size: 2.5em;
+.buttonMaisPedido {
+  margin-right: 0.5em;
+  margin-bottom: 0.2em;
 }
+
 
 .cardDiv {
-  margin-top: 2.5em;
-  margin-bottom: 10em;
+  padding-top: 5.8em;
+  padding-bottom: 13.5em;
 }
 
 .carrinhoNomeClienteDiv {
@@ -90,6 +92,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 0.4em;
 }
 
 .divItemExcluir,

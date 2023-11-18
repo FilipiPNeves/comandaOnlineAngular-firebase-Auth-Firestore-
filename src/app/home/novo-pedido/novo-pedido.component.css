@@ -215,7 +215,10 @@ mat-option {
   font-size: 20px;
 }
 
-
+.selectedButton {
+  background-color: #005d8f;
+  color: #FFFFFF;
+}
 
 
 

@@ -1,42 +1,49 @@
-<mat-tab-group backgroundColor="accent" class="novo-pedido" animationDuration="0ms">
+<div class="cabeçalho">
+  <div class="nomeCliente">
+    {{ capitalizeFirstLetterOfEachWord(nomeCliente) }}
+  </div>
+
+</div>
+<mat-tab-group headerPosition="below" backgroundColor="accent" class="novo-pedido" animationDuration="0ms">
   <mat-tab>
     <ng-template mat-tab-label>
       <div class="tab-label-custom cardapio">
         CARDÁPIO
       </div>
     </ng-template>
-    <div class="grupoBotões">
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'diferente'" (click)="abrirDivPedido('diferente')">Diferente</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'entradas'" (click)="abrirDivPedido('entradas')">Entradas</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'saladas'" (click)="abrirDivPedido('saladas')">Saladas</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'sopas'" (click)="abrirDivPedido('sopas')">Sopas</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'lanches'" (click)="abrirDivPedido('lanches')">Lanches</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'petiscos'" (click)="abrirDivPedido('petiscos')">Petiscos</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'pasteis'" (click)="abrirDivPedido('pasteis')">Pastéis</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'doces'" (click)="abrirDivPedido('doces')">Doces</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'alcool'" (click)="abrirDivPedido('alcool')">Alcoólicas</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'bebidas'" (click)="abrirDivPedido('bebidas')">Não Alcoólicas</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'frangos'" (click)="abrirDivPedido('frangos')">Frangos</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'carnes'" (click)="abrirDivPedido('carnes')">Carnes</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'risotos'" (click)="abrirDivPedido('risotos')">Risotos</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'massas'" (click)="abrirDivPedido('massas')">Massas</button>
-      <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'frutosDoMar'" (click)="abrirDivPedido('frutosDoMar')">Do Mar</button>
-    </div>
-
-    <div *ngFor="let categoria of categorias">
-      <div *ngIf="visibilidadeDivs[categoria.tipo]">
-        <mat-grid-list class="matGridList" cols="3" rowHeight="5:3">
-          <mat-grid-tile class="matGridTile" *ngFor="let item of categoria.lista">
-            <mat-card class="matCard" (click)="selectItem(item)" [ngClass]="{'selectedCard': itensSelecionados.includes(item)}">
-              <img class="imgCard" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-              <mat-card-content>
-                <div class="matCardContent">
-                  <p [class.nomeItemPedidoLongo]="item.nome.length > 40" class="nomeItemPedido">{{ item.nome }}</p>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
+    <div class="divTodosBotoesECards">
+      <div class="grupoBotões">
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'diferente'" (click)="abrirDivPedido('diferente')">Diferente</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'entradas'" (click)="abrirDivPedido('entradas')">Entradas</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'saladas'" (click)="abrirDivPedido('saladas')">Saladas</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'sopas'" (click)="abrirDivPedido('sopas')">Sopas</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'lanches'" (click)="abrirDivPedido('lanches')">Lanches</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'petiscos'" (click)="abrirDivPedido('petiscos')">Petiscos</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'pasteis'" (click)="abrirDivPedido('pasteis')">Pastéis</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'doces'" (click)="abrirDivPedido('doces')">Doces</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'alcool'" (click)="abrirDivPedido('alcool')">Alcoólicas</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'bebidas'" (click)="abrirDivPedido('bebidas')">Não Alcoólicas</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'frangos'" (click)="abrirDivPedido('frangos')">Frangos</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'carnes'" (click)="abrirDivPedido('carnes')">Carnes</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'risotos'" (click)="abrirDivPedido('risotos')">Risotos</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'massas'" (click)="abrirDivPedido('massas')">Massas</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'frutosDoMar'" (click)="abrirDivPedido('frutosDoMar')">Do Mar</button>
+      </div>
+      <div *ngFor="let categoria of categorias">
+        <div *ngIf="visibilidadeDivs[categoria.tipo]">
+          <mat-grid-list class="matGridList" cols="3" rowHeight="5:2.6">
+            <mat-grid-tile class="matGridTile" *ngFor="let item of categoria.lista">
+              <mat-card class="matCard" (click)="selectItem(item)" [ngClass]="{'selectedCard': itensSelecionados.includes(item)}">
+                <!--<img class="imgCard" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+                <mat-card-content>
+                  <div class="matCardContent">
+                    <p [class.nomeItemPedidoLongo]="item.nome.length > 40" class="nomeItemPedido">{{ item.nome }}</p>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
       </div>
     </div>
   </mat-tab>
@@ -48,47 +55,39 @@
         CARRINHO ({{ carrinho.length }})
       </div>
     </ng-template>
-    <div class="carrinhoNomeClienteDiv">
-      <mat-form-field class="carrinhoNomeClienteMat">
-        <mat-label><div class="titleNomeCliente">Nome do Quarto/Cliente</div></mat-label>
-        <input matInput
-         [(ngModel)]="nomeCliente"
-         [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option class="options" *ngFor="let option of filteredOptions" [value]="option">
-            <div class="option">{{ option }}</div>
-          </mat-option>
-        </mat-autocomplete>
-        <button matSuffix mat-icon-button aria-label="Clear" *ngIf="nomeCliente" (click)="nomeCliente=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+    <div>
+      <div class="cardDiv">
+        <mat-card *ngFor="let item of carrinho" class="cardCarrinho">
+          <mat-card-content class="divItemTudo">
+            <div class="divItemNomeQuantidadeValor">
+              <div class="divItemNome">{{ item.nome }}</div>
+              <div class="divItemQuantidadeValor">
+                <div class="divItemQuantidade">{{ item.quantidade }} UNID</div>
+                <div class="divItemValor">{{ formatToBrazilianReal(item.valor + +item.adicional1!.valor + +item.adicional2!.valor) }}</div>
+              </div>
+            </div>
+            <div class="divItemExcluirEditar">
+              <div class="divItemExcluir">
+                <mat-icon (click)="selectItem(item)" class="delete-icon">delete</mat-icon>
+              </div>
+              <div class="divItemEditar">
+                <mat-icon (click)="editItemOpenDialog(item)" class="edit-icon">edit</mat-icon>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-    <div class="cardDiv">
-      <mat-card *ngFor="let item of carrinho" class="cardCarrinho">
-        <mat-card-content class="divItemTudo">
-          <div class="divItemNomeQuantidadeValor">
-            <div class="divItemNome">{{ item.nome }}</div>
-            <div class="divItemQuantidadeValor">
-              <div class="divItemQuantidade">{{ item.quantidade }} UNID</div>
-              <div class="divItemValor">{{ formatToBrazilianReal(item.valor + +item.adicional1!.valor + +item.adicional2!.valor) }}</div>
-            </div>
-          </div>
-          <div class="divItemExcluirEditar">
-            <div class="divItemExcluir">
-              <mat-icon (click)="selectItem(item)" class="delete-icon">delete</mat-icon>
-            </div>
-            <div class="divItemEditar">
-              <mat-icon (click)="editItemOpenDialog(item)" class="edit-icon">edit</mat-icon>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <button mat-button (click)="envioNovo()" class="buttonEnvioNovo" mat-flat-button color="primary">ENVIAR</button>
   </mat-tab>
+
 </mat-tab-group>
+
+
+<div class="divButtonEnvioNovo">
+  <button mat-button (click)="envioNovo()" class="buttonEnvioNovo" mat-flat-button color="primary">ENVIAR</button>
+</div>
+
+
 
 <div class="confirm-dialog-backdrop" id="confirm-dialog">
   <div class="confirm-dialog">

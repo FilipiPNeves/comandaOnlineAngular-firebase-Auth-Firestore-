@@ -5,23 +5,22 @@
     <mat-form-field class="NomeClienteMat">
       <mat-label><div class="titleNomeCliente">Nome do Quarto/Cliente</div></mat-label>
       <input matInput type="text" [(ngModel)]="inputNomeCliente" (ngModelChange)="filtrarClientes()">
-      <button matSuffix mat-icon-button aria-label="Clear" *ngIf="inputNomeCliente" (click)="clearFiltro()">
-        <mat-icon>close</mat-icon>
+      <button class="buttonMaisPedido" matSuffix mat-icon-button *ngIf="inputNomeCliente" (click)="maisPedido(inputNomeCliente)">
+        <mat-icon style="font-weight: bolder; border: 3px solid rgb(0, 38, 255); border-radius: 50%;" color="primary">add</mat-icon>
       </button>
     </mat-form-field>
   </div>
 
-  <div class="NomeClienteDiv">
+  <div class="NomeClienteDiv2">
     <mat-grid-list class="matGridList" cols="3" rowHeight="5:3">
       <mat-grid-tile class="matGridTile" *ngFor="let nomeCliente of todosClientesNgFor">
         <mat-card class="matCard" (click)="selectItem(nomeCliente)">
           <mat-card-content class="matCardContent">
-            <p class="nomeItemPedido">{{ nomeCliente }}</p>
+            <p class="nomeItemPedido">{{ capitalizeFirstLetterOfEachWord(nomeCliente) }}</p>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
 </div>
-
 

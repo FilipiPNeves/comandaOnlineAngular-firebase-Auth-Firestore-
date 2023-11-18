@@ -7,8 +7,8 @@ import { PedidosCaixaSvtotComponent } from './pedidos-caixa-svtot/pedidos-caixa-
 
 const routes: Routes = [
   { path: '', component: PrincipalComponent , children: [
-    { path: '', redirectTo: 'novopedido', pathMatch: 'full' },
-    { path: 'novopedido', component: NovoPedidoSvtotComponent },
+    { path: '', redirectTo: 'caixa', pathMatch: 'full' },
+    { path: 'novopedido/:nomeCliente', component: NovoPedidoSvtotComponent },
     { path: 'caixa', component: CaixaSvtotComponent },
     { path: 'pedidoscaixa/:nomeCliente', component: PedidosCaixaSvtotComponent },
   ]}

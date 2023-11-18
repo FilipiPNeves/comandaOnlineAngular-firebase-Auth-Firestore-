@@ -52,11 +52,6 @@ export class DialogNovoEditCarrinhoComponent {
   }
 
   confirmar() {
-    console.log(this.adicional1Nome);
-    console.log(this.adicional1Valor);
-    console.log(this.adicional2Nome);
-    console.log(this.adicional2Valor);
-
     if(this.adicional1Nome === '' && (this.adicional1Valor !== 0 && this.adicional1Valor !== undefined && this.adicional1Valor !== null)) {
       alert("Escreva o nome do adicional 1!");
       return;

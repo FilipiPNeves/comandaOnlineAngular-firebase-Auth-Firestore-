@@ -2,26 +2,30 @@
 <div>
   <h1 mat-dialog-title><div class="title">{{item.nome}}</div></h1>
   <div mat-dialog-content>
-    <mat-form-field class="esquerda">
-      <mat-label>Descrição</mat-label>
-      <input class="input" matInput [(ngModel)]="descricao">
-    </mat-form-field>
+    <div class="divObs">
+      <mat-form-field class="matObs">
+        <mat-label>Observações</mat-label>
+        <input matInput [(ngModel)]="descricao">
+      </mat-form-field>
+    </div>
 
-    <mat-form-field class="direita">
-      <mat-label>Quantidade</mat-label>
-      <mat-select class="input" [(ngModel)]="quantidade">
-        <mat-option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="i">{{ i }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="divQuant">
+      <mat-form-field class="matQuant">
+        <mat-label>Quant</mat-label>
+        <mat-select class="input2" [(ngModel)]="quantidade">
+          <mat-option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="i">{{ i }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <div *ngIf="ngIf1">
       <mat-form-field class="esquerdaIf">
         <mat-label>adicional 1</mat-label>
-        <input class="input" matInput [(ngModel)]="adicional1Nome">
+        <input matInput [(ngModel)]="adicional1Nome">
       </mat-form-field>
       <mat-form-field class="meio">
         <mat-label>valor</mat-label>
-        <input class="input" matInput type="number" [(ngModel)]="adicional1Valor">
+        <input matInput type="number" [ngModel]="adicional1Valor !== 0 ? adicional1Valor : ''" (ngModelChange)="adicional1Valor = $event === '' ? 0 : $event">
       </mat-form-field>
       <div class="direitaIf">
         <button class="buttonIcon" mat-icon-button (click)="fecharDiv('ngIf1')">
@@ -31,13 +35,13 @@
     </div>
 
     <div *ngIf="ngIf2">
-      <mat-form-field class="esquerdaIf">
+      <mat-form-field class="esquerdaIf input">
         <mat-label>adicional 2</mat-label>
         <input class="input" matInput [(ngModel)]="adicional2Nome">
       </mat-form-field>
-      <mat-form-field class="meio">
+      <mat-form-field class="meio input">
         <mat-label>valor</mat-label>
-        <input class="input" matInput type="number" [(ngModel)]="adicional2Valor">
+        <input matInput type="number" [ngModel]="adicional2Valor !== 0 ? adicional2Valor : ''" (ngModelChange)="adicional2Valor = $event === '' ? 0 : $event">
       </mat-form-field>
       <div class="direitaIf">
         <button class="buttonIcon" mat-icon-button (click)="fecharDiv('ngIf2')">
@@ -54,7 +58,7 @@
   </div>
   <div class="actions">
     <div mat-dialog-actions>
-      <button mat-raised-button class="buttonConfirmar" (click)="confirmar()"><div class="buttonFont Confirmar">Confirmar</div></button>
+      <button mat-raised-button class="buttonConfirmar" (click)="confirmar()"><div class="buttonFont Confirmar">SALVAR</div></button>
     </div>
   </div>
 </div>

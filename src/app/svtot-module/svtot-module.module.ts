@@ -24,6 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NovoPedidoSvtotComponent } from './novo-pedido-svtot/novo-pedido-svtot.component';
 import { CaixaSvtotComponent } from './caixa-svtot/caixa-svtot.component';
 import { PedidosCaixaSvtotComponent } from './pedidos-caixa-svtot/pedidos-caixa-svtot.component';
+import { DialogNovoOpcoesComponent } from '../dialogs/dialog-novo-opcoes/dialog-novo-opcoes.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PedidosCaixaSvtotComponent } from './pedidos-caixa-svtot/pedidos-caixa-
     PrincipalComponent,
     NovoPedidoSvtotComponent,
     CaixaSvtotComponent,
-    PedidosCaixaSvtotComponent
+    PedidosCaixaSvtotComponent,
+    DialogNovoOpcoesComponent
   ],
   imports: [
     CommonModule,

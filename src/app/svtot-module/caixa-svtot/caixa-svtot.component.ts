@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DialogNovoOpcoesComponent } from 'src/app/dialogs/dialog-novo-opcoes/dialog-novo-opcoes.component';
 import { PratosNovo } from 'src/app/pratos-novo';
 import { ShareddataService } from 'src/app/services/shareddata.service';
 
@@ -10,17 +12,23 @@ import { ShareddataService } from 'src/app/services/shareddata.service';
   styleUrls: ['./caixa-svtot.component.css']
 })
 export class CaixaSvtotComponent {
-  constructor(private sharedDataService: ShareddataService, private router: Router) {
+  constructor(private sharedDataService: ShareddataService, private router: Router, private dialog: MatDialog,) {
     this.getClientes();
   }
 
   todosClientes: string[] = [];
   nomeGarcom: string = '';
   arrayPedidos: PratosNovo[] = [];
-
   todosClientesNgFor: string[] = []
-
   inputNomeCliente: string = '';
+
+
+
+
+  ngIfDialog: boolean = true;
+
+
+
 
   filtrarClientes() {
     const filtro = this.inputNomeCliente.toLowerCase();
@@ -28,9 +36,11 @@ export class CaixaSvtotComponent {
     this.todosClientesNgFor = this.todosClientes.map((cliente) => cliente).filter((cliente) => cliente.toLowerCase().includes(filtro));
   }
 
-  clearFiltro() {
-    this.inputNomeCliente = '';
-    this.filtrarClientes();
+  maisPedido(inputNomeCliente: string) {
+    if (inputNomeCliente[inputNomeCliente.length - 1] === ' ') {
+      inputNomeCliente = inputNomeCliente.slice(0, -1);
+    }
+    this.router.navigate(['/principal/novopedido', inputNomeCliente.toLowerCase()]);
   }
 
   getClientes() {
@@ -40,9 +50,37 @@ export class CaixaSvtotComponent {
     });
   }
 
-
-
   selectItem(nomeCliente: string) {
-    this.router.navigate(['/principal/pedidoscaixa', nomeCliente]);
+    this.opcoesOpenDialog(nomeCliente);
+  }
+
+  opcoesOpenDialog(nomeCliente: string) {
+    const dialogRef = this.dialog.open(DialogNovoOpcoesComponent, {
+      data: nomeCliente,
+      width: "70%",
+    });
+
+    dialogRef.afterClosed().subscribe(opcaoSelecionada => {
+      if(opcaoSelecionada === 'p') {
+        this.router.navigate(['/principal/novopedido', nomeCliente]);
+      }
+
+      if(opcaoSelecionada === 'c') {
+        this.router.navigate(['/principal/pedidoscaixa', nomeCliente]);
+      }
+    });
+  }
+
+  capitalizeFirstLetterOfEachWord(inputString: string): string {
+    const words = inputString.split(' ');
+    const capitalizedWords = words.map((word) => {
+      if (word.length > 0) {
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+      } else {
+        return word;
+      }
+    });
+    const resultString = capitalizedWords.join(' ');
+    return resultString;
   }
 }

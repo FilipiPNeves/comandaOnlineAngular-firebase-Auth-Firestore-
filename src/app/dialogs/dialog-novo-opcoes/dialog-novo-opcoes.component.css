@@ -1,0 +1,29 @@
+.tittle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 3em;
+  margin: 1em;
+}
+
+.div {
+  display: flex;
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  height: 100%; /* Ocupa toda a altura do pai */
+  padding: 1em;
+}
+
+.div2 {
+  margin-top: 2em;
+}
+.botoes {
+  width: 20em;
+  height: 5em;
+}
+
+.pedido-conta {
+  font-size: 3em;
+}

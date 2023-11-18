@@ -6,6 +6,7 @@ import { entradasNovo, pasteisNovo, lanchesNovo, petiscosNovo, frangosNovo, carn
 import { DialogNovoEditCarrinhoComponent } from 'src/app/dialogs/dialog-novo-edit-carrinho/dialog-novo-edit-carrinho.component';
 import { Timestamp } from 'firebase/firestore';
 import { ShareddataService } from 'src/app/services/shareddata.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-novo-pedido-svtot',
@@ -17,11 +18,16 @@ export class NovoPedidoSvtotComponent{
   constructor(
     private firestoreService: FirestoreService,
     private dialog: MatDialog,
-    private sharedDataService: ShareddataService
+    private sharedDataService: ShareddataService,
+    private route: ActivatedRoute,
+    private router: Router
     )
   {
+    this.route.params.subscribe(params => {
+      this.nomeCliente = params['nomeCliente'];
+    });
     this.resetVisibilidadeDivs();
-    this.visibilidadeDivs['frutosDoMar'] = true;
+    this.visibilidadeDivs['alcool'] = true;
     this.getNomeGarcom();
     this.getClientes();
   }
@@ -29,7 +35,7 @@ export class NovoPedidoSvtotComponent{
   todosClientes: string[] = [];
   nomeCliente: string = '';
   nomeGarcom: string = '';
-  selecionado: string = 'frutosDoMar';
+  selecionado: string = 'alcool';
 
   carrinho: PratosNovo[] = [];
   itensSelecionados: any[] = [];
@@ -68,6 +74,10 @@ export class NovoPedidoSvtotComponent{
     { tipo: 'alcool', lista: this.alcoolNovo },
     { tipo: 'doces', lista: this.docesNovo }
   ];
+
+  conta(nomeCliente: string) {
+    this.router.navigate(['/principal/pedidoscaixa', nomeCliente]);
+  }
 
   abrirDivPedido(tipoPedido: string) {
     this.resetVisibilidadeDivs();
@@ -147,12 +157,13 @@ export class NovoPedidoSvtotComponent{
   onClick(target: HTMLElement): void {
     if (target.classList.contains('confirm-dialog-backdrop')) {
       document.getElementById('confirm-dialog')!.style.display = 'none';
+      this.router.navigate(['principal/caixa/']);
     }
   }
 
   editItemOpenDialog(item: PratosNovo) {
     const dialogRef = this.dialog.open(DialogNovoEditCarrinhoComponent, {
-      data: item,
+      data: item
     });
 
     dialogRef.afterClosed().subscribe(item => {
@@ -162,6 +173,19 @@ export class NovoPedidoSvtotComponent{
   formatToBrazilianReal(value: number | string): string {
     let formattedValue = Number(value.toString().replace(',', '.')).toFixed(2);
     return `R$ ${formattedValue.replace('.', ',')}`;
+  }
+
+  capitalizeFirstLetterOfEachWord(inputString: string): string {
+    const words = inputString.split(' ');
+    const capitalizedWords = words.map((word) => {
+      if (word.length > 0) {
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+      } else {
+        return word;
+      }
+    });
+    const resultString = capitalizedWords.join(' ');
+    return resultString;
   }
 }
 

@@ -688,18 +688,6 @@ export class FirestoreService {
     });
   }
 
-
-  getPedidosCaixa(): Observable<any[]> {
-    const collectionRef = collection(this.firestore, 'caixa');
-    const query = collectionData(collectionRef);
-
-    return query.pipe(
-      map((colecao) => {
-        return colecao.map((item) => item['pedido']);
-      })
-    );
-  }
-
   getPedidosCaixaNovo(): Observable<PratosNovo[]> {
     const collectionInstance = collection(this.firestore, 'caixa');
     return collectionData(collectionInstance, {idField: 'id'}).pipe(

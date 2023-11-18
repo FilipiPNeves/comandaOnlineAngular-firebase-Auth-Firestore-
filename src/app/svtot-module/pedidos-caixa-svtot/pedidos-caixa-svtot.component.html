@@ -1,12 +1,12 @@
 <div class="back">
   <div class="cabeçalho">
-    <div class="botaoVoltar">
-      <button (click)="voltar()" mat-icon-button color="warn">
-        <mat-icon class="iconVoltar">arrow_back</mat-icon>
-      </button>
-    </div>
     <div class="nomeCliente">
-      <h1 class="nomeClienteH1">{{ nomeCliente }}</h1>
+      {{ capitalizeFirstLetterOfEachWord(nomeCliente) }}
+    </div>
+    <div class="matIcon">
+      <button class="buttonMaisPedido" matSuffix mat-icon-button (click)="maisPedido(nomeCliente)">
+        <mat-icon style="font-weight: bolder; border: 3px solid rgb(0, 38, 255); border-radius: 50%;" color="primary">add</mat-icon>
+      </button>
     </div>
   </div>
 

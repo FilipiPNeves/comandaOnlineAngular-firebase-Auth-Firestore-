@@ -4,36 +4,41 @@
 }
 
 .cabeçalho {
+  position: fixed;
   width: 100%;
-  height: 5.5%;
+  height: 3.3em;
+  top: 0;
   background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  z-index: 2;
 }
 
-.botaoVoltar {
-  margin-left: 0.5em;
-}
-
-.nomeCliente {
-  margin-right: 1.5em;
-}
-
-.nomeClienteH1 {
-  margin: auto 0;
-}
 
 .NomeClienteDiv {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
+  justify-content: center;
+  padding-top: 3em;
+}
+
+.NomeClienteDiv2 {
+  display: flex;
+  justify-content: center;
 }
 
 .NomeClienteMat {
-  flex: 1; /* Ocupa todo o espaço horizontal disponível */
-  max-width: 90%; /* Define uma largura máxima para evitar que ocupe toda a largura */
-  margin: 1.5em 1em 0.3em; /* Espaçamento igual nas margens esquerda e direita */
+  flex: 1;
+  max-width: 90%;
+  margin: 1.5em 1em 0.3em;
   font-size: 2em;
+}
+
+.titleNomeCliente {
+  font-size: 1.4em;
+  margin-top: 0.2em;
+}
+
+.buttonMaisPedido {
+  margin-right: 0.6em;
+  margin-bottom: 0.2em;
 }
 
 .matGridList {
@@ -60,6 +65,8 @@
   text-align: center;
   font-size: 2em;
 }
+
+
 
 
 
