@@ -26,21 +26,28 @@ export class NovoPedidoSvtotComponent{
     this.route.params.subscribe(params => {
       this.nomeCliente = params['nomeCliente'];
     });
+    this.adjustGrid();
     this.resetVisibilidadeDivs();
-    this.visibilidadeDivs['alcool'] = true;
+    this.visibilidadeDivs['frutosDoMar'] = true;
     this.getNomeGarcom();
     this.getClientes();
   }
 
+  botaoEnviar = true;
+  ngIfTab1: boolean = true;
+  ngIfTab2: boolean = false;
+  cols: number = 3;
+  rowHeight: string = '5:2.6';
+
+
   todosClientes: string[] = [];
   nomeCliente: string = '';
   nomeGarcom: string = '';
-  selecionado: string = 'alcool';
+  selecionado: string = 'frutosDoMar';
 
   carrinho: PratosNovo[] = [];
   itensSelecionados: any[] = [];
 
-  diferenteNovo: PratosNovo[] = entradasNovo;
   entradasNovo: PratosNovo[] = entradasNovo;
   pasteisNovo: PratosNovo[] = pasteisNovo;
   lanchesNovo: PratosNovo[] = lanchesNovo;
@@ -56,9 +63,28 @@ export class NovoPedidoSvtotComponent{
   alcoolNovo: PratosNovo[] = alcoolNovo;
   docesNovo: PratosNovo[] = docesNovo;
 
+  todosNovo: PratosNovo[] = ([] as PratosNovo[]).concat(
+    entradasNovo,
+    saladasNovo,
+    sopasNovo,
+    lanchesNovo,
+    petiscosNovo,
+    pasteisNovo,
+    docesNovo,
+    alcoolNovo,
+    bebidasCompletoNovo,
+    frangosNovo,
+    carneNovo,
+    risotosNovo,
+    massasNovo,
+    frutosDoMarNovo,
+  );
+  todosNovoFiltrado: PratosNovo[] = [];
+
+
   visibilidadeDivs: { [key: string]: boolean } = {};
   categorias: any[] = [
-    { tipo: 'diferente', lista: this.diferenteNovo },
+    { tipo: 'todos', lista: this.todosNovo },
     { tipo: 'entradas', lista: this.entradasNovo },
     { tipo: 'pasteis', lista: this.pasteisNovo },
     { tipo: 'lanches', lista: this.lanchesNovo },
@@ -75,8 +101,22 @@ export class NovoPedidoSvtotComponent{
     { tipo: 'doces', lista: this.docesNovo }
   ];
 
-  conta(nomeCliente: string) {
-    this.router.navigate(['/principal/pedidoscaixa', nomeCliente]);
+  filtroPedido: string = '';
+
+  filtrarItems(novoValor: string): void {
+    this.todosNovoFiltrado = [];
+    this.todosNovo.forEach((item) => {
+      if(item.nome.toLowerCase().includes(novoValor.toLowerCase())) {
+        this.todosNovoFiltrado.push(item);
+      }
+    });
+    this.categorias[0] = { tipo: 'todos', lista: this.todosNovoFiltrado };
+    this.abrirDivPedido('todos');
+  }
+
+  getTodosItems() {
+    this.filtroPedido = '';
+    this.categorias[0] = { tipo: 'todos', lista: this.todosNovo }
   }
 
   abrirDivPedido(tipoPedido: string) {
@@ -132,6 +172,7 @@ export class NovoPedidoSvtotComponent{
   }
 
   async envioNovo() {
+    this.botaoEnviar = false;
     if(this.nomeCliente === '') {
       alert("Escreva o nome do CLIENTE!");
       return;
@@ -148,9 +189,6 @@ export class NovoPedidoSvtotComponent{
       item.horario = minhaTimestamp;
     });
     await this.firestoreService.enviarPedidoNovo(this.carrinho);
-    this.nomeCliente = '';
-    this.carrinho = [];
-    this.itensSelecionados = [];
   }
 
   @HostListener('click', ['$event.target'])
@@ -186,6 +224,29 @@ export class NovoPedidoSvtotComponent{
     });
     const resultString = capitalizedWords.join(' ');
     return resultString;
+  }
+
+
+
+
+
+  adjustGrid(): void {
+    const screenWidth = window.innerWidth;
+    if (screenWidth > 1000) {
+      this.cols = 5;
+      this.rowHeight = '5:1.5';
+    }
+  }
+
+  tab(tab: string) {
+    if(tab === 'cardapio') {
+      this.ngIfTab2 = false;
+      this.ngIfTab1 = true;
+    }
+    if(tab === 'carrinho') {
+      this.ngIfTab1 = false;
+      this.ngIfTab2 = true;
+    }
   }
 }
 

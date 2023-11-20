@@ -26,7 +26,7 @@ import { NgxPrintModule } from 'ngx-print';
   declarations: [
     AppComponent,
     LoginComponent,
-    ListaDePedidosComponent
+    ListaDePedidosComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +44,6 @@ import { NgxPrintModule } from 'ngx-print';
     MatTableModule,
     MatSelectModule,
     NgxPrintModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent]

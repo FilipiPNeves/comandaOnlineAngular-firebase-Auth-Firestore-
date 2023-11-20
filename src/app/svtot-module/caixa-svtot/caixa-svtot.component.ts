@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogNovoOpcoesComponent } from 'src/app/dialogs/dialog-novo-opcoes/dialog-novo-opcoes.component';
@@ -14,7 +14,11 @@ import { ShareddataService } from 'src/app/services/shareddata.service';
 export class CaixaSvtotComponent {
   constructor(private sharedDataService: ShareddataService, private router: Router, private dialog: MatDialog,) {
     this.getClientes();
+    this.adjustGrid();
   }
+
+  cols: number = 3;
+  rowHeight: string = '5:3';
 
   todosClientes: string[] = [];
   nomeGarcom: string = '';
@@ -22,13 +26,7 @@ export class CaixaSvtotComponent {
   todosClientesNgFor: string[] = []
   inputNomeCliente: string = '';
 
-
-
-
   ngIfDialog: boolean = true;
-
-
-
 
   filtrarClientes() {
     const filtro = this.inputNomeCliente.toLowerCase();
@@ -82,5 +80,17 @@ export class CaixaSvtotComponent {
     });
     const resultString = capitalizedWords.join(' ');
     return resultString;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.adjustGrid();
+  }
+
+  adjustGrid() {
+    if (window.innerWidth > 1000) {
+      this.cols = 5;
+      this.rowHeight = '5:2';
+    }
   }
 }

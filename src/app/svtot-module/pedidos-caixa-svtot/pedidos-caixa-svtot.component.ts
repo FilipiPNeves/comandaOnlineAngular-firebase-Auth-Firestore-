@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogNovoEditCarrinhoComponent } from 'src/app/dialogs/dialog-novo-edit-carrinho/dialog-novo-edit-carrinho.component';
+import { DialogNovoFinalizarComandaComponent } from 'src/app/dialogs/dialog-novo-finalizar-comanda/dialog-novo-finalizar-comanda.component';
 import { PratosNovo } from 'src/app/pratos-novo';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { ShareddataService } from 'src/app/services/shareddata.service';
@@ -12,7 +15,7 @@ import { ShareddataService } from 'src/app/services/shareddata.service';
   styleUrls: ['./pedidos-caixa-svtot.component.css']
 })
 export class PedidosCaixaSvtotComponent {
-  constructor(private sharedDataService: ShareddataService, private route: ActivatedRoute, private router: Router, private firestore: FirestoreService) {
+  constructor(private sharedDataService: ShareddataService, private route: ActivatedRoute, private router: Router, private firestore: FirestoreService, private dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.nomeCliente = params['nomeCliente'];
     });
@@ -31,15 +34,18 @@ export class PedidosCaixaSvtotComponent {
   getPedidos() {
     this.sharedDataService.getPedidos().subscribe((todosPedidos: PratosNovo[]) => {
       this.subTotal = 0;
+      let valorPedidoUnico = 0;
       this.pedidosClienteSelecionado = todosPedidos.filter((item) => item.cliente === this.nomeCliente);
       this.pedidosClienteSelecionado.forEach((pedido) => {
+        valorPedidoUnico = 0;
         if(pedido.adicional1) {
-          this.subTotal += pedido.adicional1.valor;
+          valorPedidoUnico += pedido.adicional1.valor;
         }
         if(pedido.adicional2) {
-          this.subTotal += pedido.adicional2.valor;
+          valorPedidoUnico += pedido.adicional2.valor
         }
-        this.subTotal += pedido.valor * pedido.quantidade;
+        valorPedidoUnico += pedido.valor;
+        this.subTotal += (valorPedidoUnico * pedido.quantidade);
       });
     });
   }
@@ -74,8 +80,31 @@ export class PedidosCaixaSvtotComponent {
     }
   }
 
-  editItemOpenDialog(pedido: PratosNovo) {
+  editItemOpenDialog(item2: PratosNovo) {
+    let item: PratosNovo = {
+      nome: item2.nome,
+      valor: item2.valor,
+      tipo: item2.tipo,
+      descricao: item2.descricao || '',
+      quantidade: item2.quantidade,
+      adicional1: { nome: item2.adicional1?.nome || '', valor: item2.adicional1?.valor || 0 },
+      adicional2: { nome: item2.adicional2?.nome || '', valor: item2.adicional2?.valor || 0 },
+      cliente: item2.cliente,
+      garcom: item2.garcom,
+      horario: item2.horario,
+      id: item2.id
+    }
+    const dialogRef = this.dialog.open(DialogNovoEditCarrinhoComponent, {
+      data: item
+    });
 
+    dialogRef.afterClosed().subscribe(item => {
+      try {
+        this.firestore.updatePedidoCarrinho(item, item.id);
+      } catch (error) {
+
+      }
+    });
   }
 
   clickPedido(pedido: PratosNovo) {
@@ -92,5 +121,187 @@ export class PedidosCaixaSvtotComponent {
     });
     const resultString = capitalizedWords.join(' ');
     return resultString;
+  }
+
+  flag: boolean = false;
+
+  @HostListener('click', ['$event.target'])
+  onClick(target: HTMLElement): void {
+    if (target.classList.contains('confirm-dialog-backdrop')) {
+      document.getElementById('confirm-dialog')!.style.display = 'none';
+      if(this.flag) {
+        this.voltar();
+      }
+    }
+  }
+
+  finalizarComanda(pedidosClienteSelecionado: PratosNovo[]) {
+    const dialogRef = this.dialog.open(DialogNovoFinalizarComandaComponent, {
+      data: pedidosClienteSelecionado,
+      width: "50%"
+    });
+
+    dialogRef.afterClosed().subscribe(flag => {
+      this.flag = flag;
+    });
+  }
+
+
+  nomePedido: string = '';
+  totalDeUmPedido: number = 0;
+
+  imprimirComanda(pedidosClienteSelecionado: PratosNovo[]) {
+    this.nomePedido = '';
+    let meuConteudoHTML = `
+      <html>
+      <head>
+        <title>Minha Nova Aba</title>
+        <style>
+          /* Estilos CSS incorporados */
+          body {
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+          }
+
+          .divTitle {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            font-weight: bolder;
+            margin: 1em 0;
+            font-size: 1.2em
+          }
+
+          .divCliente {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            font-weight: bolder;
+            margin: 1em 0;
+          }
+
+          .divPedido {
+            display: flex;
+            width: 95%;
+            margin: 1em auto;
+            font-size: 0.8em
+          }
+
+          .nome {
+            width: 65%;
+          }
+
+          .quantidade {
+            width: 5%;
+            text-align: center;
+          }
+
+          .valor {
+            width: 30%;
+            text-align: right;
+          }
+
+          .forte {
+            font-weight: bolder;
+          }
+
+          .totais {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+          }
+
+          .divHoraData {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+          }
+
+          .hora {
+            margin-left: 1em;
+          }
+
+          .data {
+            margin-right: 1em;
+          }
+        </style>
+      </head>
+      <body>
+      <div class="divTitle">
+          SENTINELAS DO MAR
+      </div>
+      <div class="divCliente">
+          ------------ ${pedidosClienteSelecionado[0].cliente.toUpperCase()} ------------
+      </div>
+      <div class="divPedido">
+        <div class="nome forte">PEDIDO</div>
+        <div class="quantidade forte" style="margin-left: -1em">QTDE</div>
+        <div class="valor forte" style="margin-left: 0.6em">$ UNID</div>
+      </div>
+    `;
+
+
+
+    pedidosClienteSelecionado.forEach((pedido) => {
+      this.nomePedido = pedido.nome;
+      this.totalDeUmPedido = pedido.valor;
+      if(pedido.adicional1 && pedido.adicional1.nome && pedido.adicional1.valor) {
+        this.nomePedido += " + " + pedido.adicional1.nome;
+        this.totalDeUmPedido += pedido.adicional1.valor;
+      }
+      if(pedido.adicional2 && pedido.adicional2.nome && pedido.adicional2.valor) {
+        this.nomePedido += " + " + pedido.adicional2.nome;
+        this.totalDeUmPedido += pedido.adicional2.valor;
+      }
+      meuConteudoHTML += `
+        <div class="divPedido">
+          <div class="nome">${this.nomePedido}</div>
+          <div class="quantidade">${pedido.quantidade}x</div>
+          <div class="valor">${this.formatToBrazilianReal(this.totalDeUmPedido)}</div>
+        </div>
+      `;
+    });
+    meuConteudoHTML += `
+        <div>
+        -------------------------------------------------
+        </div>
+        <div class="divHoraData">
+          <div class="hora"><div>SUBTOTAL</div> <br> ${this.formatToBrazilianReal(this.subTotal)}</div>
+          <div class="data"><div style="margin-left: 1em;">TOTAL</div> <br> ${(this.formatToBrazilianReal(this.subTotal*1.1))}</div>
+        </div>
+        <div>
+        -------------------------------------------------
+        </div>
+        <div class="divHoraData">
+          <div class="hora">${this.obterDataHoraAtual(false)}</div>
+          <div class="data">${this.obterDataHoraAtual(true)}</div>
+        </div>
+      `;
+
+    const novaAba = window.open('', '_blank');
+    novaAba!.document.open();
+    novaAba!.document.write(meuConteudoHTML);
+    novaAba!.print();
+    novaAba!.close();
+  }
+
+  obterDataHoraAtual(dataouhr: boolean): string {
+    const agora = new Date();
+    const dia = String(agora.getDate()).padStart(2, "0");
+    const mes = String(agora.getMonth() + 1).padStart(2, "0");
+    const ano = String(agora.getFullYear());
+    const hora = String(agora.getHours()).padStart(2, "0");
+    const minuto = String(agora.getMinutes()).padStart(2, "0");
+
+    const dataFormatada = `${dia}/${mes}/${ano}`;
+    const horaFormatada = `${hora}:${minuto}`;
+
+    if(dataouhr) {
+      return dataFormatada;
+    } else {
+      return horaFormatada;
+    }
   }
 }

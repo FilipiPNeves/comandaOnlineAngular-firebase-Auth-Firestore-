@@ -46,11 +46,19 @@
     </div>
     <div class="rodape">
       <div class="divImprimirFinalizar">
-        <button class="buttonImprimirFinalizar">Imprimir Comanda</button>
+        <button class="buttonImprimirFinalizar" mat-raised-button color="primary" (click)="imprimirComanda(pedidosClienteSelecionado)">Imprimir Comanda</button>
       </div>
       <div class="divImprimirFinalizar">
-        <button class="buttonImprimirFinalizar">Finalizar Comanda</button>
+        <button class="buttonImprimirFinalizar" mat-raised-button color="primary" (click)="finalizarComanda(pedidosClienteSelecionado)">Finalizar Comanda</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-dialog-backdrop" id="confirm-dialog">
+  <div class="confirm-dialog">
+    <div class="confirm-dialog-message" id="confirm-dialog-message">
+
     </div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+import { DialogNovoFinalizarComandaComponent } from './../dialogs/dialog-novo-finalizar-comanda/dialog-novo-finalizar-comanda.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,6 +26,7 @@ import { NovoPedidoSvtotComponent } from './novo-pedido-svtot/novo-pedido-svtot.
 import { CaixaSvtotComponent } from './caixa-svtot/caixa-svtot.component';
 import { PedidosCaixaSvtotComponent } from './pedidos-caixa-svtot/pedidos-caixa-svtot.component';
 import { DialogNovoOpcoesComponent } from '../dialogs/dialog-novo-opcoes/dialog-novo-opcoes.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { DialogNovoOpcoesComponent } from '../dialogs/dialog-novo-opcoes/dialog-
     NovoPedidoSvtotComponent,
     CaixaSvtotComponent,
     PedidosCaixaSvtotComponent,
-    DialogNovoOpcoesComponent
+    DialogNovoOpcoesComponent,
+    DialogNovoFinalizarComandaComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +59,8 @@ import { DialogNovoOpcoesComponent } from '../dialogs/dialog-novo-opcoes/dialog-
     MatDialogModule,
     MatStepperModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSlideToggleModule
 
   ]
 })

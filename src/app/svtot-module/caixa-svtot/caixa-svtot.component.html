@@ -12,7 +12,7 @@
   </div>
 
   <div class="NomeClienteDiv2">
-    <mat-grid-list class="matGridList" cols="3" rowHeight="5:3">
+    <mat-grid-list class="matGridList" [cols]="cols" [rowHeight]="rowHeight">
       <mat-grid-tile class="matGridTile" *ngFor="let nomeCliente of todosClientesNgFor">
         <mat-card class="matCard" (click)="selectItem(nomeCliente)">
           <mat-card-content class="matCardContent">

@@ -22,7 +22,10 @@
 .NomeClienteDiv2 {
   display: flex;
   justify-content: center;
+  max-height: calc(70vh);
+  overflow-y: auto;
 }
+
 
 .NomeClienteMat {
   flex: 1;

@@ -11,7 +11,8 @@ export interface PratosNovo {
   cliente: string;
   garcom: string;
   horario: Timestamp;
-  id?: string
+  id?: string;
+  dezporcento?: boolean;
 }
 
 interface Adicional {

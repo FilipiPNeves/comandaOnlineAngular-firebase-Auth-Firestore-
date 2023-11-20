@@ -10,8 +10,8 @@ const routes: Routes = [
     { path: '', redirectTo: 'caixa', pathMatch: 'full' },
     { path: 'novopedido/:nomeCliente', component: NovoPedidoSvtotComponent },
     { path: 'caixa', component: CaixaSvtotComponent },
-    { path: 'pedidoscaixa/:nomeCliente', component: PedidosCaixaSvtotComponent },
-  ]}
+    { path: 'pedidoscaixa/:nomeCliente', component: PedidosCaixaSvtotComponent }
+  ]},
 ];
 
 @NgModule({

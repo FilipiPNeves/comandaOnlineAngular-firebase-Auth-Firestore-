@@ -1,0 +1,13 @@
+<div>
+  <h1 mat-dialog-title><div class="title"></div></h1>
+  <div mat-dialog-content>
+    <div class="content">
+      <mat-slide-toggle [(ngModel)]="dezporcento" color="primary" class="toggle"><div class="dez">10%</div></mat-slide-toggle>
+    </div>
+  </div>
+  <div class="content">
+    <div mat-dialog-actions>
+      <button mat-raised-button class="buttonConfirmar" color="primary" (click)="confirmar()" [disabled]="!botaoFinalizar"><div class="button">FINALIZAR</div></button>
+    </div>
+  </div>
+</div>

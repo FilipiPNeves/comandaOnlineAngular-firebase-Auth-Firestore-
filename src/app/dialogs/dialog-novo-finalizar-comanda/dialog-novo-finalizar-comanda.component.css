@@ -1,0 +1,13 @@
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle {
+  margin: 1em 0 2em;
+}
+
+.dez {
+  font-size: 1.7em;
+}

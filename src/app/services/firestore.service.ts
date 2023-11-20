@@ -576,7 +576,30 @@ export class FirestoreService {
 
 
 
+  getPedidosImprimir() {
+    const collectionInstance = collection(this.firestore, 'impressao');
+    return collectionData(collectionInstance, {idField: 'id'}).pipe(
+      map((todosPedidos: any[]) => {
+        todosPedidos.forEach((pedido) => {
+          pedido.pedido.id = pedido.id;
+          delete pedido.id;
+        });
+        return todosPedidos.map((pedido: any) => pedido['pedido']).sort((a, b) => {
+          const horarioA = a.horario.toDate().getTime();
+          const horarioB = b.horario.toDate().getTime();
+          return horarioA - horarioB;
+        });
+      })
+    );
+  }
 
+  excluirPedidosImprimir(id: string) {
+    const collectionInstance = collection(this.firestore, 'impressao');
+    const docReference = doc(collectionInstance, id);
+    deleteDoc(docReference).then(() => {
+    }).catch(() => {
+    })
+  }
 
   enviarPedidoNovo(carrinho: PratosNovo[]) {
     let confirmDialogMessage = false;
@@ -663,12 +686,13 @@ export class FirestoreService {
     if(flag === true) {
       let confirmDialog = document.getElementById('confirm-dialog');
       let confirmDialogMessage = document.getElementById('confirm-dialog-message');
-      confirmDialogMessage!.innerHTML = 'Enviado com sucesso.';
+      confirmDialogMessage!.innerHTML = 'SUCESSO!';
       confirmDialog!.style.display = 'flex';
     } else {
       let confirmDialog = document.getElementById('confirm-dialog');
       let confirmDialogMessage = document.getElementById('confirm-dialog-message');
       confirmDialogMessage!.innerHTML = 'ERRO, tente novamente.';
+      confirmDialogMessage!.style.color = 'red';
       confirmDialog!.style.display = 'flex';
     }
   }
@@ -709,5 +733,50 @@ export class FirestoreService {
     }).catch(() => {
       alert("Erro. Tente novamente!")
     })
+  }
+
+  excluirPedidoCaixaNovoSemAlert(id: string) {
+    const collectionInstance = collection(this.firestore, 'caixa');
+    const docReference = doc(collectionInstance, id);
+    deleteDoc(docReference).then(() => {
+
+    }).catch(() => {
+
+    })
+  }
+
+  updatePedidoCarrinho(pedido: any, id: string) {
+    const docInstance = doc(this.firestore, 'caixa', id);
+    let pedidoEnviar = {
+      pedido: {
+        nome: pedido.nome,
+        valor: pedido.valor,
+        tipo: pedido.tipo,
+        descricao: pedido.descricao || '',
+        quantidade: pedido.quantidade,
+        adicional1: { nome: pedido.adicional1?.nome || '', valor: pedido.adicional1?.valor || 0 },
+        adicional2: { nome: pedido.adicional2?.nome || '', valor: pedido.adicional2?.valor || 0 },
+        cliente: pedido.cliente,
+        garcom: pedido.garcom,
+        horario: pedido.horario,
+        id: pedido.id
+      }
+    }
+
+    updateDoc(docInstance, pedidoEnviar).then(() => {
+      this.confirmDialog(true);
+    }).catch(() => {
+      this.confirmDialog(false)
+    });
+  }
+
+  enviandoPedidoProRelatorio(pedido: PratosNovo) {
+    const docRef = addDoc(collection(this.firestore, 'relatorioNovo'), {
+      pedido
+    }).then(() => {
+      this.confirmDialog(true)
+    }).catch(() => {
+      this.confirmDialog(false)
+    });
   }
 }

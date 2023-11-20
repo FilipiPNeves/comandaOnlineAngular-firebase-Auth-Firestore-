@@ -1,19 +1,13 @@
-<div class="cabeçalho">
-  <div class="nomeCliente">
-    {{ capitalizeFirstLetterOfEachWord(nomeCliente) }}
+<div class="all">
+  <div class="cabeçalho">
+    <div class="nomeCliente">
+      {{ capitalizeFirstLetterOfEachWord(nomeCliente) }}
+    </div>
   </div>
-
-</div>
-<mat-tab-group headerPosition="below" backgroundColor="accent" class="novo-pedido" animationDuration="0ms">
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <div class="tab-label-custom cardapio">
-        CARDÁPIO
-      </div>
-    </ng-template>
+  <div class="tab1" *ngIf="ngIfTab1">
     <div class="divTodosBotoesECards">
       <div class="grupoBotões">
-        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'diferente'" (click)="abrirDivPedido('diferente')">Diferente</button>
+        <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'todos'" (click)="abrirDivPedido('todos')">TODOS</button>
         <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'entradas'" (click)="abrirDivPedido('entradas')">Entradas</button>
         <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'saladas'" (click)="abrirDivPedido('saladas')">Saladas</button>
         <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'sopas'" (click)="abrirDivPedido('sopas')">Sopas</button>
@@ -30,8 +24,8 @@
         <button mat-raised-button class="umBotao" [class.selectedButton]="selecionado === 'frutosDoMar'" (click)="abrirDivPedido('frutosDoMar')">Do Mar</button>
       </div>
       <div *ngFor="let categoria of categorias">
-        <div *ngIf="visibilidadeDivs[categoria.tipo]">
-          <mat-grid-list class="matGridList" cols="3" rowHeight="5:2.6">
+        <div *ngIf="visibilidadeDivs[categoria.tipo]" class="scroll-container">
+          <mat-grid-list class="matGridList" [cols]="cols" [rowHeight]="rowHeight">
             <mat-grid-tile class="matGridTile" *ngFor="let item of categoria.lista">
               <mat-card class="matCard" (click)="selectItem(item)" [ngClass]="{'selectedCard': itensSelecionados.includes(item)}">
                 <!--<img class="imgCard" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
@@ -46,15 +40,8 @@
         </div>
       </div>
     </div>
-  </mat-tab>
-
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <div class="tab-label-custom">
-        CARRINHO ({{ carrinho.length }})
-      </div>
-    </ng-template>
+  </div>
+  <div class="tab2" *ngIf="ngIfTab2">
     <div>
       <div class="cardDiv">
         <mat-card *ngFor="let item of carrinho" class="cardCarrinho">
@@ -76,15 +63,28 @@
             </div>
           </mat-card-content>
         </mat-card>
+        <div style="margin-bottom: 13em;"></div>
       </div>
     </div>
-  </mat-tab>
+  </div>
+  <div class="rodape">
+    <button class="buttonCardapio" (click)="tab('cardapio')" [ngClass]="{ 'activeTab': ngIfTab1 }">CARDÁPIO</button>
+    <button class="buttonCarrinho" (click)="tab('carrinho')" [ngClass]="{ 'activeTab': ngIfTab2 }">CARRINHO ({{ carrinho.length }})</button>
+  </div>
+</div>
 
-</mat-tab-group>
+<div *ngIf="ngIfTab1" class="inputFiltroPedido">
+  <mat-form-field class="input">
+    <input matInput type="text" placeholder="FILTRAR" [(ngModel)]="filtroPedido" (ngModelChange)="filtrarItems($event)">
+    <button mat-button matSuffix (click)="getTodosItems()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 
 
 <div class="divButtonEnvioNovo">
-  <button mat-button (click)="envioNovo()" class="buttonEnvioNovo" mat-flat-button color="primary">ENVIAR</button>
+  <button mat-button (click)="envioNovo()" class="buttonEnvioNovo" mat-flat-button color="primary" [disabled]="!botaoEnviar">ENVIAR</button>
 </div>
 
 
