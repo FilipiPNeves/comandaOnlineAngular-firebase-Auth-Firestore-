@@ -48,6 +48,9 @@
 <h1>Poderá clicar em "+ PEDIDO" para realizar um novo pedido, ou "$ CONTA" para vizualizar os items que ja foram pra cozinha e/ou bebidas que foram direto para conta do cliente.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/2e3f8232-43d5-4127-a5d3-8787167661d9" width="300" height="400">
 
+
+
+
 <h1>Na aba "CONTA" poderá visualizar os items que ja estao sendo preparados pela cozinha. Poderá editar, excluir, marcar item como como enviado ao cliente e finalizar comanda do mesmo.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f6f15976-8e79-40c0-9c5a-45db4661ae6e" width="300" height="400">
 
@@ -92,13 +95,14 @@ O garçom revisa os itens selecionados e, se necessário, pode adicionar observa
 
 ## Conta do Cliente
 
-Na aba "CLIENTES", é possível fazer novos pedidos ou visualizar a conta do cliente.
+Na aba "CLIENTES", é possível fazer novos pedidos ou visualizar a conta do cliente. basta clicar em cima da mesa para visualizar as opções.
 
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/22a80343-26b0-4a7f-95e7-a8a171a0be0a" width="300" height="400">
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/2e3f8232-43d5-4127-a5d3-8787167661d9" width="300" height="400">
 
 ## Gerenciamento da Conta
 
-Na aba "CONTA", é possível visualizar e gerenciar os itens em preparo pela cozinha. Edite, exclua ou marque itens como enviados ao cliente. 
+Na aba "CONTA", é possível visualizar e gerenciar os itens em preparo pela cozinha. Edite, exclua ou marque itens como enviados ao cliente. Para marcar como enviado, basta clicar 2 vezes em cima do item, ele irá pro final da lista e mudará de cor. 
 
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/22a80343-26b0-4a7f-95e7-a8a171a0be0a" width="300" height="400">
 
