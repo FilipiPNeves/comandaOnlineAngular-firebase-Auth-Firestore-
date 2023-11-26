@@ -4,9 +4,9 @@ Este projeto está em produção, alinhado com as necessidades operacionais da e
 
 A aba relatorio esta em desenvolvimento visual, irá mostrar dados estatisticos sobre os items mais pedidos, quantidade de produtos gastos, entre outros.
 
-## Interface "Clientes"
+## Interface "CLIENTES"
 
-Na interface "Clientes", são listadas todas as mesas com comandas abertas.
+São listadas todas as mesas com comandas abertas.
 
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111" width="300" height="400">
 
@@ -29,7 +29,7 @@ O garçom revisa os itens selecionados e, se necessário, pode adicionar observa
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/8f4d149f-e638-4f62-aee6-45e28b86eb60" alt="ComandOnline" width="300" height="400">
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/921ebe1f-2492-4513-914c-f1630cf1a746" width="300" height="400">
 
-## Novamente na aba Clientes
+## Novamente na interface "CLIENTES"
 
 Na aba "CLIENTES", é possível fazer novos pedidos ou visualizar a conta do cliente. basta clicar em cima da mesa para visualizar as opções.
 
