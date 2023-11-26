@@ -48,29 +48,38 @@ Após a entrega dos itens ao cliente, clique duas vezes para marcá-los como ent
 
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/d942b48d-6895-417f-aff7-59e463a61ef8" width="300" height="400">
 
-Este projeto foi desenvolvido utilizando [Angular CLI](https://github.com/angular/angular-cli) na versão 15.1.5.
 
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+Este projeto foi desenvolvido utilizando [Angular CLI](https://github.com/angular/angular-cli) na versão 15.1.5, integrado à poderosa plataforma Firebase para oferecer recursos robustos, incluindo Firestore para banco de dados em tempo real, Autenticação para gerenciamento de usuários e Hosting para hospedagem escalável na nuvem.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Servidor de Desenvolvimento
 
-## Build
+Para iniciar o servidor de desenvolvimento, execute `ng serve`. Acesse `http://localhost:4200/` para visualizar o aplicativo, que será recarregado automaticamente após qualquer modificação nos arquivos fonte.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Geração de Código
 
-## Running unit tests
+Utilize `ng generate component component-name` para gerar novos componentes. Outras opções incluem `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Compilação
 
-## Running end-to-end tests
+Execute `ng build` para compilar o projeto. Os artefatos de compilação serão armazenados no diretório `dist/`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Testes Unitários
 
-## Further help
+Execute `ng test` para realizar testes unitários usando o [Karma](https://karma-runner.github.io).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Testes End-to-End
+
+Execute `ng e2e` para realizar testes end-to-end em uma plataforma de sua escolha. Certifique-se de adicionar previamente um pacote que implementa capacidades de teste end-to-end.
+
+## Integração Firebase
+
+Este projeto se beneficia da integração com a plataforma Firebase, oferecendo recursos adicionais:
+
+- **Firestore:** Banco de dados NoSQL em tempo real, proporcionando uma base de dados dinâmica e eficiente.
+- **Autenticação:** Mecanismo robusto para autenticação de usuários, garantindo a segurança e personalização das interações.
+- **Hospedagem (Hosting):** Serviço de hospedagem na nuvem Firebase, proporcionando escalabilidade e confiabilidade.
+
+Para obter assistência adicional com o Angular CLI, utilize `ng help` ou consulte a [Angular CLI Overview and Command Reference](https://angular.io/cli).
