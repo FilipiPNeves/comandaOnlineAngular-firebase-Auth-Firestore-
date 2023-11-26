@@ -12,9 +12,7 @@
 
 <h1>Garcom poderá editar item para adicionar uma observação e 2 adicionais</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/dbfd883e-bd1c-45cb-b346-ea47342884ad" alt="ComandOnline" width="300" height="400">
-
-<h1>Na interface "Clientes" é listada todas as mesas que já estão com comanda aberta.</h1>
-<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111" width="300" height="400">
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/921ebe1f-2492-4513-914c-f1630cf1a746" width="300" height="400">
 
 <h1>Na interface "Clientes" é listada todas as mesas que já estão com comanda aberta.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111" width="300" height="400">
