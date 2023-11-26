@@ -40,13 +40,12 @@ Na aba "CLIENTES", é possível fazer novos pedidos ou visualizar a conta do cli
 
 Na aba "CONTA", é possível visualizar e gerenciar os itens em preparo pela cozinha. Edite, exclua ou marque itens como enviados ao cliente. Para marcar como enviado, basta clicar 2 vezes em cima do item, ele irá pro final da lista e mudará de cor. 
 
-<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/22a80343-26b0-4a7f-95e7-a8a171a0be0a" width="300" height="400">
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f6f15976-8e79-40c0-9c5a-45db4661ae6e" width="300" height="400">
 
 ## Finalização da Comanda
 
 Após a entrega dos itens ao cliente, clique duas vezes para marcá-los como entregues. Para finalizar a comanda, clique em "FINALIZAR COMANDA" e insira os valores pagos em dinheiro, pix, débito e/ou crédito.
 
-<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f6f15976-8e79-40c0-9c5a-45db4661ae6e" width="300" height="400">
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/d942b48d-6895-417f-aff7-59e463a61ef8" width="300" height="400">
 
 Este projeto foi desenvolvido utilizando [Angular CLI](https://github.com/angular/angular-cli) na versão 15.1.5.
