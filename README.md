@@ -4,7 +4,7 @@
 <h1>Para fazer pedido para cliente que ainda não esta com comanda aberta, basta escrever no campo para fazer um filtro nas comandas abertas, e se não existir uma comanda com este nome, basta clicar no "+" para dar abertura nesta comanda</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/e09e8988-f61f-43a3-b721-9f8fef4d7bc0" alt="ComandOnline" width="300" height="400">
 
-<h1>Para escolher os pratos/bebidas, basta procurar o item pelo filtro ou, como mostra na imagem, ir no grupo e selecionar o item.</h1>
+<h1>Para escolher os pratos/bebidas, basta procurar o item pelo filtro ou, como mostra na imagem abaixo, ir no grupo em cada grupo e selecionar os items.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f46320f6-86e8-40e0-bdea-0b0f1527889a" alt="ComandOnline" width="300" height="400">
 
 <h1>Na interface "Clientes" é listada todas as mesas que já estão com comanda aberta.</h1>
