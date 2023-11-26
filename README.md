@@ -1,5 +1,5 @@
 
-<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111" width="400" height="300">
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111" width="300" height="400">
 
 # ComandOnline
 
