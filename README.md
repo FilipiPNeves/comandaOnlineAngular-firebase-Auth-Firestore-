@@ -10,18 +10,40 @@
 <h1>Para fazer pedido para cliente que ainda não esta com comanda aberta, basta escrever no campo para fazer um filtro nas comandas abertas, e se não existir uma comanda com este nome, basta clicar no "+" para dar abertura nesta comanda</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/e09e8988-f61f-43a3-b721-9f8fef4d7bc0" alt="ComandOnline" width="300" height="400">
 
+
+
 <h1>Para escolher os pratos/bebidas, basta procurar o item pelo filtro ou, como mostra na imagem abaixo, ir no grupo em cada grupo e selecionar os items. Após escolher tudo desejado, prosseguir clicando em "CARRINHO" para conferencia.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f46320f6-86e8-40e0-bdea-0b0f1527889a" alt="ComandOnline" width="300" height="400">
 
+
+
+
 <h1>Neste momento o garçom irá conferir os items selecionados anteriormente.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/8f4d149f-e638-4f62-aee6-45e28b86eb60" alt="ComandOnline" width="300" height="400">
+
+
+
+
+
+
 
 <h1>Garcom poderá editar item para adicionar uma observação e 2 adicionais, estando tudo correto, poderá enviar o pedido. Após o envio, todos pratos que precisam ser feitos na cozinha, serão impressos lá. E todas as bebidas que não precisa de preparo, irão somente para conta do cliente, como veremos em instantes.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/dbfd883e-bd1c-45cb-b346-ea47342884ad" alt="ComandOnline" width="300" height="400">
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/921ebe1f-2492-4513-914c-f1630cf1a746" width="300" height="400">
 
+
+
+
+
+
 <h1>Novamente na aba "CLIENTES", mas agora com o "Adalberto" com comanda aberta. Para fazer um novo pedido para ele ou qualquer outro cliente, basta clicar em cima da mesa.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/22a80343-26b0-4a7f-95e7-a8a171a0be0a" width="300" height="400">
+
+
+
+
+
+
 
 <h1>Poderá clicar em "+ PEDIDO" para realizar um novo pedido, ou "$ CONTA" para vizualizar os items que ja foram pra cozinha e/ou bebidas que foram direto para conta do cliente.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/2e3f8232-43d5-4127-a5d3-8787167661d9" width="300" height="400">
@@ -47,31 +69,31 @@ Este projeto está pronto para ser implantado em produção, alinhado com todas 
 
 Na interface "Clientes", são listadas todas as mesas com comandas abertas.
 
-![Clientes](https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111)
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/6ea7106a-0204-41bc-9010-691c01943111" width="300" height="400">
 
 ## Abertura de Comandas
 
 Para abrir uma comanda para um cliente que ainda não tem uma comanda aberta, basta filtrar com o nome desejado ou clicar em "+" para criar uma nova comanda.
 
-![Abertura de Comandas](https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/e09e8988-f61f-43a3-b721-9f8fef4d7bc0)
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/e09e8988-f61f-43a3-b721-9f8fef4d7bc0" alt="ComandOnline" width="300" height="400">
 
 ## Seleção de Itens
 
 Ao escolher pratos ou bebidas, é possível filtrar por nome ou navegar pelos grupos. Após a seleção, clique em "CARRINHO" para revisar o pedido.
 
-![Seleção de Itens](https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f46320f6-86e8-40e0-bdea-0b0f1527889a)
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f46320f6-86e8-40e0-bdea-0b0f1527889a" alt="ComandOnline" width="300" height="400">
 
 ## Revisão do Pedido
 
 O garçom revisa os itens selecionados e, se necessário, pode adicionar observações e adicionais. Após a revisão, o pedido é enviado, e os pratos vão para a cozinha.
 
-![Revisão do Pedido](https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/8f4d149f-e638-4f62-aee6-45e28b86eb60)
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/8f4d149f-e638-4f62-aee6-45e28b86eb60" alt="ComandOnline" width="300" height="400">
 
 ## Conta do Cliente
 
 Na aba "CLIENTES", é possível fazer novos pedidos ou visualizar a conta do cliente.
 
-![Conta do Cliente](https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/921ebe1f-2492-4513-914c-f1630cf1a746)
+<img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/921ebe1f-2492-4513-914c-f1630cf1a746" width="300" height="400">
 
 ## Gerenciamento da Conta
 
