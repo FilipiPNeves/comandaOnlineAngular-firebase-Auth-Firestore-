@@ -124,6 +124,7 @@ export const sucos: Pratos[] = [
 ];
 
 export const alcool: Pratos[] = [
+  { nome: 'Ice', valor: 12 },
   { nome: 'Cervejas', valor: 15 },
   { nome: 'Whisky(Dose)', valor: 30 },
   { nome: 'Cachaça(Dose)', valor: 10 },
@@ -275,6 +276,7 @@ export const sucosNovo: PratosNovo[] = [
 ];
 
 export const alcoolNovo: PratosNovo[] = [
+  { nome: 'Ice', valor: 12, tipo: 'alcool-bebida', descricao: '', quantidade: 1, adicional1: { nome: '', valor: 0 }, adicional2: { nome: '', valor: 0 }, cliente: '', garcom: '', horario: Timestamp.now(), id: '' },
   { nome: 'Cervejas', valor: 15, tipo: 'alcool-bebida', descricao: '', quantidade: 1, adicional1: { nome: '', valor: 0 }, adicional2: { nome: '', valor: 0 }, cliente: '', garcom: '', horario: Timestamp.now(), id: '' },
   { nome: 'Whisky(Dose)', valor: 30, tipo: 'alcool-bebida', descricao: '', quantidade: 1, adicional1: { nome: '', valor: 0 }, adicional2: { nome: '', valor: 0 }, cliente: '', garcom: '', horario: Timestamp.now(), id: '' },
   { nome: 'Cachaça(Dose)', valor: 10, tipo: 'alcool-bebida', descricao: '', quantidade: 1, adicional1: { nome: '', valor: 0 }, adicional2: { nome: '', valor: 0 }, cliente: '', garcom: '', horario: Timestamp.now(), id: '' },

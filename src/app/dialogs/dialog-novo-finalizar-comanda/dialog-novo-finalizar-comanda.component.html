@@ -1,8 +1,11 @@
 <div>
   <h1 mat-dialog-title><div class="title"></div></h1>
   <div mat-dialog-content>
+    <div class="content valor">
+      {{ formatToBrazilianReal(subTotal) }}
+    </div>
     <div class="content">
-      <mat-slide-toggle [(ngModel)]="dezporcento" color="primary" class="toggle"><div class="dez">10%</div></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="dezporcento" color="primary" class="toggle" (change)="slideToggleChanged()"><div class="dez">10%</div></mat-slide-toggle>
     </div>
   </div>
   <div class="content">

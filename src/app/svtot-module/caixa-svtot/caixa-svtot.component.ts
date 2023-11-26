@@ -18,7 +18,7 @@ export class CaixaSvtotComponent {
   }
 
   cols: number = 3;
-  rowHeight: string = '5:3';
+  rowHeight: string = '1:1';
 
   todosClientes: string[] = [];
   nomeGarcom: string = '';
@@ -90,7 +90,7 @@ export class CaixaSvtotComponent {
   adjustGrid() {
     if (window.innerWidth > 1000) {
       this.cols = 5;
-      this.rowHeight = '5:2';
+      this.rowHeight = '1:1';
     }
   }
 }

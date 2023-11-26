@@ -27,6 +27,7 @@ import { CaixaSvtotComponent } from './caixa-svtot/caixa-svtot.component';
 import { PedidosCaixaSvtotComponent } from './pedidos-caixa-svtot/pedidos-caixa-svtot.component';
 import { DialogNovoOpcoesComponent } from '../dialogs/dialog-novo-opcoes/dialog-novo-opcoes.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -60,8 +61,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatStepperModule,
     MatTabsModule,
     MatGridListModule,
-    MatSlideToggleModule
-
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SvtotModuleModule { }

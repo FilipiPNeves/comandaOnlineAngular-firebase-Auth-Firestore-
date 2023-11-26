@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, updateDoc, getDoc, deleteDoc, getDocs  } from '@angular/fire/firestore';
 import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Timestamp} from 'firebase/firestore';
 import { PratosNovo } from 'src/app/pratos-novo';
@@ -576,6 +576,18 @@ export class FirestoreService {
 
 
 
+  spinner(flag: boolean) {
+    if(flag === true) {
+      let spinner = document.getElementById('spinner');
+      spinner!.style.display = 'flex';
+    } else {
+      setTimeout(() => {
+        let spinner = document.getElementById('spinner');
+        spinner!.style.display = 'none';
+      }, 500);
+    }
+  }
+
   getPedidosImprimir() {
     const collectionInstance = collection(this.firestore, 'impressao');
     return collectionData(collectionInstance, {idField: 'id'}).pipe(
@@ -602,8 +614,8 @@ export class FirestoreService {
   }
 
   enviarPedidoNovo(carrinho: PratosNovo[]) {
-    let confirmDialogMessage = false;
-    carrinho.forEach((pedidoCarrinho) => {
+    this.spinner(true);
+    carrinho.forEach((pedidoCarrinho, index) => {
       let pedido: PratosNovo = {
         nome: '',
         valor: 0,
@@ -650,32 +662,35 @@ export class FirestoreService {
         const docRef = addDoc(collection(this.firestore, 'caixa'), {
           pedido
         }).then(() => {
-          if(confirmDialogMessage === false) {
-            this.confirmDialog(true);
-            confirmDialogMessage = true;
+          if(index === carrinho.length -1) {
+            this.spinner(false);
+            this.route.navigate(['/principal/caixa']);
           }
         }).catch(() => {
+          this.spinner(false);
           this.confirmDialog(false)
         });
       } else {
         const docRef = addDoc(collection(this.firestore, 'impressao'), {
           pedido
         }).then(() => {
-          if(confirmDialogMessage === false) {
-            this.confirmDialog(true);
-            confirmDialogMessage = true;
+          if(index === carrinho.length -1) {
+            this.spinner(false);
+            this.route.navigate(['/principal/caixa']);
           }
         }).catch(() => {
+          this.spinner(false);
           this.confirmDialog(false)
         });
         const docRef2 = addDoc(collection(this.firestore, 'caixa'), {
           pedido
         }).then(() => {
-          if(confirmDialogMessage === false) {
-            this.confirmDialog(true);
-            confirmDialogMessage = true;
+          if(index === carrinho.length -1) {
+            this.spinner(false);
+            this.route.navigate(['/principal/caixa']);
           }
         }).catch(() => {
+          this.spinner(false);
           this.confirmDialog(false)
         });
       }
@@ -691,7 +706,7 @@ export class FirestoreService {
     } else {
       let confirmDialog = document.getElementById('confirm-dialog');
       let confirmDialogMessage = document.getElementById('confirm-dialog-message');
-      confirmDialogMessage!.innerHTML = 'ERRO, tente novamente.';
+      confirmDialogMessage!.innerHTML = 'ERRO, reconecte tente novamente.';
       confirmDialogMessage!.style.color = 'red';
       confirmDialog!.style.display = 'flex';
     }
@@ -726,11 +741,13 @@ export class FirestoreService {
   }
 
   excluirPedidoCaixaNovo(id: string) {
+    this.spinner(true);
     const collectionInstance = collection(this.firestore, 'caixa');
     const docReference = doc(collectionInstance, id);
     deleteDoc(docReference).then(() => {
-      alert('Pedido Excluido!')
+      this.spinner(false);
     }).catch(() => {
+      this.spinner(false);
       alert("Erro. Tente novamente!")
     })
   }
@@ -739,13 +756,15 @@ export class FirestoreService {
     const collectionInstance = collection(this.firestore, 'caixa');
     const docReference = doc(collectionInstance, id);
     deleteDoc(docReference).then(() => {
-
+      this.spinner(false);
+      this.route.navigate(['/principal/caixa']);
     }).catch(() => {
 
     })
   }
 
   updatePedidoCarrinho(pedido: any, id: string) {
+    this.spinner(true);
     const docInstance = doc(this.firestore, 'caixa', id);
     let pedidoEnviar = {
       pedido: {
@@ -759,24 +778,64 @@ export class FirestoreService {
         cliente: pedido.cliente,
         garcom: pedido.garcom,
         horario: pedido.horario,
-        id: pedido.id
+        id: pedido.id,
+        feito: pedido.feito || false,
       }
     }
 
     updateDoc(docInstance, pedidoEnviar).then(() => {
-      this.confirmDialog(true);
+      this.spinner(false);
     }).catch(() => {
+      this.spinner(false);
       this.confirmDialog(false)
     });
   }
 
+
+
+  itemFeito(pedido: PratosNovo, flag: boolean, id: string) {
+    this.spinner(true);
+    let pedidoEnviar = {
+      pedido: {
+        nome: pedido.nome,
+        valor: pedido.valor,
+        tipo: pedido.tipo,
+        descricao: pedido.descricao || '',
+        quantidade: pedido.quantidade,
+        adicional1: { nome: pedido.adicional1?.nome || '', valor: pedido.adicional1?.valor || 0 },
+        adicional2: { nome: pedido.adicional2?.nome || '', valor: pedido.adicional2?.valor || 0 },
+        cliente: pedido.cliente,
+        garcom: pedido.garcom,
+        horario: pedido.horario,
+        id: pedido.id,
+        feito: true
+      }
+    }
+    if(flag) {
+      pedidoEnviar.pedido.feito = true;
+
+    } else {
+      pedidoEnviar.pedido.feito = false;
+    }
+    const docInstance = doc(this.firestore, 'caixa', id);
+
+    updateDoc(docInstance, pedidoEnviar).then(() => {
+      this.spinner(false);
+    }).catch(() => {
+      this.spinner(false);
+      this.confirmDialog(false);
+    });
+  }
+
   enviandoPedidoProRelatorio(pedido: PratosNovo) {
+    this.spinner(true);
+    pedido.garcomFinalizou = localStorage.getItem('nomeGarcom') || '';
     const docRef = addDoc(collection(this.firestore, 'relatorioNovo'), {
       pedido
     }).then(() => {
-      this.confirmDialog(true)
     }).catch(() => {
-      this.confirmDialog(false)
+      this.spinner(false);
+      this.confirmDialog(false);
     });
   }
 }

@@ -1,19 +1,20 @@
 .back {
   min-height: 100vh;
   background-color: #acacac;
-  position: relative; /* Certifique-se de que a posição seja relativa para os elementos filhos usarem corretamente */
+  position: relative;
 }
 
 .cabeçalho {
   position: fixed;
   width: 100%;
-  height: 3.3em;
+  height: 4.5em;
   top: 0;
   background-color: white;
   z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .iconVoltar {
@@ -34,7 +35,7 @@
 
 
 .cardDiv {
-  padding-top: 5.8em;
+  padding-top: 5.4em;
   padding-bottom: 13.5em;
 }
 
@@ -53,12 +54,17 @@
 .cardCarrinho {
   margin: 0 2em 1em;
   background-color: rgb(255, 255, 255);
+  margin-top: 2em;
 }
 
 .divItemTudo {
   display: flex;
   height: 100%;
   justify-content: space-between;
+}
+
+.feito {
+  background-color: #676767;
 }
 
 .divItemNomeQuantidadeValor {
@@ -103,10 +109,12 @@
 
 .delete-icon {
   color: red;
+  cursor: pointer;
 }
 
 .edit-icon {
   color: #005d8f;
+  cursor: pointer;
 }
 
 .acimaDoRodape {
@@ -143,8 +151,10 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5em;
-  margin-bottom: em;
+  margin-bottom: 0.5em;
   border: 1px solid black;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  font-weight: bolder;
 }
 
 
@@ -157,6 +167,7 @@
   justify-content: space-between;
   width: 100%;
   border: 1px solid black;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 .divImprimirFinalizar {
@@ -167,6 +178,7 @@
   font-size: 1.3em;
   text-transform: uppercase;
   font-weight: bolder;
+  padding: 1em;
 }
 
 .confirm-dialog-backdrop {
@@ -193,4 +205,21 @@
 
 .confirm-dialog-message {
   font-size: 18px;
+}
+
+
+@media (max-width: 1100px) {
+  .rodape {
+    justify-content: center;
+  }
+  .imprimir {
+    display: none;
+  }
+}
+
+
+@media (min-width: 1100px) {
+  .cardCarrinho {
+    cursor: pointer;
+  }
 }

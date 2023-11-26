@@ -172,14 +172,11 @@ export class NovoPedidoSvtotComponent{
   }
 
   async envioNovo() {
-    this.botaoEnviar = false;
-    if(this.nomeCliente === '') {
-      alert("Escreva o nome do CLIENTE!");
-      return;
-    }
     if(this.carrinho.length === 0) {
       alert("Seleciona algum ITEM!");
       return;
+    } else {
+      this.botaoEnviar = false;
     }
     await this.carrinho.forEach((item) => {
       item.garcom = this.nomeGarcom;

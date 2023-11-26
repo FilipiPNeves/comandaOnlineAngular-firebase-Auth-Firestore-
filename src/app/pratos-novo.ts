@@ -10,9 +10,11 @@ export interface PratosNovo {
   adicional2?: Adicional;
   cliente: string;
   garcom: string;
+  garcomFinalizou?: string
   horario: Timestamp;
   id?: string;
   dezporcento?: boolean;
+  feito?: boolean;
 }
 
 interface Adicional {

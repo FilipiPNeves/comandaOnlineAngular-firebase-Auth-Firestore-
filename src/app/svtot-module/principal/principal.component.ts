@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, HostListener, Renderer2 } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { PratosNovo } from 'src/app/pratos-novo';
 import { ShareddataService } from 'src/app/services/shareddata.service';
@@ -227,6 +227,7 @@ export class PrincipalComponent {
   getNomeGarcom() {
     this.sharedDataService.getNomeGarcom().subscribe((nomeGarcom) => {
       this.nomeGarcom = nomeGarcom;
+      localStorage.setItem('nomeGarcom', nomeGarcom);
     });
   }
 
@@ -245,4 +246,11 @@ export class PrincipalComponent {
     'background-color': '#00a8e8',
     'color': 'white'
   };
+
+  @HostListener('click', ['$event.target'])
+  onClick(target: HTMLElement): void {
+    if (target.classList.contains('confirm-dialog-backdrop')) {
+      document.getElementById('confirm-dialog')!.style.display = 'none';
+    }
+  }
 }

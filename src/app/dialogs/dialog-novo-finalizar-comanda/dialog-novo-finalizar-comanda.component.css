@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+.valor {
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: black;
+}
+
 .toggle {
   margin: 1em 0 2em;
 }

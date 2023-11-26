@@ -6,17 +6,19 @@
 .cabeçalho {
   position: fixed;
   width: 100%;
-  height: 3.3em;
+  height: 4.5em;
   top: 0;
   background-color: white;
   z-index: 2;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 
 .NomeClienteDiv {
   display: flex;
   justify-content: center;
-  padding-top: 3em;
+  padding-top: 4.5em;
 }
 
 .NomeClienteDiv2 {
@@ -46,22 +48,23 @@
 
 .matGridList {
   width: 93%;
-  height: auto; /* ou defina a altura desejada aqui */
+  height: auto;
 }
 
 .matGridTile {
-  flex: 1; /* Isso faz com que todos os tiles ocupem o mesmo espaço */
-  box-sizing: border-box; /* Certifique-se de que o preenchimento não afete o tamanho total */
+  flex: 1;
+  box-sizing: border-box;
 }
 
 .matCard {
   width: 90%;
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc; /* Borda opcional para destacar os cards */
+  border: 3px solid #888;
+  border-radius: 50%;
 }
 
 .nomeItemPedido {
@@ -69,8 +72,15 @@
   font-size: 2em;
 }
 
+@media (min-width: 1100px) {
+  .matCard {
+    cursor: pointer;
+  }
+}
 
-
-
-
+@media (max-width: 1100px) {
+  .NomeClienteDiv2 {
+    max-height: calc(80vh);
+  }
+}
 

@@ -47,6 +47,16 @@ export class PedidosCaixaSvtotComponent {
         valorPedidoUnico += pedido.valor;
         this.subTotal += (valorPedidoUnico * pedido.quantidade);
       });
+
+      const pedidosPendentes: PratosNovo[] = this.pedidosClienteSelecionado.filter((pedido) => {
+        return pedido.feito !== true;
+      });
+
+      const pedidosConcluidos: PratosNovo[] = this.pedidosClienteSelecionado.filter((pedido) => {
+        return pedido.feito === true;
+      });
+
+      this.pedidosClienteSelecionado = pedidosPendentes.concat(pedidosConcluidos);
     });
   }
 
@@ -92,7 +102,8 @@ export class PedidosCaixaSvtotComponent {
       cliente: item2.cliente,
       garcom: item2.garcom,
       horario: item2.horario,
-      id: item2.id
+      id: item2.id,
+      feito: item2.feito || undefined
     }
     const dialogRef = this.dialog.open(DialogNovoEditCarrinhoComponent, {
       data: item
@@ -106,8 +117,28 @@ export class PedidosCaixaSvtotComponent {
       }
     });
   }
+  private lastClickTime = 0;
+  private doubleClickDelay = 300;
+  private pedidoClicado?: PratosNovo;
+  shouldAddGrayCardClass(item: any): boolean {
+    return item.feito === true;
+  }
 
-  clickPedido(pedido: PratosNovo) {
+  async doubleClickPedido(pedido: PratosNovo) {
+    const currentTime = new Date().getTime();
+    if ((currentTime - this.lastClickTime < this.doubleClickDelay) && pedido === this.pedidoClicado) {
+      if(pedido.id) {
+        if(pedido.feito === true) {
+          await this.firestore.itemFeito(pedido, !pedido.feito, pedido.id);
+        } else {
+          await this.firestore.itemFeito(pedido, true, pedido.id);
+        }
+      };
+    } else {
+      // Apenas um clique simples
+      this.lastClickTime = currentTime;
+      this.pedidoClicado = pedido;
+    }
   }
 
   capitalizeFirstLetterOfEachWord(inputString: string): string {
@@ -123,26 +154,20 @@ export class PedidosCaixaSvtotComponent {
     return resultString;
   }
 
-  flag: boolean = false;
-
   @HostListener('click', ['$event.target'])
   onClick(target: HTMLElement): void {
     if (target.classList.contains('confirm-dialog-backdrop')) {
       document.getElementById('confirm-dialog')!.style.display = 'none';
-      if(this.flag) {
-        this.voltar();
-      }
     }
   }
 
   finalizarComanda(pedidosClienteSelecionado: PratosNovo[]) {
     const dialogRef = this.dialog.open(DialogNovoFinalizarComandaComponent, {
-      data: pedidosClienteSelecionado,
+      data: {pedidosClienteSelecionado: pedidosClienteSelecionado, subTotal: this.subTotal},
       width: "50%"
     });
 
     dialogRef.afterClosed().subscribe(flag => {
-      this.flag = flag;
     });
   }
 

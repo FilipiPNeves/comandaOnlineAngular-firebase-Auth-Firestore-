@@ -11,8 +11,8 @@
   </div>
 
   <div class="cardDiv">
-    <mat-card *ngFor="let item of pedidosClienteSelecionado" class="cardCarrinho">
-      <mat-card-content (click)="clickPedido(item)" class="divItemTudo">
+    <mat-card *ngFor="let item of pedidosClienteSelecionado" class="cardCarrinho" [ngClass]="{ 'feito': shouldAddGrayCardClass(item) }">
+      <mat-card-content (click)="doubleClickPedido(item)" class="divItemTudo">
         <div class="divItemNomeQuantidadeValor">
           <div class="divItemNome">{{ item.nome }}</div>
           <div class="divItemQuantidadeValor">
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="rodape">
-      <div class="divImprimirFinalizar">
+      <div class="divImprimirFinalizar imprimir">
         <button class="buttonImprimirFinalizar" mat-raised-button color="primary" (click)="imprimirComanda(pedidosClienteSelecionado)">Imprimir Comanda</button>
       </div>
       <div class="divImprimirFinalizar">
@@ -62,3 +62,5 @@
     </div>
   </div>
 </div>
+
+

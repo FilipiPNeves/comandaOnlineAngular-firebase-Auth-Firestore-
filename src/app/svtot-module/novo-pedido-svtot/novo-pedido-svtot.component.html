@@ -63,6 +63,9 @@
             </div>
           </mat-card-content>
         </mat-card>
+        <div class="divButtonEnvioNovo">
+          <button mat-button (click)="envioNovo()" class="buttonEnvioNovo" mat-flat-button color="primary" [disabled]="!botaoEnviar">ENVIAR</button>
+        </div>
         <div style="margin-bottom: 13em;"></div>
       </div>
     </div>
@@ -83,9 +86,6 @@
 </div>
 
 
-<div class="divButtonEnvioNovo">
-  <button mat-button (click)="envioNovo()" class="buttonEnvioNovo" mat-flat-button color="primary" [disabled]="!botaoEnviar">ENVIAR</button>
-</div>
 
 
 

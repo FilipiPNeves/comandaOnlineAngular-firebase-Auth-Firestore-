@@ -85,6 +85,7 @@ export class DialogNovoEditCarrinhoComponent {
 
     this.item.descricao = this.descricao;
     this.item.quantidade = this.quantidade;
+
     this.dialogRef.close(this.item);
   }
 
