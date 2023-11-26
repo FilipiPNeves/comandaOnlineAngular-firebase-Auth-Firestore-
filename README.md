@@ -7,7 +7,7 @@
 <h1>Para escolher os pratos/bebidas, basta procurar o item pelo filtro ou, como mostra na imagem abaixo, ir no grupo em cada grupo e selecionar os items. Após escolher tudo desejado, prosseguir clicando em "CARRINHO" para conferencia.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/f46320f6-86e8-40e0-bdea-0b0f1527889a" alt="ComandOnline" width="300" height="400">
 
-<h1>Neste momento o garçom irá conferir os pedidos selecionados anteriormente.</h1>
+<h1>Neste momento o garçom irá conferir os items selecionados anteriormente.</h1>
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/8f4d149f-e638-4f62-aee6-45e28b86eb60" alt="ComandOnline" width="300" height="400">
 
 <h1>Garcom poderá editar item para adicionar uma observação e 2 adicionais</h1>
