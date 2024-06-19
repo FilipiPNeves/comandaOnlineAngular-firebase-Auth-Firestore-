@@ -24,7 +24,7 @@ Ao escolher pratos ou bebidas, é possível filtrar por nome ou navegar pelos gr
 
 ## Revisão do Pedido
 
-O garçom revisa os itens selecionados e, se necessário, pode adicionar observações e itens adicionais. Após a revisão, basta enviar o pedido para que os pratos sejam impressos na cozinha; as bebidas, que não exigem preparo, não serão impressas.
+O garçom revisa os itens selecionados e, se necessário, pode adicionar observações e itens adicionais. Após a revisão, basta enviar o pedido para que os pratos sejam impressos na cozinha;
 
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/8f4d149f-e638-4f62-aee6-45e28b86eb60" alt="ComandOnline" width="300" height="400">
 <img src="https://github.com/FilipiPNeves/comandaOnlineAngular-firebase-Auth-Firestore-/assets/107006848/921ebe1f-2492-4513-914c-f1630cf1a746" width="300" height="400">
